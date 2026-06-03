@@ -1,0 +1,17 @@
+{
+  "name": "Evercracks Dashboard",
+  "short_name": "Evercracks",
+  "description": "Dashboard de ventas Evercrisp Snack - PepsiCo Chile",
+  "start_url": "/EVERCRACKS/",
+  "display": "standalone",
+  "background_color": "#f5f7fb",
+  "theme_color": "#0070f3",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "https://raw.githubusercontent.com/jeanftorrejon/EVERCRACKS/main/icon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ]
+}
