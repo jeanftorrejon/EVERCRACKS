@@ -24,6 +24,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .card-sub{font-size:11px;color:#888;margin-top:2px}
 .card-arrow{margin-left:auto;color:#ccc;font-size:14px}
 .badge-new{background:#0070f3;color:#fff;font-size:9px;font-weight:700;padding:2px 6px;border-radius:10px;margin-left:6px}
+.card-old{border-left-color:#ccc;opacity:.7}
 .install-box{background:#fff;border-radius:12px;padding:14px;margin-top:20px;box-shadow:0 1px 4px rgba(0,0,0,.08);border:1px dashed #0070f3}
 .install-box h3{font-size:13px;font-weight:700;color:#0070f3;margin-bottom:6px}
 .install-box p{font-size:12px;color:#555;line-height:1.5}
@@ -35,20 +36,28 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
   <h1>⚡ Evercracks</h1>
   <p>Evercrisp Snack · PepsiCo Chile · Zona San Felipe</p>
 </div>
-
 <div class="content">
   <div class="section-title">📊 Dashboards disponibles</div>
 
-  <a class="card" href="evercracks_02_06.html">
+  <a class="card" href="evercracks_03_06.html">
     <div class="card-icon">🗓️</div>
     <div>
-      <div class="card-title">Dashboard 02/06/2026 <span class="badge-new">NUEVO</span></div>
+      <div class="card-title">Dashboard 03/06/2026 <span class="badge-new">NUEVO</span></div>
+      <div class="card-sub">DDV 2/25 · Net $5.8M · Jean Franco Torrejon</div>
+    </div>
+    <div class="card-arrow">›</div>
+  </a>
+
+  <a class="card card-old" href="evercracks_02_06.html">
+    <div class="card-icon">📅</div>
+    <div>
+      <div class="card-title">Dashboard 02/06/2026</div>
       <div class="card-sub">DDV 1/25 · Net $2.8M · Jean Franco Torrejon</div>
     </div>
     <div class="card-arrow">›</div>
   </a>
 
-  <a class="card" href="evercracks_24_05.html" style="border-left-color:#888;opacity:.7">
+  <a class="card card-old" href="evercracks_24_05.html">
     <div class="card-icon">📅</div>
     <div>
       <div class="card-title">Dashboard 24/05/2026</div>
@@ -57,7 +66,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
     <div class="card-arrow">›</div>
   </a>
 
-  <a class="card" href="evercracks_19_05.html" style="border-left-color:#888;opacity:.7">
+  <a class="card card-old" href="evercracks_19_05.html">
     <div class="card-icon">📅</div>
     <div>
       <div class="card-title">Dashboard 19/05/2026</div>
@@ -74,10 +83,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
       <b>Android:</b> Toca los 3 puntos (⋮) → "Instalar app" o "Agregar a pantalla de inicio"
     </p>
   </div>
-
   <div class="footer">Evercracks Dashboard · Actualizado diariamente</div>
 </div>
-
 <script>
 if('serviceWorker' in navigator){
   navigator.serviceWorker.register('sw.js').catch(()=>{});
