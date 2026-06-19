@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Evercracks | Dashboard 18/06 | Jean Franco Torrejon</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f5f7fb;color:#1a1a2e;font-size:14px}
+.header{background:#0070f3;color:#fff;padding:14px 16px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,112,243,.4)}
+.header-top{display:flex;justify-content:space-between;align-items:center}
+.header h1{font-size:17px;font-weight:700;letter-spacing:.3px}
+.header .meta{font-size:11px;opacity:.85;margin-top:2px}
+.badge{background:rgba(255,255,255,.2);padding:3px 8px;border-radius:20px;font-size:11px;font-weight:600}
+.tabs{display:flex;overflow-x:auto;background:#fff;border-bottom:2px solid #e8edf5;position:sticky;top:57px;z-index:99;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{padding:11px 14px;white-space:nowrap;cursor:pointer;font-size:13px;font-weight:500;color:#666;border-bottom:3px solid transparent;margin-bottom:-2px;flex-shrink:0;transition:color .2s}
+.tab.active{color:#0070f3;border-bottom-color:#0070f3;font-weight:700}
+.panel{display:none;padding:14px}
+.panel.active{display:block}
+.kpi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}
+.kpi-card{background:#fff;border-radius:10px;padding:11px 10px;box-shadow:0 1px 4px rgba(0,0,0,.07);text-align:center;border-top:3px solid #e8edf5}
+.kpi-card.green{border-top-color:#16a34a}.kpi-card.amber{border-top-color:#d97706}.kpi-card.red{border-top-color:#dc2626}
+.kpi-label{font-size:10px;color:#888;font-weight:600;text-transform:uppercase;letter-spacing:.4px}
+.kpi-value{font-size:18px;font-weight:800;margin-top:3px;line-height:1}
+.kpi-sub{font-size:10px;color:#999;margin-top:2px}
+.section-title{font-size:12px;font-weight:700;color:#444;text-transform:uppercase;letter-spacing:.5px;margin:14px 0 8px;display:flex;align-items:center;gap:6px}
+.section-title::after{content:'';flex:1;height:1px;background:#e8edf5}
+.canal-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+.canal-card{background:#fff;border-radius:10px;padding:12px;box-shadow:0 1px 4px rgba(0,0,0,.07)}
+.canal-label{font-size:11px;font-weight:700;color:#fff;padding:2px 8px;border-radius:12px;display:inline-block;margin-bottom:8px}
+.canal-whs{background:#7c3aed}.canal-smk{background:#ea580c}
+.canal-net{font-size:20px;font-weight:800}
+.canal-tgt{font-size:11px;color:#888;margin-top:1px}
+.progress-bar{height:6px;background:#f0f0f0;border-radius:3px;margin:6px 0;overflow:hidden}
+.progress-fill{height:100%;border-radius:3px;transition:width .4s}
+.fill-green{background:#16a34a}.fill-amber{background:#d97706}.fill-red{background:#dc2626}
+.canal-stats{display:flex;gap:8px;font-size:11px;color:#666;margin-top:4px;flex-wrap:wrap}
+.stat-val{font-weight:700}
+.ruta-list{display:flex;flex-direction:column;gap:6px}
+.ruta-bar-item{background:#fff;border-radius:8px;padding:9px 10px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.ruta-bar-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:5px}
+.ruta-name{font-size:12px;font-weight:700}
+.ruta-pct{font-size:13px;font-weight:800}
+.ruta-bar-meta{font-size:10px;color:#888}
+.analysis-box{background:#fff;border-radius:10px;padding:12px;box-shadow:0 1px 4px rgba(0,0,0,.07);margin-bottom:8px}
+.analysis-box h3{font-size:12px;font-weight:700;margin-bottom:8px;display:flex;align-items:center;gap:5px}
+.analysis-box p{font-size:12px;color:#555;line-height:1.6}
+.tag{display:inline-block;padding:2px 7px;border-radius:10px;font-size:10px;font-weight:700;margin-right:4px}
+.tag-green{background:#dcfce7;color:#15803d}.tag-amber{background:#fef3c7;color:#92400e}.tag-red{background:#fee2e2;color:#991b1b}
+.subcad-list{display:flex;flex-direction:column;gap:6px}
+.subcad-item{background:#fff;border-radius:8px;padding:10px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.subcad-top{display:flex;justify-content:space-between;align-items:center}
+.subcad-name{font-size:13px;font-weight:700}
+.subcad-meta{display:flex;gap:10px;font-size:11px;color:#888;flex-wrap:wrap;margin-top:4px}
+.semaforo{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:3px}
+.sem-green{background:#16a34a}.sem-amber{background:#d97706}.sem-red{background:#dc2626}
+.ruta-card{background:#fff;border-radius:10px;box-shadow:0 1px 4px rgba(0,0,0,.07);margin-bottom:8px;overflow:hidden}
+.ruta-card-header{padding:12px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;user-select:none}
+.ruta-card-header:active{background:#f8f9fb}
+.ruta-card-arrow{font-size:12px;color:#999;transition:transform .2s}
+.ruta-card-arrow.open{transform:rotate(180deg)}
+.ruta-card-body{display:none;border-top:1px solid #f0f0f0}
+.ruta-card-body.open{display:block}
+.sala-row{padding:8px 12px;display:flex;justify-content:space-between;align-items:flex-start;border-bottom:1px solid #f8f9fb;font-size:12px}
+.sala-row:last-child{border-bottom:none}
+.sala-name{font-weight:600;flex:1}
+.sala-stats{display:flex;gap:8px;font-size:11px;flex-shrink:0}
+.ddv-block{background:#fff;border-radius:10px;padding:14px;box-shadow:0 1px 4px rgba(0,0,0,.07);margin-bottom:12px}
+.ddv-title{font-size:12px;font-weight:700;color:#444;margin-bottom:10px}
+.ddv-nums{display:flex;margin-bottom:8px}
+.ddv-num{text-align:center;flex:1}
+.ddv-num-val{font-size:24px;font-weight:800;line-height:1}
+.ddv-num-lbl{font-size:10px;color:#888;margin-top:2px}
+.ddv-progress{height:10px;background:#f0f0f0;border-radius:5px;overflow:hidden}
+.ddv-fill{height:100%;border-radius:5px;background:#0070f3}
+.ot-filters{display:flex;gap:6px;margin-bottom:10px}
+.ot-filter{padding:5px 12px;border-radius:20px;border:1px solid #ddd;background:#fff;font-size:12px;font-weight:600;cursor:pointer;color:#666}
+.ot-filter.active{background:#0070f3;color:#fff;border-color:#0070f3}
+.ot-table{width:100%;border-collapse:collapse;font-size:12px}
+.ot-table th{background:#f5f7fb;padding:7px 8px;text-align:left;font-size:10px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:.3px}
+.ot-table td{padding:7px 8px;border-bottom:1px solid #f0f0f0;vertical-align:middle}
+.ot-table tr:hover td{background:#f9fafc}
+.ot-total-row td{background:#1a1a2e!important;color:#fff!important;font-weight:800;font-size:12px}
+.ot-total-row td span{color:#fff!important}
+.canal-dot{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:4px}
+.dot-whs{background:#7c3aed}.dot-smk{background:#ea580c}
+.alert-list{display:flex;flex-direction:column;gap:8px}
+.alert-item{background:#fff;border-radius:10px;padding:12px;box-shadow:0 1px 4px rgba(0,0,0,.07);border-left:4px solid #e8edf5;display:flex;gap:10px;align-items:flex-start}
+.alert-item.success{border-left-color:#16a34a}.alert-item.warning{border-left-color:#d97706}
+.alert-item.danger{border-left-color:#dc2626}.alert-item.info{border-left-color:#0070f3}
+.alert-icon{font-size:18px;line-height:1;flex-shrink:0}
+.alert-text h4{font-size:13px;font-weight:700;margin-bottom:3px}
+.alert-text p{font-size:12px;color:#666;line-height:1.4}
+.green-txt{color:#16a34a}.amber-txt{color:#d97706}.red-txt{color:#dc2626}
+.purple-txt{color:#7c3aed}.orange-txt{color:#ea580c}
+.mt12{margin-top:12px}
+.pill{padding:2px 8px;border-radius:10px;font-size:11px;font-weight:700}
+.pill-green{background:#dcfce7;color:#15803d}.pill-amber{background:#fef3c7;color:#92400e}.pill-red{background:#fee2e2;color:#991b1b}
+.table-scroll{overflow-x:auto}
+.context-card{background:linear-gradient(135deg,#1a1a2e 0%,#2d2d4a 100%);border-radius:12px;padding:14px;margin-bottom:14px;color:#fff}
+.context-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;opacity:.7;margin-bottom:10px;display:flex;align-items:center;gap:5px}
+.context-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.1)}
+.context-row:last-child{border-bottom:none}
+.context-label{font-size:12px;font-weight:600;opacity:.9}
+.context-vals{display:flex;gap:14px;align-items:center}
+.context-stat{text-align:right}
+.context-stat-val{font-size:14px;font-weight:800}
+.context-stat-lbl{font-size:9px;opacity:.6;text-transform:uppercase}
+.context-divider{height:1px;background:rgba(255,255,255,.15);margin:10px 0}
+.benchmark-pill{font-size:10px;font-weight:700;padding:2px 7px;border-radius:10px;margin-left:6px}
+.bench-above{background:rgba(34,197,94,.25);color:#86efac}
+.bench-below{background:rgba(239,68,68,.25);color:#fca5a5}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-top">
+    <div>
+      <h1>⚡ Evercracks Dashboard</h1>
+      <div class="meta">Jean Franco Torrejon · Zona San Felipe · 18/06/2026</div>
+    </div>
+    <span class="badge">DDV 16/25</span>
+  </div>
+</div>
+
+<div class="tabs">
+  <div class="tab active" data-tab="zona">🗺 Zona</div>
+  <div class="tab" data-tab="segmento">📊 Segmento</div>
+  <div class="tab" data-tab="subcadenas">🏪 Subcadenas</div>
+  <div class="tab" data-tab="rutas">📍 Rutas</div>
+  <div class="tab" data-tab="ot">📋 OT x Ruta</div>
+  <div class="tab" data-tab="alertas">⚠️ Alertas</div>
+</div>
+
+<!-- ZONA -->
+<div class="panel active" id="panel-zona">
+
+  <div class="context-card">
+    <div class="context-title">🇨🇱 Contexto País — Evercrisp Chile</div>
+    <div class="context-row">
+      <div class="context-label">Total País</div>
+      <div class="context-vals">
+        <div class="context-stat"><div class="context-stat-val">52.9%</div><div class="context-stat-lbl">vs TGT</div></div>
+        <div class="context-stat"><div class="context-stat-val">94.9%</div><div class="context-stat-lbl">vs Yago</div></div>
+      </div>
+    </div>
+    <div class="context-row">
+      <div class="context-label">WHS País</div>
+      <div class="context-vals"><div class="context-stat"><div class="context-stat-val">64.1%</div><div class="context-stat-lbl">vs TGT</div></div></div>
+    </div>
+    <div class="context-row">
+      <div class="context-label">SMK País</div>
+      <div class="context-vals"><div class="context-stat"><div class="context-stat-val">49.7%</div><div class="context-stat-lbl">vs TGT</div></div></div>
+    </div>
+    <div class="context-divider"></div>
+    <div class="context-title" style="margin-bottom:8px">🏢 División Centro Costa</div>
+    <div class="context-row">
+      <div class="context-label">Total División (4 zonas)</div>
+      <div class="context-vals"><div class="context-stat"><div class="context-stat-val">44.7%</div><div class="context-stat-lbl">vs TGT</div></div></div>
+    </div>
+    <div class="context-row">
+      <div class="context-label">Verónica Zárate</div>
+      <div class="context-vals"><div class="context-stat"><div class="context-stat-val" style="font-size:12px">47.7%</div></div></div>
+    </div>
+    <div class="context-row">
+      <div class="context-label">Raúl Aros</div>
+      <div class="context-vals"><div class="context-stat"><div class="context-stat-val" style="font-size:12px">48.4%</div></div></div>
+    </div>
+    <div class="context-row">
+      <div class="context-label">Jean Torrejon (tú) <span class="benchmark-pill bench-below">▼ bajo div.</span></div>
+      <div class="context-vals"><div class="context-stat"><div class="context-stat-val" style="font-size:12px">45.5%</div></div></div>
+    </div>
+    <div class="context-row">
+      <div class="context-label">Gustavo Vásquez</div>
+      <div class="context-vals"><div class="context-stat"><div class="context-stat-val" style="font-size:12px">37.6%</div></div></div>
+    </div>
+  </div>
+
+  <div class="section-title">KPIs Zona Total</div>
+  <div class="kpi-grid">
+    <div class="kpi-card amber">
+      <div class="kpi-label">Net Sales</div>
+      <div class="kpi-value" style="font-size:15px">$143.1M</div>
+      <div class="kpi-sub">MM CLP</div>
+    </div>
+    <div class="kpi-card red">
+      <div class="kpi-label">Target</div>
+      <div class="kpi-value" style="font-size:15px">$314.6M</div>
+      <div class="kpi-sub">MM CLP mes</div>
+    </div>
+    <div class="kpi-card amber">
+      <div class="kpi-label">vs TGT</div>
+      <div class="kpi-value amber-txt">45.5%</div>
+      <div class="kpi-sub">–$171.5M gap</div>
+    </div>
+    <div class="kpi-card amber">
+      <div class="kpi-label">Yago</div>
+      <div class="kpi-value" style="font-size:15px">$190.5M</div>
+      <div class="kpi-sub">MM CLP</div>
+    </div>
+    <div class="kpi-card amber">
+      <div class="kpi-label">vs Yago</div>
+      <div class="kpi-value amber-txt">75.1%</div>
+      <div class="kpi-sub">–$47.4M</div>
+    </div>
+    <div class="kpi-card amber">
+      <div class="kpi-label">%Stales</div>
+      <div class="kpi-value amber-txt">1.08%</div>
+      <div class="kpi-sub">vigilar Unimarc</div>
+    </div>
+  </div>
+
+  <div class="section-title">WHS vs SMK</div>
+  <div class="canal-grid">
+    <div class="canal-card">
+      <span class="canal-label canal-whs">WHS</span>
+      <div class="canal-net purple-txt">$34.9M</div>
+      <div class="canal-tgt">vs TGT $66.5M</div>
+      <div class="progress-bar"><div class="progress-fill fill-amber" style="width:52.5%"></div></div>
+      <div class="canal-stats">
+        <div><span class="stat-val amber-txt">52.5%</span> vs TGT</div>
+        <div><span class="stat-val green-txt">92.9%</span> vs Yago</div>
+        <div><span class="stat-val green-txt">0.00%</span> Stales</div>
+      </div>
+    </div>
+    <div class="canal-card">
+      <span class="canal-label canal-smk">SMK</span>
+      <div class="canal-net orange-txt">$108.2M</div>
+      <div class="canal-tgt">vs TGT $248.1M</div>
+      <div class="progress-bar"><div class="progress-fill fill-red" style="width:43.6%"></div></div>
+      <div class="canal-stats">
+        <div><span class="stat-val red-txt">43.6%</span> vs TGT</div>
+        <div><span class="stat-val red-txt">70.7%</span> vs Yago</div>
+        <div><span class="stat-val amber-txt">1.43%</span> Stales</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-title">Ranking Rutas</div>
+  <div class="ruta-list" id="zona-rutas"></div>
+</div>
+
+<!-- SEGMENTO -->
+<div class="panel" id="panel-segmento">
+  <div class="section-title">WHS — Mayoristas</div>
+  <div class="kpi-grid" style="grid-template-columns:repeat(2,1fr)">
+    <div class="kpi-card amber"><div class="kpi-label">Net Sales</div><div class="kpi-value" style="font-size:16px">$34.9M</div></div>
+    <div class="kpi-card amber"><div class="kpi-label">vs TGT</div><div class="kpi-value amber-txt">52.5%</div></div>
+    <div class="kpi-card green"><div class="kpi-label">vs Yago</div><div class="kpi-value green-txt">92.9%</div></div>
+    <div class="kpi-card green"><div class="kpi-label">Stales</div><div class="kpi-value green-txt">0.00%</div></div>
+  </div>
+  <div class="analysis-box">
+    <h3><span class="canal-label canal-whs" style="font-size:10px">WHS</span> Análisis</h3>
+    <p>
+      <strong class="green-txt">✓ Fortaleza:</strong> Edwards 301 al 88.8% TGT — casi cerrado el mes a 16 DDV. Sergio Olivares combinado al 78.5%. Betty Los Andes al 82.2%. SOC.DISTRIB. Prat dio el salto: de 22.1% a 35.7% TGT en un día (+$1.6M).<br><br>
+      <span class="tag tag-green">Edwards 301</span><span class="tag tag-green">Betty LA</span><span class="tag tag-green">SOC.DISTRIB.</span><br><br>
+      <strong class="amber-txt">⚠ Alerta:</strong> Condel La Ligua finalmente registró venta ($2.05M) tras 16 días en $0 — verificar si es puntual o arranca cobertura regular.<br>
+      <strong class="red-txt">✗ Foco:</strong> Cencocal sigue al 19.1% — Nogales continúa en $0. Diego Lillo 525 también sigue en $0.
+    </p>
+  </div>
+  <div class="section-title">Rutas WHS por % TGT</div>
+  <div class="ruta-list" id="seg-rutas-whs"></div>
+
+  <div class="section-title mt12">SMK — Supermercados</div>
+  <div class="kpi-grid" style="grid-template-columns:repeat(2,1fr)">
+    <div class="kpi-card red"><div class="kpi-label">Net Sales</div><div class="kpi-value" style="font-size:16px">$108.2M</div></div>
+    <div class="kpi-card red"><div class="kpi-label">vs TGT</div><div class="kpi-value red-txt">43.6%</div></div>
+    <div class="kpi-card red"><div class="kpi-label">vs Yago</div><div class="kpi-value red-txt">70.7%</div></div>
+    <div class="kpi-card amber"><div class="kpi-label">Stales</div><div class="kpi-value amber-txt">1.43%</div></div>
+  </div>
+  <div class="analysis-box">
+    <h3><span class="canal-label canal-smk" style="font-size:10px">SMK</span> Análisis</h3>
+    <p>
+      <strong class="green-txt">✓ Fortaleza:</strong> Santa Isabel Ortiz de Rosas al 90.2% TGT. CL1365 lidera rutas con 58.6% TGT. Santa Isabel como subcadena al 65.4% TGT y 124.7% Yago.<br><br>
+      <span class="tag tag-green">Santa Isabel</span><span class="tag tag-green">CL1365</span><span class="tag tag-amber">Hiper Sta Teresa</span><br><br>
+      <strong class="amber-txt">⚠ Alerta:</strong> Hiper Santa Teresa se recuperó — de $7.7M a $8.97M, rompiendo la racha de caída de los últimos 2 días. Unimarc stales en 6.3%, sigue alto.<br>
+      <strong class="red-txt">✗ Foco:</strong> CL1367 (32.2%) y CL1651 (35.7%) siguen las más rezagadas. Hiper al 30.7% TGT — sigue siendo el mayor lastre del canal con $56.7M de gap.
+    </p>
+  </div>
+  <div class="section-title">Rutas SMK por % TGT</div>
+  <div class="ruta-list" id="seg-rutas-smk"></div>
+</div>
+
+<!-- SUBCADENAS -->
+<div class="panel" id="panel-subcadenas">
+  <div class="section-title">SMK — Supermercados</div>
+  <div class="subcad-list" id="sub-smk"></div>
+  <div class="section-title mt12">WHS — Mayoristas</div>
+  <div class="subcad-list" id="sub-whs"></div>
+</div>
+
+<!-- RUTAS -->
+<div class="panel" id="panel-rutas">
+  <div class="section-title">WHS — Mayoristas</div>
+  <div id="rutas-whs"></div>
+  <div class="section-title mt12">SMK — Supermercados</div>
+  <div id="rutas-smk"></div>
+</div>
+
+<!-- OT x RUTA -->
+<div class="panel" id="panel-ot">
+  <div class="ddv-block">
+    <div class="ddv-title">📅 Avance DDV — Junio 2026</div>
+    <div class="ddv-nums">
+      <div class="ddv-num"><div class="ddv-num-val" style="color:#0070f3">16</div><div class="ddv-num-lbl">DDV Actual</div></div>
+      <div class="ddv-num"><div class="ddv-num-val" style="color:#888">25</div><div class="ddv-num-lbl">DDV Totales</div></div>
+      <div class="ddv-num"><div class="ddv-num-val" style="color:#d97706">64.0%</div><div class="ddv-num-lbl">% Avance Mes</div></div>
+    </div>
+    <div class="ddv-progress"><div class="ddv-fill" style="width:64%"></div></div>
+    <p style="font-size:11px;color:#888;margin-top:6px;text-align:center">Quedan 9 días de venta para cerrar junio</p>
+  </div>
+  <div class="ot-filters">
+    <button class="ot-filter active" onclick="filterOT('all',this)">TODOS</button>
+    <button class="ot-filter" onclick="filterOT('WHS',this)">WHS</button>
+    <button class="ot-filter" onclick="filterOT('SMK',this)">SMK</button>
+  </div>
+  <div class="table-scroll">
+    <table class="ot-table">
+      <thead><tr>
+        <th>IDCliente</th><th>Subcadena</th><th>Dirección</th>
+        <th>Net Sales</th><th>TGT Diario / Mes</th>
+        <th>vs TGT mes</th><th>vs Yago</th><th>Stales</th>
+      </tr></thead>
+      <tbody id="ot-body"></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ALERTAS -->
+<div class="panel" id="panel-alertas">
+  <div class="alert-list">
+    <div class="alert-item info">
+      <div class="alert-icon">🏆</div>
+      <div class="alert-text">
+        <h4>Top ruta: CL1682 (WHS) — 70.8% TGT, 145.0% Yago</h4>
+        <p>Net $15.3M sobre target $21.5M. Edwards 301 al 88.8% TGT lidera la zona. Sergio Olivares (los 3 puntos combinados) ya al 78.5% TGT.</p>
+      </div>
+    </div>
+    <div class="alert-item info">
+      <div class="alert-icon">🇨🇱</div>
+      <div class="alert-text">
+        <h4>Tu zona vs el país y la división</h4>
+        <p>País al 52.9% TGT, Centro Costa al 44.7%, tu zona al 45.5% — sigues por arriba de la división pero la brecha con el país se mantiene (-7.4 puntos). Verónica Zárate y Raúl Aros van adelante en Centro Costa.</p>
+      </div>
+    </div>
+    <div class="alert-item success">
+      <div class="alert-icon">🎉</div>
+      <div class="alert-text">
+        <h4>SOC.DISTRIB. Prat #297-A despierta — +$1.6M en un día</h4>
+        <p>De 22.1% a 35.7% TGT — el salto más grande del WHS hoy. Tres días estancado y hoy reaccionó. Si mantiene el ritmo, el operador SOC.DISTRIB./Kiko combinado queda en mejor posición que nunca este mes.</p>
+      </div>
+    </div>
+    <div class="alert-item success">
+      <div class="alert-icon">✅</div>
+      <div class="alert-text">
+        <h4>Hiper Santa Teresa rompe la racha de caída</h4>
+        <p>Subió de $7.70M a $8.97M — primera subida desde el 15/06 después de 2 días consecutivos de retroceso por la misma magnitud ($106,716/día). Vigilar si se mantiene o vuelve a caer.</p>
+      </div>
+    </div>
+    <div class="alert-item success">
+      <div class="alert-icon">📦</div>
+      <div class="alert-text">
+        <h4>Condel La Ligua reacciona — primera venta del mes</h4>
+        <p>$2.05M registrados tras 16 días consecutivos en $0. Confirmar con el promotor si es una venta puntual o si la cobertura ya está regularizada.</p>
+      </div>
+    </div>
+    <div class="alert-item danger">
+      <div class="alert-icon">🚨</div>
+      <div class="alert-text">
+        <h4>Unimarc Hermanos Clark — Stales 20.33%, 5to día sin cambio</h4>
+        <p>Sala 104384156: stales exactos en 20.33% desde el 15/06, 5 días consecutivos congelado. Net $753K vs target $1.87M (40.2%). Requiere intervención directa esta semana — el seguimiento pasivo no está funcionando.</p>
+      </div>
+    </div>
+    <div class="alert-item warning">
+      <div class="alert-icon">⚠️</div>
+      <div class="alert-text">
+        <h4>Zona al 45.5% TGT con 64% del mes consumido</h4>
+        <p>18.5 puntos bajo el ritmo ideal. Ritmo actual $9.0M/día. Para cerrar el mes se necesitan $19.1M/día en los 9 DDV restantes.</p>
+      </div>
+    </div>
+    <div class="alert-item warning">
+      <div class="alert-icon">🏪</div>
+      <div class="alert-text">
+        <h4>Cencocal (ex La Calera) — Nogales y Diego Lillo 525, 16 DDV en $0</h4>
+        <p>$9.5M de target combinado sin venta. Con 9 DDV restantes, casi imposible recuperar — decisión final de gestión necesaria esta semana.</p>
+      </div>
+    </div>
+    <div class="alert-item success">
+      <div class="alert-icon">💪</div>
+      <div class="alert-text">
+        <h4>Salas sobre Yago a proteger</h4>
+        <p>Yerbas Buenas (335.2% Yago), Jumbo Miraflores (179.2%), Edwards 301 (163.0%), SOC.DISTRIB. Prat (188.0%), Santa Isabel Zenteno (138.9%). Bases muy sólidas este mes.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const D = {
+  rutas: [
+    {ruta:"CL1682",canal:"WHS",fact_net:15254477,tgt_net:21536901,vs_tgt:70.8,vs_yago:145.0,stales_pct:0.50},
+    {ruta:"CL1365",canal:"SMK",fact_net:13443311,tgt_net:22932816,vs_tgt:58.6,vs_yago:123.6,stales_pct:1.36},
+    {ruta:"CL1681",canal:"WHS",fact_net:7646412,tgt_net:13052828,vs_tgt:58.6,vs_yago:85.7,stales_pct:1.14},
+    {ruta:"CL1366",canal:"SMK",fact_net:8889252,tgt_net:15633008,vs_tgt:56.9,vs_yago:118.3,stales_pct:3.72},
+    {ruta:"CL1853",canal:"SMK",fact_net:14884691,tgt_net:27514546,vs_tgt:54.1,vs_yago:102.3,stales_pct:1.25},
+    {ruta:"CL2452",canal:"SMK",fact_net:13434280,tgt_net:24960526,vs_tgt:53.8,vs_yago:71.6,stales_pct:0.80},
+    {ruta:"CL1652",canal:"SMK",fact_net:12157980,tgt_net:29131269,vs_tgt:41.7,vs_yago:62.8,stales_pct:2.52},
+    {ruta:"CL1650",canal:"SMK",fact_net:7071677,tgt_net:17443481,vs_tgt:40.5,vs_yago:50.1,stales_pct:0.95},
+    {ruta:"CL2450",canal:"SMK",fact_net:14559540,tgt_net:39318044,vs_tgt:37.0,vs_yago:56.9,stales_pct:0.07},
+    {ruta:"CL2285",canal:"WHS",fact_net:9163262,tgt_net:24903489,vs_tgt:36.8,vs_yago:53.8,stales_pct:0.00},
+    {ruta:"CL1651",canal:"SMK",fact_net:9754629,tgt_net:27316641,vs_tgt:35.7,vs_yago:52.2,stales_pct:0.98},
+    {ruta:"CL1680",canal:"WHS",fact_net:5311339,tgt_net:15149225,vs_tgt:35.1,vs_yago:132.3,stales_pct:0.00},
+    {ruta:"CL1367",canal:"SMK",fact_net:11483542,tgt_net:35688757,vs_tgt:32.2,vs_yago:55.9,stales_pct:0.93},
+  ],
+  subcadenas: [
+    {canal:"WHS",sub:"Betty Los Andes",fact_net:4565164,tgt_net:5554493,vs_tgt:82.2,vs_yago:130.0,stales_pct:0.00},
+    {canal:"WHS",sub:"Sergio Olivares",fact_net:13594125,tgt_net:17311601,vs_tgt:78.5,vs_yago:150.8,stales_pct:0.00},
+    {canal:"WHS",sub:"Pedro Aravena (Hijuelas)",fact_net:1362124,tgt_net:1998266,vs_tgt:68.2,vs_yago:90.8,stales_pct:0.00},
+    {canal:"WHS",sub:"SOC.DISTRIB. / Kiko",fact_net:2746853,tgt_net:4193269,vs_tgt:65.5,vs_yago:178.4,stales_pct:0.00},
+    {canal:"SMK",sub:"Santa Isabel",fact_net:27737216,tgt_net:42385270,vs_tgt:65.4,vs_yago:124.7,stales_pct:1.50},
+    {canal:"WHS",sub:"Distr. Pedro Aravena",fact_net:3369913,tgt_net:5809925,vs_tgt:58.0,vs_yago:92.5,stales_pct:0.00},
+    {canal:"SMK",sub:"Super 10",fact_net:4186915,tgt_net:7237699,vs_tgt:57.8,vs_yago:82.8,stales_pct:0.00},
+    {canal:"SMK",sub:"Tottus",fact_net:12928707,tgt_net:24653789,vs_tgt:52.4,vs_yago:92.2,stales_pct:1.07},
+    {canal:"SMK",sub:"Jumbo",fact_net:12012401,tgt_net:23197009,vs_tgt:51.8,vs_yago:98.3,stales_pct:1.49},
+    {canal:"SMK",sub:"Unimarc",fact_net:8789618,tgt_net:17341878,vs_tgt:50.7,vs_yago:104.7,stales_pct:6.30},
+    {canal:"SMK",sub:"Alvi",fact_net:2516002,tgt_net:5463552,vs_tgt:46.1,vs_yago:97.2,stales_pct:3.51},
+    {canal:"WHS",sub:"SOC.DISTRIB.",fact_net:4263181,tgt_net:11929973,vs_tgt:35.7,vs_yago:188.0,stales_pct:0.00},
+    {canal:"SMK",sub:"Express",fact_net:14874110,tgt_net:46052822,vs_tgt:32.3,vs_yago:38.4,stales_pct:0.29},
+    {canal:"WHS",sub:"Las Camelias",fact_net:962388,tgt_net:3073851,vs_tgt:31.3,vs_yago:30.5,stales_pct:0.00},
+    {canal:"SMK",sub:"Hiper",fact_net:25129163,tgt_net:81786833,vs_tgt:30.7,vs_yago:50.6,stales_pct:0.36},
+    {canal:"WHS",sub:"Otros",fact_net:2054255,tgt_net:7750441,vs_tgt:26.5,vs_yago:31.3,stales_pct:0.00},
+    {canal:"WHS",sub:"Cencocal",fact_net:1684372,tgt_net:8840860,vs_tgt:19.1,vs_yago:26.6,stales_pct:0.00},
+  ],
+  salas: [
+    {id:"100389142",ruta:"CL1365",canal:"SMK",sub:"Santa Isabel",dir:"AV. YUNGAY 1150",net:4772239,tgt:7671592,vs_tgt:62.2,vs_yago:106.0,stales:1.50},
+    {id:"100400367",ruta:"CL1365",canal:"SMK",sub:"Jumbo",dir:"AV MIRAFLORES S/N",net:4621408,tgt:7549679,vs_tgt:61.2,vs_yago:179.2,stales:1.50},
+    {id:"100436400",ruta:"CL1365",canal:"SMK",sub:"Tottus",dir:"BERNARDO OHIGGINS 1150",net:4049664,tgt:7711545,vs_tgt:52.5,vs_yago:106.6,stales:1.05},
+    {id:"100388392",ruta:"CL1366",canal:"SMK",sub:"Santa Isabel",dir:"PASCUAL BABURRIZA 510",net:3987885,tgt:8609700,vs_tgt:46.3,vs_yago:107.9,stales:1.49},
+    {id:"100402317",ruta:"CL1366",canal:"SMK",sub:"Santa Isabel",dir:"AV. CHACABUCO 402",net:4148367,tgt:5149322,vs_tgt:80.6,vs_yago:142.4,stales:1.50},
+    {id:"104384156",ruta:"CL1366",canal:"SMK",sub:"Unimarc",dir:"HERMANOS CLARK 55",net:753000,tgt:1873986,vs_tgt:40.2,vs_yago:83.2,stales:20.33},
+    {id:"100663152",ruta:"CL1367",canal:"SMK",sub:"Hiper",dir:"AV. SANTA TERESA 681",net:8967540,tgt:30225205,vs_tgt:29.7,vs_yago:50.0,stales:0.12},
+    {id:"104646232",ruta:"CL1367",canal:"SMK",sub:"Alvi",dir:"HERMANOS CLARK 55",net:2516002,tgt:5463552,vs_tgt:46.1,vs_yago:97.2,stales:3.51},
+    {id:"100419231",ruta:"CL1650",canal:"SMK",sub:"Unimarc",dir:"CALLE PORTUS 1248",net:595187,tgt:1091269,vs_tgt:54.5,vs_yago:56.4,stales:0.76},
+    {id:"100663028",ruta:"CL1650",canal:"SMK",sub:"Express",dir:"TOCORNAL S/N",net:4461434,tgt:13022510,vs_tgt:34.3,vs_yago:40.8,stales:0.75},
+    {id:"103246197",ruta:"CL1650",canal:"SMK",sub:"Unimarc",dir:"ENCON 500",net:2015056,tgt:3329702,vs_tgt:60.5,vs_yago:95.3,stales:1.46},
+    {id:"100405945",ruta:"CL1651",canal:"SMK",sub:"Santa Isabel",dir:"CALLE MERCED 25",net:1645687,tgt:2426330,vs_tgt:67.8,vs_yago:105.3,stales:1.49},
+    {id:"103470716",ruta:"CL1651",canal:"SMK",sub:"Hiper",dir:"AVENIDA LIBERTADOR BERNARDO 7",net:8108942,tgt:24890311,vs_tgt:32.6,vs_yago:47.4,stales:0.89},
+    {id:"100401401",ruta:"CL1652",canal:"SMK",sub:"Jumbo",dir:"AV. ARGENTINA 805",net:7390993,tgt:15647330,vs_tgt:47.2,vs_yago:76.6,stales:1.49},
+    {id:"100418548",ruta:"CL1652",canal:"SMK",sub:"Unimarc",dir:"CALLE YERBAS BUENAS 460",net:1925048,tgt:2397137,vs_tgt:80.3,vs_yago:335.2,stales:9.73},
+    {id:"100663067",ruta:"CL1652",canal:"SMK",sub:"Express",dir:"CALLE PAPUDO 249",net:2841939,tgt:11086802,vs_tgt:25.6,vs_yago:31.1,stales:0.09},
+    {id:"100432905",ruta:"CL1680",canal:"SMK",sub:"Super 10",dir:"SANTO DOMINGO 111",net:1048158,tgt:3219252,vs_tgt:32.6,vs_yago:60.0,stales:0.00},
+    {id:"100448016",ruta:"CL1680",canal:"WHS",sub:"SOC.DISTRIB.",dir:"PRAT #297-A",net:4263181,tgt:11929973,vs_tgt:35.7,vs_yago:188.0,stales:0.00},
+    {id:"100381647",ruta:"CL1681",canal:"WHS",sub:"Betty Los Andes",dir:"AV CHACABUCO 395",net:4565164,tgt:5554493,vs_tgt:82.2,vs_yago:130.0,stales:0.00},
+    {id:"103336873",ruta:"CL1681",canal:"WHS",sub:"Las Camelias",dir:"MANUEL RODRIGUEZ 394",net:962388,tgt:3073851,vs_tgt:31.3,vs_yago:30.5,stales:0.00},
+    {id:"104418521",ruta:"CL1681",canal:"SMK",sub:"Unimarc",dir:"AV ALESSANDRI 50 LOCAL 1",net:1840975,tgt:4424484,vs_tgt:41.6,vs_yago:81.9,stales:4.23},
+    {id:"104649771",ruta:"CL1681",canal:"WHS",sub:"Sin Subcadena",dir:"MAIPU 199",net:277885,tgt:0,vs_tgt:0.0,vs_yago:0.0,stales:0.00},
+    {id:"100394132",ruta:"CL1682",canal:"WHS",sub:"Sergio Olivares",dir:"AVDA. LAS PALMAS 120",net:573215,tgt:1776474,vs_tgt:32.3,vs_yago:69.4,stales:0.00},
+    {id:"100419824",ruta:"CL1682",canal:"WHS",sub:"Sergio Olivares",dir:"SALVADOR GONZALEZ 655",net:3979190,tgt:5357689,vs_tgt:74.3,vs_yago:150.4,stales:0.00},
+    {id:"100420846",ruta:"CL1682",canal:"SMK",sub:"Unimarc",dir:"BALMACEDA 307",net:1660352,tgt:4225300,vs_tgt:39.3,vs_yago:110.7,stales:4.06},
+    {id:"102500231",ruta:"CL1682",canal:"WHS",sub:"Sergio Olivares",dir:"EDWARDS 301",net:9041720,tgt:10177438,vs_tgt:88.8,vs_yago:163.0,stales:0.00},
+    {id:"100383279",ruta:"CL1853",canal:"SMK",sub:"Tottus",dir:"PROLONGACION J.J. PEREZ 12010",net:8879043,tgt:16942244,vs_tgt:52.4,vs_yago:86.9,stales:1.08},
+    {id:"100402305",ruta:"CL1853",canal:"SMK",sub:"Santa Isabel",dir:"ZENTENO 254",net:6005648,tgt:10572302,vs_tgt:56.8,vs_yago:138.9,stales:1.50},
+    {id:"100383735",ruta:"CL2285",canal:"WHS",sub:"Cencocal",dir:"PANAMERICANA NORTE KM 114 NOGALES",net:0,tgt:5402326,vs_tgt:0.0,vs_yago:0.0,stales:0.00},
+    {id:"100402306",ruta:"CL2285",canal:"WHS",sub:"Cencocal",dir:"AV. GONZALO LIZASOAIN 305",net:494369,tgt:867607,vs_tgt:57.0,vs_yago:29.6,stales:0.00},
+    {id:"100440265",ruta:"CL2285",canal:"WHS",sub:"Otros",dir:"DIEGO LILLO 525",net:0,tgt:4061169,vs_tgt:0.0,vs_yago:0.0,stales:0.00},
+    {id:"102083569",ruta:"CL2285",canal:"WHS",sub:"Cencocal",dir:"CALLE PRAT 796",net:1190003,tgt:2570927,vs_tgt:46.3,vs_yago:50.1,stales:0.00},
+    {id:"104267206",ruta:"CL2285",canal:"WHS",sub:"Pedro Aravena (Hijuelas)",dir:"MANUEL RODRIGUEZ HIJUELAS 2087",net:1362124,tgt:1998266,vs_tgt:68.2,vs_yago:90.8,stales:0.00},
+    {id:"104289525",ruta:"CL2285",canal:"WHS",sub:"SOC.DISTRIB. / Kiko",dir:"DIEGO LILLO 444",net:2746853,tgt:4193269,vs_tgt:65.5,vs_yago:178.4,stales:0.00},
+    {id:"104723922",ruta:"CL2285",canal:"WHS",sub:"Distr. Pedro Aravena",dir:"DIEGO LILLO 530",net:2105010,tgt:3550611,vs_tgt:59.3,vs_yago:136.7,stales:0.00},
+    {id:"104723923",ruta:"CL2285",canal:"WHS",sub:"Distr. Pedro Aravena",dir:"GONZALO LIZASOAIN 56",net:1264903,tgt:2259314,vs_tgt:56.0,vs_yago:60.1,stales:0.00},
+    {id:"100444270",ruta:"CL2450",canal:"SMK",sub:"Super 10",dir:"CARRERA 949",net:3138757,tgt:4018447,vs_tgt:78.1,vs_yago:94.9,stales:0.00},
+    {id:"100663063",ruta:"CL2450",canal:"SMK",sub:"Express",dir:"CALLE CARRERA 1165",net:3368102,tgt:8628280,vs_tgt:39.0,vs_yago:43.7,stales:0.09},
+    {id:"104211394",ruta:"CL2450",canal:"SMK",sub:"Hiper",dir:"LAUTARO 78",net:8052681,tgt:26671317,vs_tgt:30.2,vs_yago:55.3,stales:0.08},
+    {id:"100402282",ruta:"CL2452",canal:"SMK",sub:"Santa Isabel",dir:"ORTIZ DE ROSAS 624",net:7177390,tgt:7956024,vs_tgt:90.2,vs_yago:136.9,stales:1.49},
+    {id:"100663032",ruta:"CL2452",canal:"SMK",sub:"Express",dir:"SANTA TERESA",net:4202635,tgt:13315230,vs_tgt:31.6,vs_yago:38.4,stales:0.09},
+    {id:"101953250",ruta:"CL2452",canal:"WHS",sub:"Otros",dir:"CONDEL 499 LA LIGUA",net:2054255,tgt:3689272,vs_tgt:55.7,vs_yago:80.2,stales:0.00},
+  ]
+};
+
+const DDV_ACTUAL=16,DDV_TOTAL=25,DDV_RATIO=DDV_ACTUAL/DDV_TOTAL;
+
+function fmtM(v){return '$'+(v/1e6).toFixed(1)+'M';}
+function fmtPct(v){return v.toFixed(1)+'%';}
+function barW(p){return Math.min(100,Math.max(0,p)).toFixed(1)+'%';}
+function tgtD(m){return m*DDV_RATIO;}
+function semD(net,m){
+  if(!m||m===0)return 'green-txt';
+  const td=tgtD(m);
+  if(net>=td)return 'green-txt';
+  if(net>=td*0.85)return 'amber-txt';
+  return 'red-txt';
+}
+function semDPill(net,m){
+  if(!m||m===0)return 'pill-green';
+  const td=tgtD(m);
+  if(net>=td)return 'pill-green';
+  if(net>=td*0.85)return 'pill-amber';
+  return 'pill-red';
+}
+function semDFill(net,m){
+  if(!m||m===0)return 'fill-green';
+  const td=tgtD(m);
+  if(net>=td)return 'fill-green';
+  if(net>=td*0.85)return 'fill-amber';
+  return 'fill-red';
+}
+function rowBgD(net,m){
+  if(!m||m===0)return '';
+  const td=tgtD(m);
+  if(net>=td)return 'background:#f0fdf4';
+  if(net>=td*0.85)return 'background:#fffbeb';
+  return 'background:#fff1f2';
+}
+function stalesTxt(s){return s<2?'green-txt':s<5?'amber-txt':'red-txt';}
+function stalesClass(s){return s<2?'sem-green':s<5?'sem-amber':'sem-red';}
+
+function renderZonaRutas(){
+  document.getElementById('zona-rutas').innerHTML=D.rutas.map(r=>{
+    const isWHS=r.canal==='WHS',clr=isWHS?'#7c3aed':'#ea580c';
+    const sc=semD(r.fact_net,r.tgt_net),sf=semDFill(r.fact_net,r.tgt_net);
+    const yagoTxt=r.vs_yago>0&&r.vs_yago<900?` · Yago <span class="${sc}">${fmtPct(r.vs_yago)}</span>`:'';
+    return `<div class="ruta-bar-item">
+      <div class="ruta-bar-top">
+        <div><span class="ruta-name">${r.ruta}</span>
+          <span class="canal-dot ${isWHS?'dot-whs':'dot-smk'}"></span>
+          <span style="font-size:10px;color:${clr};font-weight:700">${r.canal}</span></div>
+        <div><span class="ruta-pct ${sc}">${fmtPct(r.vs_tgt)}</span>
+          <span style="font-size:10px;color:#888"> TGT</span></div>
+      </div>
+      <div class="progress-bar"><div class="progress-fill ${sf}" style="width:${barW(r.vs_tgt)}"></div></div>
+      <div class="ruta-bar-meta">Net ${fmtM(r.fact_net)} · TGT día ${fmtM(tgtD(r.tgt_net))}${yagoTxt} · Stales <span class="${stalesTxt(r.stales_pct)}">${fmtPct(r.stales_pct)}</span></div>
+    </div>`;
+  }).join('');
+}
+
+function renderSegRutas(canal,elId){
+  document.getElementById(elId).innerHTML=D.rutas.filter(r=>r.canal===canal).map(r=>{
+    const sc=semD(r.fact_net,r.tgt_net),sf=semDFill(r.fact_net,r.tgt_net);
+    const yagoTxt=r.vs_yago>0&&r.vs_yago<900?`Yago <span class="${sc}">${fmtPct(r.vs_yago)}</span> · `:'';
+    return `<div class="ruta-bar-item">
+      <div class="ruta-bar-top"><span class="ruta-name">${r.ruta}</span>
+        <span class="ruta-pct ${sc}">${fmtPct(r.vs_tgt)}</span></div>
+      <div class="progress-bar"><div class="progress-fill ${sf}" style="width:${barW(r.vs_tgt)}"></div></div>
+      <div class="ruta-bar-meta">Net ${fmtM(r.fact_net)} · TGT día ${fmtM(tgtD(r.tgt_net))} · ${yagoTxt}Stales <span class="${stalesTxt(r.stales_pct)}">${fmtPct(r.stales_pct)}</span></div>
+    </div>`;
+  }).join('');
+}
+
+function renderSubcad(canal,elId){
+  const filtered=D.subcadenas.filter(s=>s.canal===canal&&s.tgt_net>0);
+  document.getElementById(elId).innerHTML=filtered.map(s=>{
+    const sc=semD(s.fact_net,s.tgt_net),sf=semDFill(s.fact_net,s.tgt_net),sp=semDPill(s.fact_net,s.tgt_net);
+    const yagoTxt=s.vs_yago>0&&s.vs_yago<900?`<span>Yago <span class="${sc}">${fmtPct(s.vs_yago)}</span></span>`:'';
+    return `<div class="subcad-item">
+      <div class="subcad-top"><div class="subcad-name">${s.sub}</div>
+        <span class="pill ${sp}">${fmtPct(s.vs_tgt)} TGT</span></div>
+      <div class="progress-bar"><div class="progress-fill ${sf}" style="width:${barW(s.vs_tgt)}"></div></div>
+      <div class="subcad-meta">
+        <span>Net ${fmtM(s.fact_net)}</span>
+        <span>TGT día ${fmtM(tgtD(s.tgt_net))}</span>
+        ${yagoTxt}
+        <span><span class="semaforo ${stalesClass(s.stales_pct)}"></span>${fmtPct(s.stales_pct)} Stales</span>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function renderRutasExpandibles(canal,elId){
+  document.getElementById(elId).innerHTML=D.rutas.filter(r=>r.canal===canal).map(r=>{
+    const salas=D.salas.filter(s=>s.ruta===r.ruta);
+    const sc=semD(r.fact_net,r.tgt_net);
+    const salasHTML=salas.map(s=>{
+      const ssc=semD(s.net,s.tgt),bg=rowBgD(s.net,s.tgt);
+      return `<div class="sala-row" style="${bg}">
+        <div class="sala-name">
+          <span style="font-weight:700">${s.sub}</span>
+          <span style="font-size:10px;color:#999;margin-left:5px">${s.id}</span><br>
+          <span style="font-size:10px;color:#aaa">${s.dir}</span>
+        </div>
+        <div class="sala-stats">
+          <span class="${ssc}" style="font-weight:700">${fmtM(s.net)}</span>
+          <span class="${ssc}">${fmtPct(s.vs_tgt)}</span>
+          <span class="${stalesTxt(s.stales)}">${fmtPct(s.stales)}S</span>
+        </div>
+      </div>`;
+    }).join('');
+    return `<div class="ruta-card">
+      <div class="ruta-card-header" onclick="toggleRuta(this)">
+        <div>
+          <div style="font-size:13px;font-weight:700">${r.ruta}</div>
+          <div style="font-size:11px;color:#888;margin-top:2px">Net ${fmtM(r.fact_net)} · TGT día ${fmtM(tgtD(r.tgt_net))} · ${salas.length} salas</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px">
+          <div>
+            <div class="${sc}" style="font-weight:800;font-size:14px">${fmtPct(r.vs_tgt)}</div>
+            <div style="font-size:11px;color:#888">TGT mes</div>
+          </div>
+          <span class="ruta-card-arrow">▼</span>
+        </div>
+      </div>
+      <div class="ruta-card-body">${salasHTML}</div>
+    </div>`;
+  }).join('');
+}
+
+function toggleRuta(h){
+  h.nextElementSibling.classList.toggle('open');
+  h.querySelector('.ruta-card-arrow').classList.toggle('open');
+}
+
+let otFilter='all';
+function renderOT(){
+  let rows='',zona_net=0,zona_tgt=0;
+  D.rutas.forEach(r=>{
+    if(otFilter!=='all'&&r.canal!==otFilter)return;
+    const isWHS=r.canal==='WHS',clr=isWHS?'#7c3aed':'#ea580c';
+    const rsc=semD(r.fact_net,r.tgt_net);
+    const salasRuta=D.salas.filter(s=>s.ruta===r.ruta);
+    zona_net+=r.fact_net; zona_tgt+=r.tgt_net;
+    rows+=`<tr style="background:#eef2ff">
+      <td colspan="8" style="font-weight:700;color:${clr};padding:7px 8px;font-size:12px">
+        <span class="canal-dot ${isWHS?'dot-whs':'dot-smk'}"></span>
+        ${r.ruta} — ${r.canal}
+      </td></tr>`;
+    salasRuta.forEach(s=>{
+      const ssc=semD(s.net,s.tgt),bg=rowBgD(s.net,s.tgt);
+      const yagoStr=s.vs_yago>0&&s.vs_yago<900?fmtPct(s.vs_yago):'—';
+      rows+=`<tr style="${bg}">
+        <td style="padding-left:16px;font-size:11px;color:#888">${s.id}</td>
+        <td style="font-weight:600">${s.sub}</td>
+        <td style="font-size:11px;color:#666">${s.dir}</td>
+        <td class="${ssc}" style="font-weight:700">${fmtM(s.net)}</td>
+        <td style="color:#888;font-size:11px">${fmtM(tgtD(s.tgt))}<br><span style="font-size:10px;color:#ccc">${fmtM(s.tgt)} mes</span></td>
+        <td><span class="${ssc}" style="font-weight:700">${fmtPct(s.vs_tgt)}</span></td>
+        <td><span style="font-weight:600">${yagoStr}</span></td>
+        <td><span class="${stalesTxt(s.stales)}">${fmtPct(s.stales)}</span></td>
+      </tr>`;
+    });
+    rows+=`<tr style="background:#dbeafe">
+      <td colspan="3" style="padding-left:12px;font-size:11px;font-weight:700;color:#1e40af">∑ Total ${r.ruta}</td>
+      <td style="font-weight:800" class="${rsc}">${fmtM(r.fact_net)}</td>
+      <td style="color:#888;font-size:11px">${fmtM(tgtD(r.tgt_net))}<br><span style="font-size:10px;color:#ccc">${fmtM(r.tgt_net)} mes</span></td>
+      <td><span class="${rsc}" style="font-weight:800">${fmtPct(r.vs_tgt)}</span></td>
+      <td colspan="2"></td>
+    </tr>`;
+  });
+  if(otFilter==='all'){
+    rows+=`<tr class="ot-total-row">
+      <td colspan="3" style="font-weight:800">🏁 TOTAL ZONA</td>
+      <td style="font-weight:800">${fmtM(zona_net)}</td>
+      <td style="font-size:11px">${fmtM(tgtD(zona_tgt))}<br><span style="font-size:10px;opacity:.7">${fmtM(zona_tgt)} mes</span></td>
+      <td><span style="font-weight:800">${fmtPct(zona_net/zona_tgt*100)}</span></td>
+      <td colspan="2"></td>
+    </tr>`;
+  }
+  document.getElementById('ot-body').innerHTML=rows;
+}
+
+function filterOT(f,btn){
+  otFilter=f;
+  document.querySelectorAll('.ot-filter').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderOT();
+}
+
+document.querySelectorAll('.tab').forEach(tab=>{
+  tab.addEventListener('click',()=>{
+    document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+    document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById('panel-'+tab.dataset.tab).classList.add('active');
+  });
+});
+
+renderZonaRutas();
+renderSegRutas('WHS','seg-rutas-whs');
+renderSegRutas('SMK','seg-rutas-smk');
+renderSubcad('SMK','sub-smk');
+renderSubcad('WHS','sub-whs');
+renderRutasExpandibles('WHS','rutas-whs');
+renderRutasExpandibles('SMK','rutas-smk');
+renderOT();
+</script>
+</body>
+</html>
