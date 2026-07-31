@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Evercracks | Dashboard 30/07 | Jean Franco Torrejon</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f5f7fb;color:#1a1a2e;font-size:14px}
+.header{background:#0070f3;color:#fff;padding:14px 16px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,112,243,.4)}
+.header-top{display:flex;justify-content:space-between;align-items:center}
+.header h1{font-size:17px;font-weight:700;letter-spacing:.3px}
+.header .meta{font-size:11px;opacity:.85;margin-top:2px}
+.badge{background:rgba(255,255,255,.2);padding:3px 8px;border-radius:20px;font-size:11px;font-weight:600}
+.tabs{display:flex;overflow-x:auto;background:#fff;border-bottom:2px solid #e8edf5;position:sticky;top:57px;z-index:99;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{padding:11px 14px;white-space:nowrap;cursor:pointer;font-size:13px;font-weight:500;color:#666;border-bottom:3px solid transparent;margin-bottom:-2px;flex-shrink:0;transition:color .2s}
+.tab.active{color:#0070f3;border-bottom-color:#0070f3;font-weight:700}
+.panel{display:none;padding:14px}
+.panel.active{display:block}
+.kpi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}
+.kpi-card{background:#fff;border-radius:10px;padding:11px 10px;box-shadow:0 1px 4px rgba(0,0,0,.07);text-align:center;border-top:3px solid #e8edf5}
+.kpi-card.green{border-top-color:#16a34a}.kpi-card.amber{border-top-color:#d97706}.kpi-card.red{border-top-color:#dc2626}
+.kpi-label{font-size:10px;color:#888;font-weight:600;text-transform:uppercase;letter-spacing:.4px}
+.kpi-value{font-size:18px;font-weight:800;margin-top:3px;line-height:1}
+.kpi-sub{font-size:10px;color:#999;margin-top:2px}
+.section-title{font-size:12px;font-weight:700;color:#444;text-transform:uppercase;letter-spacing:.5px;margin:14px 0 8px;display:flex;align-items:center;gap:6px}
+.section-title::after{content:'';flex:1;height:1px;background:#e8edf5}
+.canal-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+.canal-card{background:#fff;border-radius:10px;padding:12px;box-shadow:0 1px 4px rgba(0,0,0,.07)}
+.canal-label{font-size:11px;font-weight:700;color:#fff;padding:2px 8px;border-radius:12px;display:inline-block;margin-bottom:8px}
+.canal-whs{background:#7c3aed}.canal-smk{background:#ea580c}
+.canal-net{font-size:20px;font-weight:800}
+.canal-tgt{font-size:11px;color:#888;margin-top:1px}
+.progress-bar{height:6px;background:#f0f0f0;border-radius:3px;margin:6px 0;overflow:hidden}
+.progress-fill{height:100%;border-radius:3px;transition:width .4s}
+.fill-green{background:#16a34a}.fill-amber{background:#d97706}.fill-red{background:#dc2626}
+.canal-stats{display:flex;gap:10px;font-size:11px;color:#666;margin-top:4px;flex-wrap:wrap}
+.stat-val{font-weight:700}
+.ruta-list{display:flex;flex-direction:column;gap:6px}
+.ruta-bar-item{background:#fff;border-radius:8px;padding:9px 10px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.ruta-bar-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:5px}
+.ruta-name{font-size:12px;font-weight:700}
+.ruta-pct{font-size:13px;font-weight:800}
+.ruta-bar-meta{font-size:10px;color:#888}
+.analysis-box{background:#fff;border-radius:10px;padding:12px;box-shadow:0 1px 4px rgba(0,0,0,.07);margin-bottom:8px}
+.analysis-box h3{font-size:12px;font-weight:700;margin-bottom:8px;display:flex;align-items:center;gap:5px}
+.analysis-box p{font-size:12px;color:#555;line-height:1.6}
+.tag{display:inline-block;padding:2px 7px;border-radius:10px;font-size:10px;font-weight:700;margin-right:4px}
+.tag-green{background:#dcfce7;color:#15803d}.tag-amber{background:#fef3c7;color:#92400e}.tag-red{background:#fee2e2;color:#991b1b}
+.subcad-list{display:flex;flex-direction:column;gap:6px}
+.subcad-item{background:#fff;border-radius:8px;padding:10px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.subcad-top{display:flex;justify-content:space-between;align-items:center}
+.subcad-name{font-size:13px;font-weight:700}
+.subcad-meta{display:flex;gap:10px;font-size:11px;color:#888;flex-wrap:wrap;margin-top:4px}
+.semaforo{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:3px}
+.sem-green{background:#16a34a}.sem-amber{background:#d97706}.sem-red{background:#dc2626}
+.ruta-card{background:#fff;border-radius:10px;box-shadow:0 1px 4px rgba(0,0,0,.07);margin-bottom:8px;overflow:hidden}
+.ruta-card-header{padding:12px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;user-select:none}
+.ruta-card-header:active{background:#f8f9fb}
+.ruta-card-arrow{font-size:12px;color:#999;transition:transform .2s}
+.ruta-card-arrow.open{transform:rotate(180deg)}
+.ruta-card-body{display:none;border-top:1px solid #f0f0f0}
+.ruta-card-body.open{display:block}
+.sala-row{padding:8px 12px;display:flex;justify-content:space-between;align-items:flex-start;border-bottom:1px solid #f8f9fb;font-size:12px}
+.sala-row:last-child{border-bottom:none}
+.sala-name{font-weight:600;flex:1}
+.sala-stats{display:flex;gap:8px;font-size:11px;flex-shrink:0}
+.ddv-block{background:#fff;border-radius:10px;padding:14px;box-shadow:0 1px 4px rgba(0,0,0,.07);margin-bottom:12px}
+.ddv-title{font-size:12px;font-weight:700;color:#444;margin-bottom:10px}
+.ddv-nums{display:flex;margin-bottom:8px}
+.ddv-num{text-align:center;flex:1}
+.ddv-num-val{font-size:24px;font-weight:800;line-height:1}
+.ddv-num-lbl{font-size:10px;color:#888;margin-top:2px}
+.ddv-progress{height:10px;background:#f0f0f0;border-radius:5px;overflow:hidden}
+.ddv-fill{height:100%;border-radius:5px;background:#0070f3}
+.ot-filters{display:flex;gap:6px;margin-bottom:10px}
+.ot-filter{padding:5px 12px;border-radius:20px;border:1px solid #ddd;background:#fff;font-size:12px;font-weight:600;cursor:pointer;color:#666}
+.ot-filter.active{background:#0070f3;color:#fff;border-color:#0070f3}
+.ot-table{width:100%;border-collapse:collapse;font-size:12px}
+.ot-table th{background:#f5f7fb;padding:7px 8px;text-align:left;font-size:10px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:.3px}
+.ot-table td{padding:7px 8px;border-bottom:1px solid #f0f0f0;vertical-align:middle}
+.ot-table tr:hover td{background:#f9fafc}
+.ot-ruta-row td{background:#f0f4ff!important;font-weight:700;font-size:12px}
+.ot-total-row td{background:#1a1a2e!important;color:#fff!important;font-weight:800;font-size:12px}
+.ot-total-row td span{color:#fff!important}
+.canal-dot{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:4px}
+.dot-whs{background:#7c3aed}.dot-smk{background:#ea580c}
+.alert-list{display:flex;flex-direction:column;gap:8px}
+.alert-item{background:#fff;border-radius:10px;padding:12px;box-shadow:0 1px 4px rgba(0,0,0,.07);border-left:4px solid #e8edf5;display:flex;gap:10px;align-items:flex-start}
+.alert-item.success{border-left-color:#16a34a}.alert-item.warning{border-left-color:#d97706}
+.alert-item.danger{border-left-color:#dc2626}.alert-item.info{border-left-color:#0070f3}
+.alert-icon{font-size:18px;line-height:1;flex-shrink:0}
+.alert-text h4{font-size:13px;font-weight:700;margin-bottom:3px}
+.alert-text p{font-size:12px;color:#666;line-height:1.4}
+.green-txt{color:#16a34a}.amber-txt{color:#d97706}.red-txt{color:#dc2626}
+.purple-txt{color:#7c3aed}.orange-txt{color:#ea580c}
+.mt12{margin-top:12px}
+.pill{padding:2px 8px;border-radius:10px;font-size:11px;font-weight:700}
+.pill-green{background:#dcfce7;color:#15803d}.pill-amber{background:#fef3c7;color:#92400e}.pill-red{background:#fee2e2;color:#991b1b}
+.table-scroll{overflow-x:auto}
+.inicio-badge{background:#dbeafe;color:#1d4ed8;border-radius:8px;padding:8px 12px;font-size:12px;font-weight:600;margin-bottom:12px;border-left:4px solid #2563eb}
+/* BENCHMARK */
+.bench-card{background:#1a1a2e;border-radius:12px;padding:14px;margin-bottom:10px;color:#fff}
+.bench-title{font-size:11px;font-weight:700;letter-spacing:.4px;color:#aab;margin-bottom:10px;text-transform:uppercase}
+.bench-row{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid rgba(255,255,255,.08)}
+.bench-row:last-child{border-bottom:none}
+.bench-row.highlight{background:rgba(22,163,74,.18);margin:0 -8px;padding:7px 8px;border-radius:8px}
+.bench-name{font-size:12px;font-weight:600}
+.bench-vals{text-align:right}
+.bench-pct{font-size:14px;font-weight:800}
+.bench-sub{font-size:10px;color:#9aa;margin-top:1px}
+.rank-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.08)}
+.rank-row:last-child{border-bottom:none}
+.rank-row.highlight{background:rgba(22,163,74,.18);margin:0 -8px;padding:8px 8px;border-radius:8px}
+.rank-pos{font-size:13px;font-weight:800;color:#889;width:22px}
+.rank-name{font-size:12px;font-weight:700;flex:1}
+.rank-sub{font-size:10px;color:#9aa}
+.rank-pct{font-size:14px;font-weight:800;text-align:right}
+/* EXHIBICIONES */
+.exhib-total-card{background:#1a1a2e;color:#fff;border-radius:12px;padding:16px;margin-bottom:12px;text-align:center}
+.exhib-total-pct{font-size:32px;font-weight:800}
+.exhib-total-sub{font-size:11px;color:#aab;margin-top:4px}
+.exhib-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:12px}
+.exhib-cadena-card{background:#fff;border-radius:10px;padding:10px;box-shadow:0 1px 3px rgba(0,0,0,.06);text-align:center}
+.exhib-cadena-pct{font-size:18px;font-weight:800}
+.exhib-cadena-name{font-size:11px;font-weight:700;margin-top:2px}
+.exhib-cadena-sub{font-size:10px;color:#888;margin-top:1px}
+.exhib-badge{padding:1px 6px;border-radius:8px;font-size:9px;font-weight:700;display:inline-block;margin-top:3px}
+.exhib-detail-item{padding:8px 12px;border-bottom:1px solid #f8f9fb;font-size:11px}
+.exhib-detail-item:last-child{border-bottom:none}
+.exhib-detail-top{display:flex;justify-content:space-between;font-weight:700;margin-bottom:2px}
+.exhib-detail-meta{color:#888;font-size:10px}
+/* VP */
+.vp-nivel-badge{padding:2px 7px;border-radius:8px;font-size:9px;font-weight:800}
+.vp-nivel-CRITICO{background:#fee2e2;color:#991b1b}
+.vp-nivel-ALTO{background:#ffedd5;color:#c2410c}
+.vp-nivel-MEDIO{background:#fef3c7;color:#92400e}
+.vp-nivel-NORMAL{background:#dcfce7;color:#15803d}
+.vp-acc-pill{padding:1px 6px;border-radius:6px;font-size:9px;font-weight:700;background:#f0f0f0;color:#555}
+.vp-acc-pill.q{background:#fee2e2;color:#991b1b}
+.vp-acc-pill.r{background:#fef3c7;color:#92400e}
+.vp-acc-pill.v{background:#dbeafe;color:#1d4ed8}
+.vp-sku-table{width:100%;font-size:11px;border-collapse:collapse;margin-top:6px}
+.vp-sku-table td{padding:5px 4px;border-bottom:1px solid #f5f5f5}
+.vp-isv-table{width:100%;font-size:11px;border-collapse:collapse}
+.vp-isv-table th{background:#f5f7fb;padding:6px;text-align:left;font-size:9px;color:#888;text-transform:uppercase}
+.vp-isv-table td{padding:6px;border-bottom:1px solid #f5f5f5}
+.vp-prior-item{display:flex;gap:8px;padding:8px;background:#fff;border-radius:8px;margin-bottom:6px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.vp-prior-n{background:#0070f3;color:#fff;font-weight:800;font-size:11px;width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+/* INVNEG */
+.invneg-table{width:100%;font-size:11px;border-collapse:collapse}
+.invneg-table th{background:#f5f7fb;padding:6px;text-align:left;font-size:9px;color:#888;text-transform:uppercase}
+.invneg-table td{padding:6px;border-bottom:1px solid #f5f5f5}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-top">
+    <div>
+      <h1>⚡ Evercracks Dashboard</h1>
+      <div class="meta">Jean Franco Torrejon · Zona San Felipe · 30/07/2026</div>
+    </div>
+    <span class="badge">DDV 25/26</span>
+  </div>
+</div>
+
+<div class="tabs">
+  <div class="tab active" data-tab="zona">🗺 Zona</div>
+  <div class="tab" data-tab="segsub">📊 Segmento</div>
+  <div class="tab" data-tab="rutas">📍 Rutas</div>
+  <div class="tab" data-tab="exhib">🏬 Exhibiciones</div>
+  <div class="tab" data-tab="vp">📉 Venta Perdida</div>
+  <div class="tab" data-tab="alertas">⚠️ Alertas</div>
+</div>
+
+<!-- ZONA -->
+<div class="panel active" id="panel-zona">
+  <div class="section-title">KPIs Zona Total</div>
+  <div class="kpi-grid" id="zona-kpis"></div>
+
+  <div class="section-title">WHS vs SMK</div>
+  <div class="canal-grid" id="canal-cards"></div>
+
+  <div class="section-title">📍 Benchmark País &amp; División</div>
+  <div class="bench-card">
+    <div class="bench-title">📍 Benchmark — País &amp; División Centro Costa</div>
+    <div id="bench-rows"></div>
+  </div>
+  <div class="bench-card">
+    <div class="bench-title">🏅 Ranking División — Supervisores</div>
+    <div id="rank-rows"></div>
+  </div>
+
+  <div class="section-title">Ranking Rutas</div>
+  <div class="ruta-list" id="zona-rutas"></div>
+</div>
+
+<!-- SEGMENTO + SUBCADENAS -->
+<div class="panel" id="panel-segsub">
+  <div class="section-title">WHS — Mayoristas</div>
+  <div class="kpi-grid" style="grid-template-columns:repeat(2,1fr)" id="seg-kpis-whs"></div>
+  <div class="analysis-box" id="seg-analysis-whs"></div>
+  <div class="section-title">Rutas WHS por % TGT</div>
+  <div class="ruta-list" id="seg-rutas-whs"></div>
+  <div class="section-title">Subcadenas WHS</div>
+  <div class="subcad-list" id="sub-whs"></div>
+
+  <div class="section-title mt12">SMK — Supermercados</div>
+  <div class="kpi-grid" style="grid-template-columns:repeat(2,1fr)" id="seg-kpis-smk"></div>
+  <div class="analysis-box" id="seg-analysis-smk"></div>
+  <div class="section-title">Rutas SMK por % TGT</div>
+  <div class="ruta-list" id="seg-rutas-smk"></div>
+  <div class="section-title">Subcadenas SMK</div>
+  <div class="subcad-list" id="sub-smk"></div>
+</div>
+
+<!-- RUTAS + OT x RUTA -->
+<div class="panel" id="panel-rutas">
+  <div class="ddv-block">
+    <div class="ddv-title">📅 Avance DDV — Julio 2026</div>
+    <div class="ddv-nums">
+      <div class="ddv-num"><div class="ddv-num-val" style="color:#0070f3">25</div><div class="ddv-num-lbl">DDV Actual</div></div>
+      <div class="ddv-num"><div class="ddv-num-val" style="color:#888">26</div><div class="ddv-num-lbl">DDV Totales</div></div>
+      <div class="ddv-num"><div class="ddv-num-val" style="color:#d97706">96.2%</div><div class="ddv-num-lbl">% Avance Mes</div></div>
+    </div>
+    <div class="ddv-progress"><div class="ddv-fill" style="width:96.2%"></div></div>
+    <p style="font-size:11px;color:#888;margin-top:6px;text-align:center">Quedan 1 días de venta para cerrar el mes</p>
+  </div>
+  <div class="ot-filters">
+    <button class="ot-filter active" onclick="filterOT('all',this)">TODOS</button>
+    <button class="ot-filter" onclick="filterOT('WHS',this)">WHS</button>
+    <button class="ot-filter" onclick="filterOT('SMK',this)">SMK</button>
+  </div>
+  <div class="table-scroll">
+    <table class="ot-table">
+      <thead><tr>
+        <th>IDCliente</th><th>Subcadena</th><th>Dirección</th>
+        <th>Net Sales</th><th>Target Mes</th>
+        <th>vs TGT</th><th>vs Yago</th><th>Stales</th>
+      </tr></thead>
+      <tbody id="ot-body"></tbody>
+    </table>
+  </div>
+
+  <div class="section-title mt12">WHS — Mayoristas</div>
+  <div id="rutas-whs"></div>
+  <div class="section-title mt12">SMK — Supermercados</div>
+  <div id="rutas-smk"></div>
+</div>
+
+<!-- EXHIBICIONES -->
+<div class="panel" id="panel-exhib">
+  <div id="exhib-badge" class="inicio-badge"></div>
+  <div class="exhib-total-card">
+    <div class="exhib-total-pct" id="exhib-total-pct"></div>
+    <div class="exhib-total-sub" id="exhib-total-sub"></div>
+  </div>
+  <div class="section-title">Cumplimiento por Cadena</div>
+  <div class="exhib-grid" id="exhib-cadenas"></div>
+  <div class="section-title">Detalle por Cadena</div>
+  <div id="exhib-detalle"></div>
+</div>
+
+<!-- VENTA PERDIDA + INVENTARIO NEGATIVO -->
+<div class="panel" id="panel-vp">
+  <div id="vp-badge" class="inicio-badge"></div>
+  <div class="kpi-grid" id="vp-kpis"></div>
+  <div class="analysis-box"><h3>📌 Novedad de la semana</h3><p id="vp-novedad"></p></div>
+  <div id="vp-causas-wrap"></div>
+  <div class="section-title">Top Salas por Venta Perdida</div>
+  <div id="vp-salas"></div>
+  <div class="section-title mt12">Por Subcategoría</div>
+  <div id="vp-subcat"></div>
+  <div class="section-title mt12">Por Ruta</div>
+  <div class="table-scroll"><table class="vp-isv-table" id="vp-rutas-table"></table></div>
+  <div class="section-title mt12">ISV — Stock Estancado</div>
+  <div class="table-scroll"><table class="vp-isv-table" id="vp-isv-table"></table></div>
+  <p style="font-size:11px;color:#d97706;margin-top:8px;font-weight:600" id="vp-isv-alerta"></p>
+  <div class="section-title mt12">Prioridades de la Semana</div>
+  <div id="vp-prioridades"></div>
+
+  <div id="invneg-badge" class="inicio-badge mt12"></div>
+  <div class="kpi-grid" style="grid-template-columns:repeat(2,1fr)" id="invneg-kpis"></div>
+  <div class="section-title">Detalle SKUs Negativos</div>
+  <div class="table-scroll"><table class="invneg-table" id="invneg-table"></table></div>
+</div>
+
+<!-- ALERTAS -->
+<div class="panel" id="panel-alertas">
+  <div class="alert-list" id="alertas-list"></div>
+</div>
+
+<script>
+const D = {"zona": {"fact_net": 314566679, "tgt_net": 311390619, "fact_yago": 285049165, "vs_tgt": 101.0, "vs_yago": 110.4, "stales_pct": 0.67}, "canal": {"WHS": {"fact_net": 67048919, "tgt_net": 69006364, "fact_yago": 66722401, "vs_tgt": 97.2, "vs_yago": 100.5, "stales_pct": 0.0}, "SMK": {"fact_net": 247517760, "tgt_net": 242384255, "fact_yago": 218326764, "vs_tgt": 102.1, "vs_yago": 113.4, "stales_pct": 0.85}}, "rutas": [{"ruta": "CL1682", "canal": "WHS", "fact_net": 27627551, "tgt_net": 23268424, "vs_tgt": 118.7, "fact_yago": 24844041, "vs_yago": 111.2, "stales_pct": 0.15}, {"ruta": "CL1853", "canal": "SMK", "fact_net": 30444047, "tgt_net": 26049715, "vs_tgt": 116.9, "fact_yago": 21778285, "vs_yago": 139.8, "stales_pct": 0.54}, {"ruta": "CL2285", "canal": "WHS", "fact_net": 28854268, "tgt_net": 25605834, "vs_tgt": 112.7, "fact_yago": 26193048, "vs_yago": 110.2, "stales_pct": 0.0}, {"ruta": "CL2452", "canal": "SMK", "fact_net": 25928110, "tgt_net": 23379469, "vs_tgt": 110.9, "fact_yago": 24516926, "vs_yago": 105.8, "stales_pct": 0.72}, {"ruta": "CL1365", "canal": "SMK", "fact_net": 26342739, "tgt_net": 24111308, "vs_tgt": 109.3, "fact_yago": 22575342, "vs_yago": 116.7, "stales_pct": 1.29}, {"ruta": "CL1366", "canal": "SMK", "fact_net": 18733016, "tgt_net": 17321524, "vs_tgt": 108.1, "fact_yago": 15943596, "vs_yago": 117.5, "stales_pct": 1.31}, {"ruta": "CL1652", "canal": "SMK", "fact_net": 30563454, "tgt_net": 28477250, "vs_tgt": 107.3, "fact_yago": 24843888, "vs_yago": 123.0, "stales_pct": 1.32}, {"ruta": "CL2450", "canal": "SMK", "fact_net": 36670833, "tgt_net": 37361860, "vs_tgt": 98.2, "fact_yago": 29512481, "vs_yago": 124.3, "stales_pct": 0.07}, {"ruta": "CL1650", "canal": "SMK", "fact_net": 16997626, "tgt_net": 17684665, "vs_tgt": 96.1, "fact_yago": 17020132, "vs_yago": 99.9, "stales_pct": 1.71}, {"ruta": "CL1681", "canal": "WHS", "fact_net": 14386252, "tgt_net": 15642081, "vs_tgt": 92.0, "fact_yago": 16284505, "vs_yago": 88.3, "stales_pct": 0.81}, {"ruta": "CL1651", "canal": "SMK", "fact_net": 22530781, "tgt_net": 25072023, "vs_tgt": 89.9, "fact_yago": 23854117, "vs_yago": 94.5, "stales_pct": 1.27}, {"ruta": "CL1367", "canal": "SMK", "fact_net": 27028655, "tgt_net": 32481003, "vs_tgt": 83.2, "fact_yago": 26975326, "vs_yago": 100.2, "stales_pct": 0.06}, {"ruta": "CL1680", "canal": "SMK", "fact_net": 8459347, "tgt_net": 14935463, "vs_tgt": 56.6, "fact_yago": 10707478, "vs_yago": 79.0, "stales_pct": 0.0}], "subcadenas": [{"canal": "WHS", "sub": "Cencocal", "fact_net": 13551490, "tgt_net": 8557520, "vs_tgt": 158.4, "vs_yago": 147.4, "stales_pct": 0.0}, {"canal": "WHS", "sub": "Otros", "fact_net": 11361988, "tgt_net": 8499749, "vs_tgt": 133.7, "vs_yago": 142.9, "stales_pct": 0.0}, {"canal": "SMK", "sub": "Jumbo", "fact_net": 27908577, "tgt_net": 21725658, "vs_tgt": 128.5, "vs_yago": 143.3, "stales_pct": 1.5}, {"canal": "SMK", "sub": "Tottus", "fact_net": 29116590, "tgt_net": 23594764, "vs_tgt": 123.4, "vs_yago": 132.2, "stales_pct": 0.29}, {"canal": "WHS", "sub": "Sergio Olivares", "fact_net": 20001707, "tgt_net": 17962506, "vs_tgt": 111.4, "vs_yago": 107.2, "stales_pct": 0.0}, {"canal": "SMK", "sub": "Santa Isabel", "fact_net": 49938732, "tgt_net": 45402712, "vs_tgt": 110.0, "vs_yago": 116.8, "stales_pct": 1.5}, {"canal": "SMK", "sub": "Unimarc", "fact_net": 24844845, "tgt_net": 22680844, "vs_tgt": 109.5, "vs_yago": 123.9, "stales_pct": 2.26}, {"canal": "WHS", "sub": "Betty Los Andes", "fact_net": 6510862, "tgt_net": 6300376, "vs_tgt": 103.3, "vs_yago": 99.0, "stales_pct": 0.0}, {"canal": "SMK", "sub": "Hiper", "fact_net": 65184575, "tgt_net": 72133334, "vs_tgt": 90.4, "vs_yago": 110.9, "stales_pct": 0.43}, {"canal": "SMK", "sub": "Super 10", "fact_net": 8887423, "tgt_net": 9826423, "vs_tgt": 90.4, "vs_yago": 88.7, "stales_pct": 0.0}, {"canal": "SMK", "sub": "Express", "fact_net": 36080929, "tgt_net": 40738404, "vs_tgt": 88.6, "vs_yago": 90.3, "stales_pct": 0.08}, {"canal": "SMK", "sub": "Alvi", "fact_net": 5556089, "tgt_net": 6282116, "vs_tgt": 88.4, "vs_yago": 106.0, "stales_pct": 0.0}, {"canal": "WHS", "sub": "Las Camelias", "fact_net": 2680036, "tgt_net": 3916079, "vs_tgt": 68.4, "vs_yago": 46.4, "stales_pct": 0.0}, {"canal": "WHS", "sub": "SOC.DISTRIB.", "fact_net": 6283888, "tgt_net": 11011314, "vs_tgt": 57.1, "vs_yago": 99.5, "stales_pct": 0.0}, {"canal": "WHS", "sub": "Kiko", "fact_net": 2207506, "tgt_net": 4117195, "vs_tgt": 53.6, "vs_yago": 67.7, "stales_pct": 0.0}, {"canal": "WHS", "sub": "Distr. Pedro Aravena", "fact_net": 4451442, "tgt_net": 8641625, "vs_tgt": 51.5, "vs_yago": 49.5, "stales_pct": 0.0}], "salas": [{"id": "100381647", "ruta": "CL1681", "canal": "WHS", "sub": "Betty Los Andes", "dir": "AV CHACABUCO 395                   ", "net": 6510862, "tgt": 6300376, "vs_tgt": 103.3, "vs_yago": 99.0, "stales": 0.0}, {"id": "100383279", "ruta": "CL1853", "canal": "SMK", "sub": "Tottus", "dir": "PROLONGACION J.J. PEREZ 12010      ", "net": 19950986, "tgt": 15258625, "vs_tgt": 130.8, "vs_yago": 144.8, "stales": 0.0}, {"id": "100383735", "ruta": "CL2285", "canal": "WHS", "sub": "Cencocal", "dir": "PANAMERICANA NORTE KM 114 NOGALES  ", "net": 2680020, "tgt": 5330228, "vs_tgt": 50.3, "vs_yago": 113.8, "stales": 0.0}, {"id": "100388392", "ruta": "CL1366", "canal": "SMK", "sub": "Santa Isabel", "dir": "PASCUAL BABURRIZA 510              ", "net": 9106702, "tgt": 8833150, "vs_tgt": 103.1, "vs_yago": 107.9, "stales": 1.5}, {"id": "100389142", "ruta": "CL1365", "canal": "SMK", "sub": "Santa Isabel", "dir": "AV. YUNGAY 1150                    ", "net": 8145945, "tgt": 8447791, "vs_tgt": 96.4, "vs_yago": 101.4, "stales": 1.5}, {"id": "100394132", "ruta": "CL1682", "canal": "WHS", "sub": "Sergio Olivares", "dir": "AVDA. LAS PALMAS  120              ", "net": 2453498, "tgt": 1098170, "vs_tgt": 223.4, "vs_yago": 178.5, "stales": 0.0}, {"id": "100400367", "ruta": "CL1365", "canal": "SMK", "sub": "Jumbo", "dir": "AV MIRAFLORES S/N                  ", "net": 9031190, "tgt": 7327378, "vs_tgt": 123.3, "vs_yago": 143.3, "stales": 1.5}, {"id": "100401401", "ruta": "CL1652", "canal": "SMK", "sub": "Jumbo", "dir": "AV. ARGENTINA 805                  ", "net": 18877387, "tgt": 14398280, "vs_tgt": 131.1, "vs_yago": 143.2, "stales": 1.5}, {"id": "100402282", "ruta": "CL2452", "canal": "SMK", "sub": "Santa Isabel", "dir": "ORTIZ DE ROSAS 624                 ", "net": 12011580, "tgt": 8397936, "vs_tgt": 143.0, "vs_yago": 129.9, "stales": 1.5}, {"id": "100402305", "ruta": "CL1853", "canal": "SMK", "sub": "Santa Isabel", "dir": "ZENTENO 254                        ", "net": 10493061, "tgt": 10791090, "vs_tgt": 97.2, "vs_yago": 131.2, "stales": 1.5}, {"id": "100402306", "ruta": "CL2285", "canal": "WHS", "sub": "Cencocal", "dir": "AV. GONZALO LIZASOAIN 305 - CALLE 7", "net": 3419891, "tgt": 623467, "vs_tgt": 548.5, "vs_yago": 171.8, "stales": 0.0}, {"id": "100402317", "ruta": "CL1366", "canal": "SMK", "sub": "Santa Isabel", "dir": "AV. CHACABUCO 402                  ", "net": 7249697, "tgt": 6142722, "vs_tgt": 118.0, "vs_yago": 122.0, "stales": 1.5}, {"id": "100405945", "ruta": "CL1651", "canal": "SMK", "sub": "Santa Isabel", "dir": "CALLE MERCED 25                    ", "net": 2931747, "tgt": 2790023, "vs_tgt": 105.1, "vs_yago": 94.4, "stales": 1.5}, {"id": "100418548", "ruta": "CL1652", "canal": "SMK", "sub": "Unimarc", "dir": "CALLE YERBAS BUEBAS 460            ", "net": 2711502, "tgt": 3963465, "vs_tgt": 68.4, "vs_yago": 81.2, "stales": 4.03}, {"id": "100419231", "ruta": "CL1650", "canal": "SMK", "sub": "Unimarc", "dir": "CALLE PORTUS 1248                  ", "net": 2702198, "tgt": 1342213, "vs_tgt": 201.3, "vs_yago": 204.3, "stales": 0.76}, {"id": "100419824", "ruta": "CL1682", "canal": "WHS", "sub": "Sergio Olivares", "dir": "SALVADOR GONZALEZ  655             ", "net": 5688308, "tgt": 5224948, "vs_tgt": 108.9, "vs_yago": 89.1, "stales": 0.0}, {"id": "100420846", "ruta": "CL1682", "canal": "SMK", "sub": "Unimarc", "dir": "BALMACEDA 307                      ", "net": 7625844, "tgt": 5305918, "vs_tgt": 143.7, "vs_yago": 123.1, "stales": 0.57}, {"id": "100432905", "ruta": "CL1680", "canal": "SMK", "sub": "Super 10", "dir": "SANTO DOMINGO 111                  ", "net": 2175459, "tgt": 3924149, "vs_tgt": 55.4, "vs_yago": 49.5, "stales": 0.0}, {"id": "100436400", "ruta": "CL1365", "canal": "SMK", "sub": "Tottus", "dir": "BERNARDO OHIGGINS 1150             ", "net": 9165604, "tgt": 8336139, "vs_tgt": 110.0, "vs_yago": 111.3, "stales": 0.9}, {"id": "100440265", "ruta": "CL2285", "canal": "WHS", "sub": "Otros", "dir": "DIEGO LILLO  525                   ", "net": 8643830, "tgt": 4289494, "vs_tgt": 201.5, "vs_yago": 182.1, "stales": 0.0}, {"id": "100444270", "ruta": "CL2450", "canal": "SMK", "sub": "Super 10", "dir": "CARRERA  949                       ", "net": 6711964, "tgt": 5902274, "vs_tgt": 113.7, "vs_yago": 119.4, "stales": 0.0}, {"id": "100448016", "ruta": "CL1680", "canal": "WHS", "sub": "SOC.DISTRIB.", "dir": "PRAT #297-A                        ", "net": 6283888, "tgt": 11011314, "vs_tgt": 57.1, "vs_yago": 99.5, "stales": 0.0}, {"id": "100663028", "ruta": "CL1650", "canal": "SMK", "sub": "Express", "dir": "TOCORNAL S/N                       ", "net": 10062098, "tgt": 12044482, "vs_tgt": 83.5, "vs_yago": 84.0, "stales": 0.08}, {"id": "100663032", "ruta": "CL2452", "canal": "SMK", "sub": "Express", "dir": "SANTA TERESA                       ", "net": 11198372, "tgt": 10771278, "vs_tgt": 104.0, "vs_yago": 92.8, "stales": 0.08}, {"id": "100663063", "ruta": "CL2450", "canal": "SMK", "sub": "Express", "dir": "CALLE CARRERA 1165                 ", "net": 5845894, "tgt": 7807139, "vs_tgt": 74.9, "vs_yago": 77.0, "stales": 0.08}, {"id": "100663067", "ruta": "CL1652", "canal": "SMK", "sub": "Express", "dir": "CALLE PAPUDO 249                   ", "net": 8974565, "tgt": 10115505, "vs_tgt": 88.7, "vs_yago": 107.8, "stales": 0.08}, {"id": "100663152", "ruta": "CL1367", "canal": "SMK", "sub": "Hiper", "dir": "AV. SANTA TERESA 681               ", "net": 21472566, "tgt": 26198887, "vs_tgt": 82.0, "vs_yago": 98.8, "stales": 0.08}, {"id": "101953250", "ruta": "CL2452", "canal": "WHS", "sub": "Otros", "dir": "CONDEL 499 LA LIGUA 499            ", "net": 2718158, "tgt": 4210255, "vs_tgt": 64.6, "vs_yago": 84.9, "stales": 0.0}, {"id": "102083569", "ruta": "CL2285", "canal": "WHS", "sub": "Cencocal", "dir": "CALLE PRAT 796                     ", "net": 7451579, "tgt": 2603825, "vs_tgt": 286.2, "vs_yago": 153.7, "stales": 0.0}, {"id": "102500231", "ruta": "CL1682", "canal": "WHS", "sub": "Sergio Olivares", "dir": "EDWARDS 301                        ", "net": 11859901, "tgt": 11639388, "vs_tgt": 101.9, "vs_yago": 108.8, "stales": 0.0}, {"id": "103246197", "ruta": "CL1650", "canal": "SMK", "sub": "Unimarc", "dir": "ENCON 500                          ", "net": 4233330, "tgt": 4297970, "vs_tgt": 98.5, "vs_yago": 114.0, "stales": 5.96}, {"id": "103336873", "ruta": "CL1681", "canal": "WHS", "sub": "Las Camelias", "dir": "MANUEL RODRIGUEZ 394               ", "net": 2453810, "tgt": 3598534, "vs_tgt": 68.2, "vs_yago": 42.4, "stales": 0.0}, {"id": "103470716", "ruta": "CL1651", "canal": "SMK", "sub": "Hiper", "dir": "AVENIDA LIBERTADOR BERNARDO 7      ", "net": 19599034, "tgt": 22282000, "vs_tgt": 88.0, "vs_yago": 94.5, "stales": 1.24}, {"id": "104211394", "ruta": "CL2450", "canal": "SMK", "sub": "Hiper", "dir": "LAUTARO 78                         ", "net": 24112975, "tgt": 23652447, "vs_tgt": 101.9, "vs_yago": 147.9, "stales": 0.08}, {"id": "104267206", "ruta": "CL2285", "canal": "WHS", "sub": "Distr. Pedro Aravena", "dir": "MANUEL RODRIGUEZ , HIJUELAS 2087   ", "net": 1401932, "tgt": 2674816, "vs_tgt": 52.4, "vs_yago": 39.4, "stales": 0.0}, {"id": "104289525", "ruta": "CL2285", "canal": "WHS", "sub": "Kiko", "dir": "DIEGO LILLO 444                    ", "net": 2207506, "tgt": 4117195, "vs_tgt": 53.6, "vs_yago": 67.7, "stales": 0.0}, {"id": "104384156", "ruta": "CL1366", "canal": "SMK", "sub": "Unimarc", "dir": "HERMANOS CLARK 55                  ", "net": 2376617, "tgt": 2345652, "vs_tgt": 101.3, "vs_yago": 152.0, "stales": 0.0}, {"id": "104418521", "ruta": "CL1681", "canal": "SMK", "sub": "Unimarc", "dir": "AV ALESSANDRI 50 LOCAL 1           ", "net": 5195354, "tgt": 5425626, "vs_tgt": 95.8, "vs_yago": 132.4, "stales": 2.24}, {"id": "104646232", "ruta": "CL1367", "canal": "SMK", "sub": "Alvi", "dir": "HERMANOS CLARK 55                  ", "net": 5556089, "tgt": 6282116, "vs_tgt": 88.4, "vs_yago": 106.0, "stales": 0.0}, {"id": "104649771", "ruta": "CL1681", "canal": "WHS", "sub": "Las Camelias", "dir": "MAIPU 199                          ", "net": 226226, "tgt": 317545, "vs_tgt": 71.2, "vs_yago": 0.0, "stales": 0.0}, {"id": "104723922", "ruta": "CL2285", "canal": "WHS", "sub": "Distr. Pedro Aravena", "dir": "DIEGO LILLO 530                    ", "net": 1644720, "tgt": 3941403, "vs_tgt": 41.7, "vs_yago": 78.8, "stales": 0.0}, {"id": "104723923", "ruta": "CL2285", "canal": "WHS", "sub": "Distr. Pedro Aravena", "dir": "GONZALO LIZASOAIN 56               ", "net": 1404790, "tgt": 2025406, "vs_tgt": 69.4, "vs_yago": 42.0, "stales": 0.0}], "benchmark": {"chile_total": {"net": 17977652145, "tgt": 16693619601, "vs_tgt": 107.7}, "chile_whs": {"net": 3975146418, "tgt": 3795662213, "vs_tgt": 104.7}, "chile_smk": {"net": 14002505727, "tgt": 12897957388, "vs_tgt": 108.6}, "division": {"net": 1621526923, "tgt": 1673813427, "vs_tgt": 96.9}, "zona": {"net": 314566679, "tgt": 311390619, "vs_tgt": 101.0}}, "ranking": [{"name": "Jean Torrejon", "vs_tgt": 101.0, "vs_yago": 110.4, "pos": 1, "sub": "San Felipe"}, {"name": "Verónica Zárate", "vs_tgt": 97.6, "vs_yago": 107.2, "pos": 2, "sub": ""}, {"name": "Raúl Aros", "vs_tgt": 95.9, "vs_yago": 105.8, "pos": 3, "sub": ""}, {"name": "Gustavo Vásquez", "vs_tgt": 89.0, "vs_yago": 95.9, "pos": 4, "sub": ""}]};
+const EXHIB = {"periodo": "W31", "corte": "Vigencia 01-06-2026 al 28-09-2026", "total": {"vigentes": 65, "si": 29, "no": 8, "sd": 28, "cumplimiento": 45.0}, "cadenas": [{"nombre": "Tottus", "vigentes": 10, "si": 0, "no": 0, "sd": 10, "cumplimiento": 0.0, "estado": "SIN_DATOS", "detalle": [{"sala": "TOTTUS LA CALERA 207", "tipo": "CABECERA MURO1", "producto": "LAYS STAX 134GR", "status": "SIN DATO", "motivo": "", "vigencia": "28-07-2026 - 24-08-2026", "ciclo": "8"}, {"sala": "TOTTUS LA CALERA 207", "tipo": "CABECERA", "producto": "CHEEZELS 200 GR + GATOLATE 200GR", "status": "SIN DATO", "motivo": "", "vigencia": "28-07-2026 - 24-08-2026", "ciclo": "8"}, {"sala": "TOTTUS LA CALERA 207", "tipo": "ISLA CENTRAL", "producto": "RAMITAS 230 GR (Sal y Queso)", "status": "SIN DATO", "motivo": "", "vigencia": "28-07-2026 - 24-08-2026", "ciclo": "8"}, {"sala": "TOTTUS LA CALERA 207", "tipo": "CABECERA", "producto": "LAYS 180G (TA + Lisa)", "status": "SIN DATO", "motivo": "", "vigencia": "28-07-2026 - 24-08-2026", "ciclo": "8"}, {"sala": "TOTTUS LA CALERA 207", "tipo": "ISLA ACCESO", "producto": "DORITOS 100 GR + TOSTITOS 10GR", "status": "SIN DATO", "motivo": "", "vigencia": "28-07-2026 - 24-08-2026", "ciclo": "8"}, {"sala": "TOTTUS SAN FELIPE 211", "tipo": "CABECERA MURO1", "producto": "LAYS STAX 134GR", "status": "SIN DATO", "motivo": "", "vigencia": "28-07-2026 - 24-08-2026", "ciclo": "8"}, {"sala": "TOTTUS SAN FELIPE 211", "tipo": "CABECERA", "producto": "CHEEZELS 200 GR + GATOLATE 200GR", "status": "SIN DATO", "motivo": "", "vigencia": "28-07-2026 - 24-08-2026", "ciclo": "8"}, {"sala": "TOTTUS SAN FELIPE 211", "tipo": "ISLA CENTRAL", "producto": "RAMITAS 230 GR (Sal y Queso)", "status": "SIN DATO", "motivo": "", "vigencia": "28-07-2026 - 24-08-2026", "ciclo": "8"}, {"sala": "TOTTUS SAN FELIPE 211", "tipo": "CABECERA", "producto": "LAYS 180G (TA + Lisa)", "status": "SIN DATO", "motivo": "", "vigencia": "28-07-2026 - 24-08-2026", "ciclo": "8"}, {"sala": "TOTTUS SAN FELIPE 211", "tipo": "CABECERA", "producto": "DORITOS QUESO 100 GR + TOSTITOS120GR", "status": "SIN DATO", "motivo": "", "vigencia": "28-07-2026 - 24-08-2026", "ciclo": "8"}]}, {"nombre": "Jumbo", "vigentes": 3, "si": 0, "no": 0, "sd": 3, "cumplimiento": 0.0, "estado": "SIN_DATOS", "detalle": [{"sala": "J754-JUMBO SUPER SAN FELIPE", "tipo": "CIRCUITO", "producto": "ARTESANAS 150G", "status": "SIN DATO", "motivo": "", "vigencia": "28-07-2026 - 24-08-2026", "ciclo": "8"}, {"sala": "J780-JUMBO LOS ANDES", "tipo": "CABECERA", "producto": "STAX 134G", "status": "SIN DATO", "motivo": "", "vigencia": "28-07-2026 - 24-08-2026", "ciclo": "8"}, {"sala": "J780-JUMBO LOS ANDES", "tipo": "CIRCUITO", "producto": "ARTESANAS 150G", "status": "SIN DATO", "motivo": "", "vigencia": "28-07-2026 - 24-08-2026", "ciclo": "8"}]}, {"nombre": "SISA", "vigentes": 17, "si": 1, "no": 1, "sd": 15, "cumplimiento": 6.0, "estado": "CRITICO", "detalle": [{"sala": "N549 - LA CALERA ZENTENO", "tipo": "TMD", "producto": "Doritos", "status": "NO", "motivo": "SIN MATERIAL", "vigencia": "01-06-2026 - 31-07-2026", "ciclo": "6.7"}, {"sala": "N544 - LA CALERA J.J. PÉREZ", "tipo": "ISLA", "producto": "Imbatible Stax 134g", "status": "SIN DATO", "motivo": "", "vigencia": "28-07-2026 - 28-09-2026", "ciclo": "8.9"}, {"sala": "N549 - LA CALERA ZENTENO", "tipo": "PAYLOADER", "producto": "Doritos y Lays Bolsaza", "status": "SIN DATO", "motivo": "", "vigencia": "28-07-2026 - 28-09-2026", "ciclo": "8.9"}, {"sala": "N549 - LA CALERA ZENTENO", "tipo": "ISLA", "producto": "Imbatible Stax 134g", "status": "SIN DATO", "motivo": "", "vigencia": "28-07-2026 - 28-09-2026", "ciclo": "8.9"}, {"sala": "N664 - SAN FELIPE MERCED", "tipo": "ISLA", "producto": "Bolsaza", "status": "SIN DATO", "motivo": "", "vigencia": "28-07-2026 - 28-09-2026", "ciclo": "8.9"}, {"sala": "N664 - SAN FELIPE MERCED", "tipo": "ISLA", "producto": "Imbatible Stax 134g", "status": "SIN DATO", "motivo": "", "vigencia": "28-07-2026 - 28-09-2026", "ciclo": "8.9"}, {"sala": "N665 - LOS ANDES CHACABUCO", "tipo": "ISLA", "producto": "Bolsaza", "status": "SIN DATO", "motivo": "", "vigencia": "28-07-2026 - 28-09-2026", "ciclo": "8.9"}, {"sala": "N665 - LOS ANDES CHACABUCO", "tipo": "ISLA", "producto": "Imbatible Stax 134g", "status": "SIN DATO", "motivo": "", "vigencia": "28-07-2026 - 28-09-2026", "ciclo": "8.9"}, {"sala": "N731 - SAN FELIPE YUNGAY", "tipo": "TMD", "producto": "Doritos", "status": "SI", "motivo": "", "vigencia": "01-06-2026 - 31-07-2026", "ciclo": "6.7"}, {"sala": "N731 - SAN FELIPE YUNGAY", "tipo": "CABECERA 1", "producto": "Doritos y Lays Bolsaza", "status": "SIN DATO", "motivo": "", "vigencia": "28-07-2026 - 28-09-2026", "ciclo": "8.9"}, {"sala": "N731 - SAN FELIPE YUNGAY", "tipo": "ISLA", "producto": "Bolsaza", "status": "SIN DATO", "motivo": "", "vigencia": "28-07-2026 - 28-09-2026", "ciclo": "8.9"}, {"sala": "N731 - SAN FELIPE YUNGAY", "tipo": "PAYLOADER", "producto": "Doritos y Lays Bolsaza", "status": "SIN DATO", "motivo": "", "vigencia": "28-07-2026 - 28-09-2026", "ciclo": "8.9"}, {"sala": "N731 - SAN FELIPE YUNGAY", "tipo": "ISLA", "producto": "Imbatible Stax 134g", "status": "SIN DATO", "motivo": "", "vigencia": "28-07-2026 - 28-09-2026", "ciclo": "8.9"}, {"sala": "N753 - LA LIGUA SERRANO", "tipo": "ISLA", "producto": "Bolsaza", "status": "SIN DATO", "motivo": "", "vigencia": "28-07-2026 - 28-09-2026", "ciclo": "8.9"}, {"sala": "N753 - LA LIGUA SERRANO", "tipo": "ISLA", "producto": "Imbatible Stax 134g", "status": "SIN DATO", "motivo": "", "vigencia": "28-07-2026 - 28-09-2026", "ciclo": "8.9"}, {"sala": "N852 - LOS ANDES BABURIZZA", "tipo": "CABECERA 1", "producto": "Doritos y Lays Bolsaza", "status": "SIN DATO", "motivo": "", "vigencia": "28-07-2026 - 28-09-2026", "ciclo": "8.9"}, {"sala": "N852 - LOS ANDES BABURIZZA", "tipo": "ISLA", "producto": "Imbatible Stax 134g", "status": "SIN DATO", "motivo": "", "vigencia": "28-07-2026 - 28-09-2026", "ciclo": "8.9"}]}, {"nombre": "Super 10", "vigentes": 6, "si": 3, "no": 3, "sd": 0, "cumplimiento": 50.0, "estado": "CRITICO", "detalle": [{"sala": "S10 SAN FELIPE VALPARAISO 3543", "tipo": "ISLA", "producto": "PAPAS FRITAS LISA LAYS 180 GR | PAPAS FRITAS T/AMER LAYS 180 GR | DORITOS QUESO EVECRISP 200 GR", "status": "NO", "motivo": "NO AUTORIZACIÓN SALA", "vigencia": "09-06-2026 - 22-09-2026", "ciclo": "4"}, {"sala": "S10 SAN FELIPE VALPARAISO 3543", "tipo": "PAYLOADER", "producto": "PAPAS T/A TACO MEXICANO LAYS 160 GR | PAPAS T/A ASADO AMERICANO LAYS 160 GR", "status": "NO", "motivo": "NO AUTORIZACIÓN SALA", "vigencia": "09-06-2026 - 22-09-2026", "ciclo": "4"}, {"sala": "S10 SAN FELIPE VALPARAISO 3543", "tipo": "ZA", "producto": "CHEETOS 110 GR/DORITOS QUESO 100GR/RAMITAS QUESO 110GR/RAMITAS SAL 110G", "status": "NO", "motivo": "NO AUTORIZACIÓN SALA", "vigencia": "09-06-2026 - 22-09-2026", "ciclo": "4"}, {"sala": "S10 CARRERA LA CALERA 3514", "tipo": "ISLA", "producto": "PAPAS FRITAS LISA LAYS 180 GR | PAPAS FRITAS T/AMER LAYS 180 GR | DORITOS QUESO EVECRISP 200 GR", "status": "SI", "motivo": "", "vigencia": "09-06-2026 - 22-09-2026", "ciclo": "4"}, {"sala": "S10 CARRERA LA CALERA 3514", "tipo": "ISLA", "producto": "CHEETOS PALITOS QUESO 110 GR | RAMITAS BOLSAZA EVERCRIPS 110GR, QUESO | RAMITAS BOLSAZA EVERCRIPS 110G, ORIGINAL | BOLSAZA DETODITO I EVERCRISP 120 GR | DORITOS QUESO TAMANO M EVECRISP 100GR", "status": "SI", "motivo": "", "vigencia": "09-06-2026 - 22-09-2026", "ciclo": "4"}, {"sala": "S10 CARRERA LA CALERA 3514", "tipo": "ZA", "producto": "CHEETOS 110 GR/DORITOS QUESO 100GR/RAMITAS QUESO 110GR/RAMITAS SAL 110G", "status": "SI", "motivo": "", "vigencia": "09-06-2026 - 22-09-2026", "ciclo": "4"}]}, {"nombre": "Unimarc", "vigentes": 9, "si": 6, "no": 3, "sd": 0, "cumplimiento": 67.0, "estado": "CRITICO", "detalle": [{"sala": "UNI ALESSANDRI SAN ESTEBAN 411", "tipo": "ISLA ZA", "producto": "PAPAS FRITAS T/AMERICANO LAYS 250 GR | DORITOS QUESO EVERCRISP 240 GR", "status": "NO", "motivo": "NO STOCK", "vigencia": "13-07-2026 - 22-09-2026", "ciclo": "4"}, {"sala": "UNI HERMANOS CLARK LOS ANDES 52", "tipo": "ISLA ZA", "producto": "PAPAS FRITAS T/AMERICANO LAYS 250 GR | DORITOS QUESO EVERCRISP 240 GR", "status": "NO", "motivo": "NO STOCK", "vigencia": "13-07-2026 - 22-09-2026", "ciclo": "4"}, {"sala": "UNI PORTUS SAN FELIPE 53", "tipo": "ISLA ZA", "producto": "PAPAS FRITAS T/AMERICANO LAYS 250 GR | DORITOS QUESO EVERCRISP 240 GR", "status": "NO", "motivo": "NO AUTORIZACIÓN SALA", "vigencia": "13-07-2026 - 22-09-2026", "ciclo": "4"}, {"sala": "UNI BAQUEDANO LLAY LLAY 550", "tipo": "ISLA ZA", "producto": "PAPAS FRITAS T/AMERICANO LAYS 250 GR | DORITOS QUESO EVERCRISP 240 GR", "status": "SI", "motivo": "", "vigencia": "13-07-2026 - 22-09-2026", "ciclo": "4"}, {"sala": "UNI ENCON SAN FELIPE 935", "tipo": "ISLA ZA", "producto": "PAPAS FRITAS T/AMERICANO LAYS 250 GR | DORITOS QUESO EVERCRISP 240 GR", "status": "SI", "motivo": "", "vigencia": "13-07-2026 - 22-09-2026", "ciclo": "4"}, {"sala": "UNI HERMANOS CLARK LOS ANDES 52", "tipo": "CABECERA", "producto": "DORITOS SABOR BURGER EVERCRISP 180 GR | DORITOS QUESO EVERCRISP 240 GR", "status": "SI", "motivo": "", "vigencia": "09-06-2026 - 22-09-2026", "ciclo": "4"}, {"sala": "UNI YERBAS BUENAS LOS ANDES 54", "tipo": "ISLA", "producto": "CHEETOS PALITOS QUESO 110 GR | DORITOS QUESO TAMANO M EVECRISP 100GR | BOLSAZA DETODITO I EVERCRISP 120 GR | RAMITAS BOLSAZA EVERCRIPS 110GR, QUESO | RAMITAS BOLSAZA EVERCRIPS 110G, ORIGINAL | PAPAS FRITAS T/AMERICANO LAYS 100 GR", "status": "SI", "motivo": "", "vigencia": "09-06-2026 - 22-09-2026", "ciclo": "4"}, {"sala": "UNI YERBAS BUENAS LOS ANDES 54", "tipo": "MURO DE VALOR", "producto": "PAPAS FRITAS STAX LAYS 134 GR, CHEDDAR | PAPAS FRITAS STAX LAYS 134 GR, ORIGINAL | PAPAS FRITAS STAX LAYS 134,CREMA CEBOL", "status": "SI", "motivo": "", "vigencia": "09-06-2026 - 22-09-2026", "ciclo": "4"}, {"sala": "UNI YERBAS BUENAS LOS ANDES 54", "tipo": "ISLA ZA", "producto": "PAPAS FRITAS T/AMERICANO LAYS 250 GR | DORITOS QUESO EVERCRISP 240 GR", "status": "SI", "motivo": "", "vigencia": "13-07-2026 - 22-09-2026", "ciclo": "4"}]}, {"nombre": "ALVI", "vigentes": 5, "si": 4, "no": 1, "sd": 0, "cumplimiento": 80.0, "estado": "OPTIMO", "detalle": [{"sala": "ALVI LOS ANDES 3206", "tipo": "CABECERA", "producto": "RAMITAS SOUR CREAM ONION EVERCRISP 250GR", "status": "NO", "motivo": "NO STOCK", "vigencia": "22-07-2026 - 25-08-2026", "ciclo": "7"}, {"sala": "ALVI LOS ANDES 3206", "tipo": "CABECERA", "producto": "DORITOS QUESO EVECRISP 200 GR", "status": "SI", "motivo": "", "vigencia": "22-07-2026 - 25-08-2026", "ciclo": "7"}, {"sala": "ALVI LOS ANDES 3206", "tipo": "CABECERA", "producto": "PAPAS FRITAS T/AMER LAYS 180 GR", "status": "SI", "motivo": "", "vigencia": "22-07-2026 - 25-08-2026", "ciclo": "7"}, {"sala": "ALVI LOS ANDES 3206", "tipo": "CABECERA", "producto": "RAMITAS S/ORIGINAL EVERCRISP 230 GR", "status": "SI", "motivo": "", "vigencia": "22-07-2026 - 25-08-2026", "ciclo": "7"}, {"sala": "ALVI LOS ANDES 3206", "tipo": "CABECERA", "producto": "RAMITAS S/QUESO EVERCRISP 230 GR", "status": "SI", "motivo": "", "vigencia": "22-07-2026 - 25-08-2026", "ciclo": "7"}]}, {"nombre": "LIDER", "vigentes": 11, "si": 11, "no": 0, "sd": 0, "cumplimiento": 100.0, "estado": "OPTIMO", "detalle": [{"sala": "LA CALERA 983", "tipo": "ISLA", "producto": "LAYS 180G / DORITOS QUESO 285G", "status": "SI", "motivo": "", "vigencia": "10-08-2026 - 02-09-2026", "ciclo": "3.1"}, {"sala": "LA CALERA 983", "tipo": "CHECKOUT", "producto": "DORITOS QUESO / LAYS CORTE AMERIC", "status": "SI", "motivo": "", "vigencia": "23-07-2026 - 19-08-2026", "ciclo": "3.1"}, {"sala": "LOS ANDES VECINO 602", "tipo": "ISLA", "producto": "LAYS 180G / DORITOS QUESO 285G", "status": "SI", "motivo": "", "vigencia": "10-08-2026 - 02-09-2026", "ciclo": "3.1"}, {"sala": "LOS ANDES VECINO 602", "tipo": "ISLA", "producto": "CHEEZELS QUESO T / PAPAS ONDULADAS T / PAPAS JAMON SERRA T / TORTILLA QUESO T", "status": "SI", "motivo": "", "vigencia": "23-07-2026 - 19-08-2026", "ciclo": "3.1"}, {"sala": "LOS ANDES VECINO 602", "tipo": "CHECKOUT", "producto": "DORITOS QUESO / LAYS CORTE AMERIC", "status": "SI", "motivo": "", "vigencia": "23-07-2026 - 19-08-2026", "ciclo": "3.1"}, {"sala": "LOS ANDES VECINO 602", "tipo": "ISLA", "producto": "CHEEZELS QUESO T / GATOLATE CHOC T / RAMITAS QUESO T / RAMITAS SAL T / PAPAS ONDULADAS T / PAPAS JAMON SERRA T / TORTILLA QUESO T", "status": "SI", "motivo": "", "vigencia": "23-07-2026 - 19-08-2026", "ciclo": "3.1"}, {"sala": "SAN FELIPE 985", "tipo": "ISLA", "producto": "LAYS 180G / DORITOS QUESO 285G", "status": "SI", "motivo": "", "vigencia": "10-08-2026 - 02-09-2026", "ciclo": "3.1"}, {"sala": "SAN FELIPE 985", "tipo": "CHECKOUT", "producto": "DORITOS QUESO / LAYS CORTE AMERIC", "status": "SI", "motivo": "", "vigencia": "23-07-2026 - 19-08-2026", "ciclo": "3.1"}, {"sala": "SAN FELIPE 985", "tipo": "ISLA", "producto": "CHEEZELS QUESO T / GATOLATE CHOC T / RAMITAS QUESO T / RAMITAS SAL T / PAPAS ONDULADAS T / PAPAS JAMON SERRA T / TORTILLA QUESO T", "status": "SI", "motivo": "", "vigencia": "23-07-2026 - 19-08-2026", "ciclo": "3.1"}, {"sala": "SAN FELIPE 985", "tipo": "CABECERA", "producto": "TORTILLA QUESO L", "status": "SI", "motivo": "", "vigencia": "23-07-2026 - 19-08-2026", "ciclo": "3.1"}, {"sala": "SAN FELIPE 985", "tipo": "CABECERA", "producto": "RAMITAS CREMA CEBOLL", "status": "SI", "motivo": "", "vigencia": "23-07-2026 - 19-08-2026", "ciclo": "3.1"}]}, {"nombre": "EXPRESS", "vigentes": 4, "si": 4, "no": 0, "sd": 0, "cumplimiento": 100.0, "estado": "OPTIMO", "detalle": [{"sala": "LA CALERA 668", "tipo": "MURO", "producto": "CHEEZELS QUESO T / RAMITAS QUESO T / PAPAS ONDULADAS T / PAPAS JAMON SERRA T / TORTILLA QUESO T", "status": "SI", "motivo": "", "vigencia": "23-07-2026 - 19-08-2026", "ciclo": "3.1"}, {"sala": "LA LIGUA 600", "tipo": "MURO", "producto": "CHEEZELS QUESO T / RAMITAS QUESO T / PAPAS ONDULADAS T / PAPAS JAMON SERRA T / TORTILLA QUESO T", "status": "SI", "motivo": "", "vigencia": "23-07-2026 - 19-08-2026", "ciclo": "3.1"}, {"sala": "LOS ANDES 601", "tipo": "MURO", "producto": "CHEEZELS QUESO T / RAMITAS QUESO T / PAPAS ONDULADAS T / PAPAS JAMON SERRA T / TORTILLA QUESO T", "status": "SI", "motivo": "", "vigencia": "23-07-2026 - 19-08-2026", "ciclo": "3.1"}, {"sala": "SAN FELIPE 644", "tipo": "MURO", "producto": "CHEEZELS QUESO T / RAMITAS QUESO T / PAPAS ONDULADAS T / PAPAS JAMON SERRA T / TORTILLA QUESO T", "status": "SI", "motivo": "", "vigencia": "23-07-2026 - 19-08-2026", "ciclo": "3.1"}]}]};
+const VP = {"periodo": "W30", "kpis": {"vp_total": 8110788, "vp_ejecucion": 5601418, "vp_abastecimiento": 2411375, "vp_isv": 97994, "vp_ejec_pct": 69.1, "vp_abast_pct": 29.7, "vp_isv_pct": 1.2, "salas": 26, "subcategorias": 13, "criticas": 1, "top3_acum": 25.6}, "novedad": "Semana de alerta máxima: 983 La Calera concentra más de $1M en pérdida, la mayor cifra de una sola sala en todo el período analizado. VP Total de la zona sube 44.8% vs W29 (segunda peor semana del período, solo detrás de W24) y VP Abastecimiento se dispara a 29.7% del total (vs 5.3% en W29) — el salto más grande de Abastecimiento registrado hasta ahora. 983 La Calera es el principal responsable individual, pero el deterioro está repartido en varias salas y SKUs de Papa Bolsa (Abastecimiento de esa subcategoría sube +720%).", "salas": [{"pos": 1, "sala": "983 LA CALERA", "cadena": "Hiper Lider", "vp": 1006041, "vp_ejec": 473190, "vp_abast": 484081, "pct_total": 12.4, "pct_abast": 48.1, "nivel": "CRITICO", "top_skus": [{"p": "Doritos Queso 200GX14X1 — Venta parcial (57% Venta0)", "sc": "Tortillas", "vp": 135869, "acc": "REPOSICION"}, {"p": "Lays Medit Jamón 125GX14X1 — Venta parcial (29% Venta0)", "sc": "Papa Bolsa", "vp": 85503, "acc": "REPOSICION"}, {"p": "Ramitas Sal 160GX21X1 — Venta parcial (43% Venta0)", "sc": "Ramas", "vp": 40807, "acc": "REPOSICION"}, {"p": "Gatolate 100GX16 — Venta parcial (29% Venta0)", "sc": "Otros Salty", "vp": 33493, "acc": "REPOSICION"}, {"p": "Detodito Dulce 220GX11 — Venta parcial (71% Venta0)", "sc": "Otros Salty", "vp": 32665, "acc": "REPOSICION"}]}, {"pos": 2, "sala": "3514 S10 CARRERA LA CALERA", "cadena": "Super 10", "vp": 577786, "vp_ejec": 292245, "vp_abast": 261907, "pct_total": 7.1, "pct_abast": 45.3, "nivel": "ALTO", "top_skus": []}, {"pos": 3, "sala": "411 UNI ALESSANDRI SAN ESTEBAN", "cadena": "Unimarc", "vp": 496279, "vp_ejec": 296274, "vp_abast": 199433, "pct_total": 6.1, "pct_abast": 40.2, "nivel": "ALTO", "top_skus": []}, {"pos": 4, "sala": "550 UNI BAQUEDANO LLAY LLAY", "cadena": "Unimarc", "vp": 439748, "vp_ejec": 185767, "vp_abast": 247853, "pct_total": 5.4, "pct_abast": 56.4, "nivel": "ALTO", "top_skus": []}, {"pos": 5, "sala": "935 UNI ENCON SAN FELIPE", "cadena": "Unimarc", "vp": 394524, "vp_ejec": 248681, "vp_abast": 145843, "pct_total": 4.9, "pct_abast": 37.0, "nivel": "ALTO", "top_skus": []}, {"pos": 6, "sala": "211 San Felipe", "cadena": "Tottus", "vp": 384885, "vp_ejec": 269553, "vp_abast": 115332, "pct_total": 4.7, "pct_abast": 30.0, "nivel": "ALTO", "top_skus": [{"p": "Cheetos Palito 105GX15 RM OT — Venta Cero (100%)", "sc": "Otros Salty", "vp": 31968, "acc": "QUIEBRE + REPO"}]}, {"pos": 7, "sala": "3206 ALVI HNOS CLARCK LOS ANDES", "cadena": "Alvi", "vp": 369207, "vp_ejec": 322253, "vp_abast": 46954, "pct_total": 4.6, "pct_abast": 12.7, "nivel": "MEDIO", "top_skus": []}, {"pos": 8, "sala": "N665 Los Andes Chacabuco", "cadena": "Santa Isabel", "vp": 344742, "vp_ejec": 303821, "vp_abast": 40921, "pct_total": 4.3, "pct_abast": 11.9, "nivel": "MEDIO", "top_skus": []}, {"pos": 9, "sala": "985 SAN FELIPE", "cadena": "Hiper Lider", "vp": 338219, "vp_ejec": 262012, "vp_abast": 76207, "pct_total": 4.2, "pct_abast": 22.5, "nivel": "MEDIO", "top_skus": [{"p": "Lays Medit Jamón 125GX14X1 — Venta parcial (14% Venta0)", "sc": "Papa Bolsa", "vp": 70414, "acc": "REPOSICION"}, {"p": "Lays TA 125GX14X1 — Venta parcial (57% Venta0)", "sc": "Papa Bolsa", "vp": 59686, "acc": "REPOSICION"}]}, {"pos": 10, "sala": "N753 La Ligua Serrano", "cadena": "Santa Isabel", "vp": 311988, "vp_ejec": 256739, "vp_abast": 55249, "pct_total": 3.8, "pct_abast": 17.7, "nivel": "MEDIO", "top_skus": []}, {"pos": 11, "sala": "N852 Los Andes Baburizza", "cadena": "Santa Isabel", "vp": 288257, "vp_ejec": 224550, "vp_abast": 63707, "pct_total": 3.6, "pct_abast": 22.1, "nivel": "NORMAL", "top_skus": []}, {"pos": 12, "sala": "3543 S10 SAN FELIPE VALPARAISO", "cadena": "Super 10", "vp": 285712, "vp_ejec": 168372, "vp_abast": 102691, "pct_total": 3.5, "pct_abast": 35.9, "nivel": "NORMAL", "top_skus": []}], "salas_nota": "Ranking Top 12 por VP Total (de 26 salas de la zona) según el reporte. Detalle de SKU disponible para las salas con cruce reportado en el PDF.", "top_skus_zona": [{"p": "Lays TA 125GX14X1", "vp": 338945, "nota": "7/26 salas · Surtido Líder · 88% Abastecimiento, foco 983 La Calera"}, {"p": "Lays Medit Jamón 125GX14X1", "vp": 310846, "nota": "7/26 salas · Surtido Líder · mayormente Ejecución"}, {"p": "Doritos Queso 200GX14X1", "vp": 251630, "nota": "22/26 salas · mayormente Ejecución"}, {"p": "Doritos Queso 285GX12X1", "vp": 218615, "nota": "26/26 salas · Transversal real, sin excepciones"}, {"p": "Lays TA 300GX9X1", "vp": 215337, "nota": "20/26 salas · mixto"}, {"p": "Ramitas Queso 330GX12", "vp": 200464, "nota": "24/26 salas · mitad Abastecimiento"}], "causas_raiz": [{"componente": "Venta Cero", "condicion": "Quiebre=0, Venta0≥0,5", "vp": 2764822, "pct": 49.4, "accion": "Reposición física urgente"}, {"componente": "Venta parcial", "condicion": "Quiebre=0, Venta0 parcial", "vp": 2450458, "pct": 43.7, "accion": "Revisar frente/exhibición"}, {"componente": "Quiebre", "condicion": "Quiebre>0", "vp": 386138, "pct": 6.9, "accion": "Gestión de stock en sala"}], "subcategorias": [{"nombre": "Papa Bolsa", "vp": 2047589, "vp_ejec": 1420041, "vp_abast": 612899, "salas": 26, "pct_ejec": 69.4, "pct_zona": 25.2}, {"nombre": "Tortillas", "vp": 1158512, "vp_ejec": 828001, "vp_abast": 278105, "salas": 26, "pct_ejec": 71.5, "pct_zona": 14.3}, {"nombre": "Otros Salty", "vp": 1147780, "vp_ejec": 799792, "vp_abast": 347988, "salas": 26, "pct_ejec": 69.7, "pct_zona": 14.2}, {"nombre": "Ramas", "vp": 1035637, "vp_ejec": 627492, "vp_abast": 378474, "salas": 26, "pct_ejec": 60.6, "pct_zona": 12.8}, {"nombre": "Oats", "vp": 638155, "vp_ejec": 478265, "vp_abast": 159890, "salas": 26, "pct_ejec": 74.9, "pct_zona": 7.9}, {"nombre": "Ext Salado", "vp": 528638, "vp_ejec": 374049, "vp_abast": 153322, "salas": 26, "pct_ejec": 70.8, "pct_zona": 6.5}, {"nombre": "Ext Dulce", "vp": 490758, "vp_ejec": 349394, "vp_abast": 141364, "salas": 26, "pct_ejec": 71.2, "pct_zona": 6.1}, {"nombre": "Papa Kettle", "vp": 395219, "vp_ejec": 337513, "vp_abast": 57706, "salas": 19, "pct_ejec": 85.4, "pct_zona": 4.9}, {"nombre": "Stax", "vp": 298031, "vp_ejec": 114740, "vp_abast": 183291, "salas": 24, "pct_ejec": 38.5, "pct_zona": 3.7}, {"nombre": "Nuts", "vp": 120376, "vp_ejec": 106333, "vp_abast": 14042, "salas": 18, "pct_ejec": 88.3, "pct_zona": 1.5}, {"nombre": "Barras", "vp": 119690, "vp_ejec": 96355, "vp_abast": 23335, "salas": 18, "pct_ejec": 80.5, "pct_zona": 1.5}, {"nombre": "Galletas Quaker", "vp": 110053, "vp_ejec": 59204, "vp_abast": 50849, "salas": 14, "pct_ejec": 53.8, "pct_zona": 1.4}, {"nombre": "Galletas Toddy", "vp": 20349, "vp_ejec": 10239, "vp_abast": 10110, "salas": 3, "pct_ejec": 50.3, "pct_zona": 0.3}], "rutas": [{"ruta": "CL2450", "salas": "3514 S10 Carrera La Calera, 668 La Calera, 983 La Calera", "vp_ejec": 901401, "pct_abast": 44.7}, {"ruta": "CL1365", "salas": "211 San Felipe, J754 Jumbo Super San Felipe, N731 San Felipe Yungay", "vp_ejec": 695463, "pct_abast": 25.2}, {"ruta": "CL1366", "salas": "52 Uni Hermanos Clark Los Andes, N665 Los Andes Chacabuco, N852 Los Andes Baburizza", "vp_ejec": 682777, "pct_abast": 21.2}, {"ruta": "CL1650", "salas": "53 Uni Portus San Felipe, 644 San Felipe, 935 Uni Encón San Felipe", "vp_ejec": 535666, "pct_abast": 29.9}, {"ruta": "CL1853", "salas": "207 La Calera, N549 La Calera Zenteno", "vp_ejec": 495960, "pct_abast": 12.4}, {"ruta": "CL1652", "salas": "54 Uni Yerbas Buenas Los Andes, 601 Los Andes, J780 Jumbo Los Andes", "vp_ejec": 488772, "pct_abast": 20.5}, {"ruta": "CL1367", "salas": "3206 Alvi Hnos Clarck Los Andes, 602 Los Andes Vecino", "vp_ejec": 420947, "pct_abast": 13.9}, {"ruta": "CL1651", "salas": "985 San Felipe, N664 San Felipe Merced", "vp_ejec": 403035, "pct_abast": 19.3}, {"ruta": "CL2452", "salas": "600 La Ligua, N753 La Ligua Serrano", "vp_ejec": 326984, "pct_abast": 17.0}, {"ruta": "CL1681", "salas": "411 Uni Alessandri San Esteban", "vp_ejec": 296274, "pct_abast": 40.2}, {"ruta": "CL1682", "salas": "550 Uni Baquedano Llay Llay", "vp_ejec": 185767, "pct_abast": 56.4}, {"ruta": "CL1680", "salas": "3543 S10 San Felipe Valparaíso", "vp_ejec": 168372, "pct_abast": 35.9}], "isv": {"salas": [{"cadena": "Super 10", "sala": "3543 S10 SAN FELIPE VALPARAISO", "sku": "Detodito Dulce 220GX11", "stock": 12, "semanas_sin_variar": 9, "prioridad": "ALTA"}, {"cadena": "Unimarc", "sala": "54 UNI YERBAS BUENAS LOS ANDES", "sku": "Avena Multisemillas II 600G", "stock": 8, "semanas_sin_variar": 7, "prioridad": "ALTA"}, {"cadena": "Unimarc", "sala": "52 UNI HERMANOS CLARK LOS ANDES", "sku": "Lays TA 50GX58X1", "stock": 34, "semanas_sin_variar": 6, "prioridad": "MEDIA"}, {"cadena": "Super 10", "sala": "3543 S10 SAN FELIPE VALPARAISO", "sku": "Tostitos Rounded Sal 200G", "stock": 14, "semanas_sin_variar": 6, "prioridad": "MEDIA"}, {"cadena": "Super 10", "sala": "3543 S10 SAN FELIPE VALPARAISO", "sku": "Ramitas Sal 110GX32", "stock": 3, "semanas_sin_variar": 6, "prioridad": "MEDIA"}, {"cadena": "Unimarc", "sala": "54 UNI YERBAS BUENAS LOS ANDES", "sku": "Lays TA 50GX58X1", "stock": 61, "semanas_sin_variar": 5, "prioridad": "MEDIA"}, {"cadena": "Express de Lider", "sala": "668 LA CALERA", "sku": "Lays Stax Sco 14X134G", "stock": 42, "semanas_sin_variar": 5, "prioridad": "MEDIA"}, {"cadena": "Unimarc", "sala": "54 UNI YERBAS BUENAS LOS ANDES", "sku": "Cheetos Palito 64GX62X1", "stock": 61, "semanas_sin_variar": 5, "prioridad": "MEDIA"}, {"cadena": "Unimarc", "sala": "53 UNI PORTUS SAN FELIPE", "sku": "Multipack Mix Lays x Dor x R", "stock": 14, "semanas_sin_variar": 5, "prioridad": "MEDIA"}, {"cadena": "Unimarc", "sala": "52 UNI HERMANOS CLARK LOS ANDES", "sku": "Gatolate 200Gx10X1", "stock": 10, "semanas_sin_variar": 5, "prioridad": "MEDIA"}, {"cadena": "Unimarc", "sala": "52 UNI HERMANOS CLARK LOS ANDES", "sku": "Doritos Queso 54GX66X1", "stock": 44, "semanas_sin_variar": 4, "prioridad": "MEDIA"}, {"cadena": "Santa Isabel", "sala": "N731 San Felipe Yungay", "sku": "Galletón De Avena Arándano", "stock": 34, "semanas_sin_variar": 4, "prioridad": "MEDIA"}], "alerta": "Detodito Dulce 220G en 3543 S10 San Felipe Valparaíso llega a 9 semanas con el mismo stock (12 unidades desde la semana 22) — la alerta ISV más antigua y persistente de toda la zona. 54 Uni Yerbas Buenas — Avena Multisemillas II 600g sube a 7 semanas, nueva entrada en prioridad ALTA. Ambos casos requieren ajuste de inventario en sistema esta semana."}, "prioridades": [{"n": 1, "accion": "983 La Calera — $1.006.041 VP Total, +156% vs W29", "tarea": "Visita presencial urgente + escalar a KAM en paralelo", "responsable": "Promotor CL2450 + Jean + KAM"}, {"n": 2, "accion": "Papa Bolsa — Abastecimiento sube +720% ($613k)", "tarea": "Revisar pedido/distribución de Lays con Supply", "responsable": "Jean + KAM"}, {"n": 3, "accion": "Ruta CL2450 — $1.76M VP Total, 44.7% Abastecimiento", "tarea": "Plan de acción conjunto para la ruta completa", "responsable": "Promotor CL2450 + Jean"}, {"n": 4, "accion": "3543 S10 SF Valparaíso — Detodito Dulce, ISV ALTA (9 sem.)", "tarea": "Ajuste de inventario en sistema", "responsable": "Promotor + Jean"}, {"n": 5, "accion": "54 Uni Yerbas Buenas — Avena Multisemillas II, nueva ALTA (7 sem.)", "tarea": "Ajuste de inventario en sistema", "responsable": "Promotor + Jean"}, {"n": 6, "accion": "N753 La Ligua Serrano — 4ª semana en nivel alto sostenido", "tarea": "Visita dedicada, foco Avena Quaker", "responsable": "Promotor ruta CL2452"}]};
+const INVNEG = {"periodo": "Semana 30", "total_skus": 17, "total_unidades": 117, "detalle": [{"cod": "985", "local": "SAN FELIPE", "cadena": "Hiper Lider", "producto": "RAMITAS SAL T", "unidades": -30}, {"cod": "411", "local": "UNI ALESSANDRI SAN ESTEBAN", "cadena": "Unimarc", "producto": "MANI SIN SAL EVERCRISP 140 GR", "unidades": -28}, {"cod": "N852", "local": "LOS ANDES BABURIZZA", "cadena": "Santa Isabel", "producto": "PAPAS LAYS ARTESANAS SAL DE MAR 95GR", "unidades": -14}, {"cod": "411", "local": "UNI ALESSANDRI SAN ESTEBAN", "cadena": "Unimarc", "producto": "DETODITO MIX DULCE EVERCRISP 220GR", "unidades": -9}, {"cod": "411", "local": "UNI ALESSANDRI SAN ESTEBAN", "cadena": "Unimarc", "producto": "MANI SALADO EVERCRISP 380 GR", "unidades": -8}, {"cod": "602", "local": "LOS ANDES VECINO", "cadena": "Hiper Lider", "producto": "AVENA INSTANT 700G", "unidades": -6}, {"cod": "3514", "local": "S10 CARRERA LA CALERA", "cadena": "Super 10", "producto": "PAPAS FRITAS T/AMERICANO LAYS 100 GR", "unidades": -6}, {"cod": "J754", "local": "JUMBO SUPER SAN FELIPE", "cadena": "Jumbo", "producto": "MANI SALADO EVERCRISP 380 GR", "unidades": -3}, {"cod": "3514", "local": "S10 CARRERA LA CALERA", "cadena": "Super 10", "producto": "MANI SALADO EVERCRISP 140 GR", "unidades": -3}, {"cod": "3543", "local": "S10 SAN FELIPE VALPARAISO", "cadena": "Super 10", "producto": "PAPAS FRITAS T/AMER LAYS 300 GR", "unidades": -2}, {"cod": "411", "local": "UNI ALESSANDRI SAN ESTEBAN", "cadena": "Unimarc", "producto": "RAMITAS EVERCRISP 330 G, C/SAL", "unidades": -2}, {"cod": "644", "local": "SAN FELIPE", "cadena": "Express de Lider", "producto": "GATOLATE CHOC T", "unidades": -1}, {"cod": "600", "local": "LA LIGUA", "cadena": "Express de Lider", "producto": "PAPAS CASRAS OREGANO", "unidades": -1}, {"cod": "3514", "local": "S10 CARRERA LA CALERA", "cadena": "Super 10", "producto": "SNACK QUESO DORITOS 95 GR", "unidades": -1}, {"cod": "53", "local": "UNI PORTUS SAN FELIPE", "cadena": "Unimarc", "producto": "CHEEZELS SABOR QUESO EVERCRISP 200 GR", "unidades": -1}, {"cod": "550", "local": "UNI BAQUEDANO LLAY LLAY", "cadena": "Unimarc", "producto": "DORITOS SABOR BURGER EVERCRISP 180 GR", "unidades": -1}, {"cod": "550", "local": "UNI BAQUEDANO LLAY LLAY", "cadena": "Unimarc", "producto": "MANI SIN SAL EVERCRISP 140 GR", "unidades": -1}]};
+
+const DDV_ACTUAL=25, DDV_TOTAL=26, DDV_RATIO=DDV_ACTUAL/DDV_TOTAL;
+const AVANCE_ESPERADO = DDV_RATIO*100;
+
+function fmtM(v){return '$'+(v/1e6).toFixed(1)+'M';}
+function fmtPct(v){if(v===null||v===undefined)return '0.0%';return v.toFixed(1)+'%';}
+function barW(p){return Math.min(100,Math.max(0,p)).toFixed(1)+'%';}
+function stalesClass(s){return s<2?'sem-green':s<5?'sem-amber':'sem-red';}
+function stalesTxt(s){return s<2?'green-txt':s<5?'amber-txt':'red-txt';}
+
+// SEMAFORO UNIVERSAL POR RITMO (vigente 16/07/2026)
+function diferencia(vs_tgt){ return AVANCE_ESPERADO - vs_tgt; }
+function semD(vs_tgt){
+  const dif = diferencia(vs_tgt);
+  if(dif<=0) return 'green-txt';
+  if(dif<=3) return 'amber-txt';
+  return 'red-txt';
+}
+function semDFill(vs_tgt){
+  const dif = diferencia(vs_tgt);
+  if(dif<=0) return 'fill-green';
+  if(dif<=3) return 'fill-amber';
+  return 'fill-red';
+}
+function semDPill(vs_tgt){
+  const dif = diferencia(vs_tgt);
+  if(dif<=0) return 'pill-green';
+  if(dif<=3) return 'pill-amber';
+  return 'pill-red';
+}
+function rowBgD(vs_tgt){
+  const dif = diferencia(vs_tgt);
+  if(dif<=0) return 'background:#f0fdf4';
+  if(dif<=3) return 'background:#fffbeb';
+  return 'background:#fff1f2';
+}
+
+// ===== ZONA KPIs =====
+function renderZonaKpis(){
+  const z = D.zona;
+  const scTgt = semD(z.vs_tgt);
+  const cardClass = scTgt==='green-txt'?'green':scTgt==='amber-txt'?'amber':'red';
+  document.getElementById('zona-kpis').innerHTML = `
+    <div class="kpi-card ${cardClass}"><div class="kpi-label">Net Sales</div><div class="kpi-value" style="font-size:15px">${fmtM(z.fact_net)}</div><div class="kpi-sub">MM CLP</div></div>
+    <div class="kpi-card red"><div class="kpi-label">Target</div><div class="kpi-value" style="font-size:15px">${fmtM(z.tgt_net)}</div><div class="kpi-sub">MM CLP mes</div></div>
+    <div class="kpi-card ${cardClass}"><div class="kpi-label">vs TGT</div><div class="kpi-value ${scTgt}">${fmtPct(z.vs_tgt)}</div><div class="kpi-sub">Ritmo esperado ${fmtPct(AVANCE_ESPERADO)}</div></div>
+    <div class="kpi-card green"><div class="kpi-label">Yago</div><div class="kpi-value" style="font-size:15px">${fmtM(z.fact_yago)}</div><div class="kpi-sub">MM CLP</div></div>
+    <div class="kpi-card ${z.vs_yago>=100?'green':'amber'}"><div class="kpi-label">vs Yago</div><div class="kpi-value ${z.vs_yago>=100?'green-txt':'amber-txt'}">${fmtPct(z.vs_yago)}</div><div class="kpi-sub">${z.fact_net>=z.fact_yago?'+':''}${fmtM(z.fact_net-z.fact_yago)}</div></div>
+    <div class="kpi-card ${z.stales_pct<2?'green':z.stales_pct<5?'amber':'red'}"><div class="kpi-label">%Stales</div><div class="kpi-value ${stalesTxt(z.stales_pct)}">${z.stales_pct.toFixed(2)}%</div><div class="kpi-sub">bajo control</div></div>
+  `;
+}
+
+function renderCanalCards(){
+  const el = document.getElementById('canal-cards');
+  const order = ['WHS','SMK'];
+  el.innerHTML = order.map(c=>{
+    const d = D.canal[c];
+    const isWHS = c==='WHS';
+    const sf = semDFill(d.vs_tgt);
+    const sc = semD(d.vs_tgt);
+    return `<div class="canal-card">
+      <span class="canal-label ${isWHS?'canal-whs':'canal-smk'}">${c}</span>
+      <div class="canal-net ${isWHS?'purple-txt':'orange-txt'}">${fmtM(d.fact_net)}</div>
+      <div class="canal-tgt">vs TGT ${fmtM(d.tgt_net)} mes</div>
+      <div class="progress-bar"><div class="progress-fill ${sf}" style="width:${barW(d.vs_tgt)}"></div></div>
+      <div class="canal-stats">
+        <div><span class="stat-val ${sc}">${fmtPct(d.vs_tgt)}</span> vs TGT</div>
+        <div><span class="stat-val ${d.vs_yago>=100?'green-txt':'amber-txt'}">${fmtPct(d.vs_yago)}</span> vs Yago</div>
+        <div><span class="stat-val ${stalesTxt(d.stales_pct)}">${d.stales_pct.toFixed(2)}%</span> Stales</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function renderBenchmark(){
+  const b = D.benchmark;
+  const rows = [
+    {label:'⚛ Chile Total', d:b.chile_total, hl:false},
+    {label:'🟣 Chile WHS', d:b.chile_whs, hl:false},
+    {label:'🟠 Chile SMK', d:b.chile_smk, hl:false},
+    {label:'🏛 División Centro Costa', d:b.division, hl:false},
+    {label:'📍 Zona San Felipe (Jean)', d:b.zona, hl:true}
+  ];
+  document.getElementById('bench-rows').innerHTML = rows.map(r=>`
+    <div class="bench-row ${r.hl?'highlight':''}">
+      <div class="bench-name">${r.label}</div>
+      <div class="bench-vals">
+        <div class="bench-pct" style="color:${r.d.vs_tgt>=AVANCE_ESPERADO?'#4ade80':r.d.vs_tgt>=AVANCE_ESPERADO-3?'#fbbf24':'#f87171'}">${fmtPct(r.d.vs_tgt)}</div>
+        <div class="bench-sub">${fmtM(r.d.net)} / ${fmtM(r.d.tgt)}</div>
+      </div>
+    </div>
+  `).join('');
+
+  document.getElementById('rank-rows').innerHTML = D.ranking.map(r=>`
+    <div class="rank-row ${r.name.includes('Torrejon')?'highlight':''}">
+      <div class="rank-pos">${r.pos}°</div>
+      <div>
+        <div class="rank-name">${r.name}</div>
+        ${r.sub?`<div class="rank-sub">${r.sub}</div>`:''}
+      </div>
+      <div class="rank-pct" style="color:${r.vs_tgt>=AVANCE_ESPERADO?'#16a34a':r.vs_tgt>=AVANCE_ESPERADO-3?'#d97706':'#dc2626'}">
+        ${fmtPct(r.vs_tgt)}
+        <div class="rank-sub" style="text-align:right">Yago ${fmtPct(r.vs_yago)}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderZonaRutas(){
+  document.getElementById('zona-rutas').innerHTML = D.rutas.map(r=>{
+    const isWHS = r.canal==='WHS', clr = isWHS?'#7c3aed':'#ea580c';
+    const sc = semD(r.vs_tgt), sf = semDFill(r.vs_tgt);
+    return `<div class="ruta-bar-item">
+      <div class="ruta-bar-top">
+        <div><span class="ruta-name">${r.ruta}</span>
+          <span class="canal-dot ${isWHS?'dot-whs':'dot-smk'}"></span>
+          <span style="font-size:10px;color:${clr};font-weight:700">${r.canal}</span></div>
+        <div><span class="ruta-pct ${sc}">${fmtPct(r.vs_tgt)}</span>
+          <span style="font-size:10px;color:#888"> TGT</span></div>
+      </div>
+      <div class="progress-bar"><div class="progress-fill ${sf}" style="width:${barW(r.vs_tgt)}"></div></div>
+      <div class="ruta-bar-meta">Net ${fmtM(r.fact_net)} · TGT ${fmtM(r.tgt_net)} mes · Yago <span class="${r.vs_yago>=100?'green-txt':'amber-txt'}">${fmtPct(r.vs_yago)}</span> · Stales <span class="${stalesTxt(r.stales_pct)}">${r.stales_pct.toFixed(2)}%</span></div>
+    </div>`;
+  }).join('');
+}
+
+function renderSegKpis(canal, elId){
+  const d = D.canal[canal];
+  const sc = semD(d.vs_tgt);
+  const cardClass = sc==='green-txt'?'green':sc==='amber-txt'?'amber':'red';
+  document.getElementById(elId).innerHTML = `
+    <div class="kpi-card ${cardClass}"><div class="kpi-label">Net Sales</div><div class="kpi-value" style="font-size:16px">${fmtM(d.fact_net)}</div></div>
+    <div class="kpi-card ${cardClass}"><div class="kpi-label">vs TGT</div><div class="kpi-value ${sc}">${fmtPct(d.vs_tgt)}</div></div>
+    <div class="kpi-card ${d.vs_yago>=100?'green':'amber'}"><div class="kpi-label">vs Yago</div><div class="kpi-value ${d.vs_yago>=100?'green-txt':'amber-txt'}">${fmtPct(d.vs_yago)}</div></div>
+    <div class="kpi-card ${d.stales_pct<2?'green':'amber'}"><div class="kpi-label">Stales</div><div class="kpi-value ${stalesTxt(d.stales_pct)}">${d.stales_pct.toFixed(2)}%</div></div>
+  `;
+}
+
+function renderSegRutas(canal, elId){
+  document.getElementById(elId).innerHTML = D.rutas.filter(r=>r.canal===canal).map(r=>{
+    const sc = semD(r.vs_tgt), sf = semDFill(r.vs_tgt);
+    return `<div class="ruta-bar-item">
+      <div class="ruta-bar-top"><span class="ruta-name">${r.ruta}</span>
+        <span class="ruta-pct ${sc}">${fmtPct(r.vs_tgt)}</span></div>
+      <div class="progress-bar"><div class="progress-fill ${sf}" style="width:${barW(r.vs_tgt)}"></div></div>
+      <div class="ruta-bar-meta">Net ${fmtM(r.fact_net)} · TGT ${fmtM(r.tgt_net)} mes · Yago <span class="${r.vs_yago>=100?'green-txt':'amber-txt'}">${fmtPct(r.vs_yago)}</span></div>
+    </div>`;
+  }).join('');
+}
+
+function renderSubcad(canal, elId){
+  document.getElementById(elId).innerHTML = D.subcadenas.filter(s=>s.canal===canal).sort((a,b)=>b.vs_tgt-a.vs_tgt).map(s=>{
+    const sc = semD(s.vs_tgt), sf = semDFill(s.vs_tgt), sp = semDPill(s.vs_tgt);
+    return `<div class="subcad-item">
+      <div class="subcad-top"><div class="subcad-name">${s.sub}</div>
+        <span class="pill ${sp}">${fmtPct(s.vs_tgt)} TGT</span></div>
+      <div class="progress-bar"><div class="progress-fill ${sf}" style="width:${barW(s.vs_tgt)}"></div></div>
+      <div class="subcad-meta">
+        <span>Net ${fmtM(s.fact_net)}</span>
+        <span>TGT ${fmtM(s.tgt_net)} mes</span>
+        <span>Yago <span class="${s.vs_yago>=100?'green-txt':'amber-txt'}">${fmtPct(s.vs_yago)}</span></span>
+        <span><span class="semaforo ${stalesClass(s.stales_pct)}"></span>${s.stales_pct.toFixed(2)}% Stales</span>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function renderRutasExpandibles(canal, elId){
+  document.getElementById(elId).innerHTML = D.rutas.filter(r=>r.canal===canal).map(r=>{
+    const salas = D.salas.filter(s=>s.ruta===r.ruta);
+    const sc = semD(r.vs_tgt);
+    const salasHTML = salas.map(s=>{
+      const ssc = semD(s.vs_tgt), bg = rowBgD(s.vs_tgt);
+      return `<div class="sala-row" style="${bg}">
+        <div class="sala-name">
+          <span style="font-weight:700">${s.sub}</span>
+          <span style="font-size:10px;color:#999;margin-left:5px">${s.id}</span><br>
+          <span style="font-size:10px;color:#aaa">${s.dir}</span>
+        </div>
+        <div class="sala-stats">
+          <span class="${ssc}" style="font-weight:700">${fmtM(s.net)}</span>
+          <span class="${ssc}">${fmtPct(s.vs_tgt)}</span>
+          <span class="${s.vs_yago>=100?'green-txt':'amber-txt'}">${fmtPct(s.vs_yago)}Y</span>
+          <span class="${stalesTxt(s.stales)}">${s.stales.toFixed(2)}%S</span>
+        </div>
+      </div>`;
+    }).join('');
+    return `<div class="ruta-card">
+      <div class="ruta-card-header" onclick="toggleRuta(this)">
+        <div>
+          <div style="font-size:13px;font-weight:700">${r.ruta}</div>
+          <div style="font-size:11px;color:#888;margin-top:2px">Net ${fmtM(r.fact_net)} · TGT ${fmtM(r.tgt_net)} mes · ${salas.length} salas</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px">
+          <div>
+            <div class="${sc}" style="font-weight:800;font-size:14px">${fmtPct(r.vs_tgt)}</div>
+            <div style="font-size:11px;color:#888">TGT mes</div>
+          </div>
+          <span class="ruta-card-arrow">▼</span>
+        </div>
+      </div>
+      <div class="ruta-card-body">${salasHTML}</div>
+    </div>`;
+  }).join('');
+}
+
+function toggleRuta(h){
+  h.nextElementSibling.classList.toggle('open');
+  h.querySelector('.ruta-card-arrow').classList.toggle('open');
+}
+
+let otFilter='all';
+function renderOT(){
+  let rows='';
+  let zona_net=0, zona_tgt=0;
+  D.rutas.forEach(r=>{
+    if(otFilter!=='all'&&r.canal!==otFilter)return;
+    const isWHS = r.canal==='WHS', clr = isWHS?'#7c3aed':'#ea580c';
+    const salasRuta = D.salas.filter(s=>s.ruta===r.ruta);
+    zona_net += r.fact_net; zona_tgt += r.tgt_net;
+    rows += `<tr class="ot-ruta-row"><td colspan="8" style="color:${clr}">
+      <span class="canal-dot ${isWHS?'dot-whs':'dot-smk'}"></span>${r.ruta} — ${r.canal}
+    </td></tr>`;
+    salasRuta.forEach(s=>{
+      const ssc = semD(s.vs_tgt), bg = rowBgD(s.vs_tgt);
+      rows += `<tr style="${bg}">
+        <td style="padding-left:16px;font-size:11px;color:#888">${s.id}</td>
+        <td style="font-weight:600">${s.sub}</td>
+        <td style="font-size:11px;color:#666">${s.dir}</td>
+        <td class="${ssc}" style="font-weight:700">${fmtM(s.net)}</td>
+        <td style="color:#888;font-size:11px">${fmtM(s.tgt)}</td>
+        <td><span class="${ssc}" style="font-weight:700">${fmtPct(s.vs_tgt)}</span></td>
+        <td><span style="color:${s.vs_yago>=100?'#16a34a':'#d97706'};font-weight:700">${fmtPct(s.vs_yago)}</span></td>
+        <td><span class="${stalesTxt(s.stales)}">${s.stales.toFixed(2)}%</span></td>
+      </tr>`;
+    });
+    const rsc2 = semD(r.vs_tgt);
+    rows += `<tr style="background:#eef2ff">
+      <td colspan="3" style="padding-left:12px;font-size:11px;font-weight:700;color:#4338ca">∑ Total ${r.ruta}</td>
+      <td style="font-weight:800" class="${rsc2}">${fmtM(r.fact_net)}</td>
+      <td style="color:#888;font-size:11px">${fmtM(r.tgt_net)}</td>
+      <td><span class="${rsc2}" style="font-weight:800">${fmtPct(r.vs_tgt)}</span></td>
+      <td colspan="2"></td>
+    </tr>`;
+  });
+  if(otFilter==='all'){
+    const zsc = semD(zona_net/zona_tgt*100);
+    rows += `<tr class="ot-total-row">
+      <td colspan="3" style="font-weight:800">🏁 TOTAL ZONA</td>
+      <td style="font-weight:800">${fmtM(zona_net)}</td>
+      <td style="font-size:11px">${fmtM(zona_tgt)}</td>
+      <td><span style="font-weight:800">${fmtPct(zona_net/zona_tgt*100)}</span></td>
+      <td colspan="2"></td>
+    </tr>`;
+  }
+  document.getElementById('ot-body').innerHTML = rows;
+}
+
+function filterOT(f, btn){
+  otFilter = f;
+  document.querySelectorAll('.ot-filter').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderOT();
+}
+
+// ===== EXHIBICIONES =====
+function renderExhib(){
+  document.getElementById('exhib-badge').innerHTML = `🏬 Reporte de Cumplimiento de Exhibiciones — ${EXHIB.periodo} · ${EXHIB.corte}`;
+  const t = EXHIB.total;
+  document.getElementById('exhib-total-pct').textContent = t.cumplimiento.toFixed(1)+'%';
+  document.getElementById('exhib-total-sub').textContent = `${t.si}/${t.vigentes} vigentes cumplidas · ${t.no} NO · ${t.sd} sin dato`;
+  document.getElementById('exhib-cadenas').innerHTML = EXHIB.cadenas.map(c=>{
+    const cc = c.estado==='OPTIMO'?'green-txt':c.estado==='SIN_DATOS'?'amber-txt':'red-txt';
+    const badgeClass = c.estado==='OPTIMO'?'pill-green':c.estado==='SIN_DATOS'?'pill-amber':'pill-red';
+    return `<div class="exhib-cadena-card">
+      <div class="exhib-cadena-pct ${cc}">${c.cumplimiento.toFixed(1)}%</div>
+      <div class="exhib-cadena-name">${c.nombre}</div>
+      <div class="exhib-cadena-sub">${c.si}/${c.vigentes} SI · ${c.no} NO · ${c.sd} SD</div>
+      <span class="exhib-badge ${badgeClass}">${c.estado}</span>
+    </div>`;
+  }).join('');
+  document.getElementById('exhib-detalle').innerHTML = EXHIB.cadenas.map(c=>{
+    const detHTML = c.detalle.map(d=>{
+      const stColor = d.status==='SI'?'green-txt':d.status==='NO'?'red-txt':'amber-txt';
+      return `<div class="exhib-detail-item">
+        <div class="exhib-detail-top"><span>${d.sala} · ${d.tipo}</span><span class="${stColor}">${d.status}${d.motivo&&d.motivo!=='-'?' — '+d.motivo:''}</span></div>
+        <div class="exhib-detail-meta">${d.producto}</div>
+        <div class="exhib-detail-meta">Vigencia ${d.vigencia}${d.ciclo?' · Ciclo '+d.ciclo:''}</div>
+      </div>`;
+    }).join('');
+    return `<div class="ruta-card">
+      <div class="ruta-card-header" onclick="toggleRuta(this)">
+        <div>
+          <div style="font-size:13px;font-weight:700">${c.nombre}</div>
+          <div style="font-size:11px;color:#888;margin-top:2px">${c.vigentes} vigentes · ${c.si} SI / ${c.no} NO / ${c.sd} SD</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px">
+          <div class="${c.estado==='OPTIMO'?'green-txt':c.estado==='SIN_DATOS'?'amber-txt':'red-txt'}" style="font-weight:800;font-size:14px">${c.cumplimiento.toFixed(1)}%</div>
+          <span class="ruta-card-arrow">▼</span>
+        </div>
+      </div>
+      <div class="ruta-card-body">${detHTML}</div>
+    </div>`;
+  }).join('');
+}
+
+// ===== VENTA PERDIDA =====
+function renderVP(){
+  document.getElementById('vp-badge').innerHTML = `📉 Venta Perdida Evercracks — ${VP.periodo} · Zona Centro Costa`;
+  const k = VP.kpis;
+  document.getElementById('vp-kpis').innerHTML = `
+    <div class="kpi-card red"><div class="kpi-label">VP Total</div><div class="kpi-value" style="font-size:15px">${fmtM(k.vp_total)}</div></div>
+    <div class="kpi-card amber"><div class="kpi-label">Salas</div><div class="kpi-value" style="font-size:15px">${k.salas}</div></div>
+    <div class="kpi-card red"><div class="kpi-label">Críticas</div><div class="kpi-value red-txt">${k.criticas!==undefined?k.criticas:0}</div></div>
+    <div class="kpi-card amber"><div class="kpi-label">Subcategorías</div><div class="kpi-value" style="font-size:15px">${k.subcategorias}</div></div>
+    <div class="kpi-card amber"><div class="kpi-label">Top 3 Acum.</div><div class="kpi-value amber-txt">${(k.top3_acum!==undefined?k.top3_acum:0).toFixed(1)}%</div></div>
+    <div class="kpi-card red"><div class="kpi-label">vs semana previa</div><div class="kpi-value red-txt" style="font-size:14px">${VP.resumen?VP.resumen.vp_total_vs_w27:''}</div></div>
+  `;
+  document.getElementById('vp-novedad').textContent = VP.novedad;
+  document.getElementById('vp-causas-wrap').innerHTML = (VP.causas_raiz && VP.causas_raiz.length) ? `
+    <div class="section-title">Desglose VP Ejecución — Causas Raíz</div>
+    <div class="table-scroll"><table class="vp-isv-table">
+      <tr><th>Componente</th><th>VP</th><th>% del total</th><th>Acción</th></tr>
+      ${VP.causas_raiz.map(c=>`<tr><td style="font-weight:700">${c.componente}</td><td>${fmtM(c.vp)}</td><td>${c.pct.toFixed(1)}%</td><td style="font-size:10px;color:#888">${c.accion}</td></tr>`).join('')}
+    </table></div>
+  ` : '';
+  document.getElementById('vp-salas').innerHTML = VP.salas.map(s=>{
+    const skuHTML = s.top_skus && s.top_skus.length ? `<table class="vp-sku-table">${s.top_skus.map(sk=>{
+      const accClass = sk.acc.includes('QUIEBRE')?'q':sk.acc.includes('REPOS')?'r':'v';
+      return `<tr><td>${sk.p}</td><td style="color:#888">${sk.sc}</td><td style="font-weight:700">${fmtM(sk.vp)}</td><td><span class="vp-acc-pill ${accClass}">${sk.acc}</span></td></tr>`;
+    }).join('')}</table>` : `<p style="font-size:11px;color:#999;padding:6px 0">Sin detalle SKU disponible esta semana.</p>`;
+    return `<div class="ruta-card">
+      <div class="ruta-card-header" onclick="toggleRuta(this)">
+        <div>
+          <div style="font-size:13px;font-weight:700">#${s.pos} ${s.sala}</div>
+          <div style="font-size:11px;color:#888;margin-top:2px">${s.cadena} · ${s.pct_total}% del VP total</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px">
+          <div style="text-align:right">
+            <div style="font-weight:800;font-size:14px" class="red-txt">${fmtM(s.vp)}</div>
+            <span class="vp-nivel-badge vp-nivel-${s.nivel}">${s.nivel}</span>
+          </div>
+          <span class="ruta-card-arrow">▼</span>
+        </div>
+      </div>
+      <div class="ruta-card-body" style="padding:8px 12px">${skuHTML}</div>
+    </div>`;
+  }).join('') + (VP.salas_nota?`<p style="font-size:11px;color:#999;margin-top:6px">${VP.salas_nota}</p>`:'');
+
+  document.getElementById('vp-subcat').innerHTML = VP.subcategorias.map(sc=>`
+    <div class="subcad-item">
+      <div class="subcad-top"><div class="subcad-name">${sc.nombre}</div><span class="pill pill-red">${sc.pct_zona.toFixed(1)}%</span></div>
+      <div class="progress-bar"><div class="progress-fill fill-red" style="width:${barW(sc.pct_zona*4)}"></div></div>
+      <div class="subcad-meta"><span>VP ${fmtM(sc.vp)}</span>${sc.salas!==undefined?`<span>${sc.salas} salas</span>`:''}${sc.pct_ejec!==undefined?`<span>${sc.pct_ejec.toFixed(1)}% Ejec.</span>`:''}</div>
+    </div>
+  `).join('');
+
+  document.getElementById('vp-rutas-table').innerHTML = (VP.rutas && VP.rutas.length) ? (`<tr><th>Ruta</th><th>Salas</th><th>VP Ejec.</th><th>% Abast.</th></tr>` +
+    VP.rutas.map(r=>`<tr><td style="font-weight:700">${r.ruta}</td><td style="font-size:10px;color:#888">${r.salas}</td><td>${fmtM(r.vp_ejec)}</td><td>${r.pct_abast}%</td></tr>`).join('')) : `<tr><td style="padding:8px;color:#999;font-size:11px">${VP.rutas_nota || 'No disponible en el reporte de esta semana.'}</td></tr>`;
+
+  document.getElementById('vp-isv-table').innerHTML = `<tr><th>Sala</th><th>SKU</th><th>Stock</th><th>Sem. sin variar</th><th>Prioridad</th></tr>` +
+    VP.isv.salas.map(i=>`<tr><td>${i.sala}</td><td>${i.sku}</td><td>${i.stock}</td><td>${i.semanas_sin_variar}</td><td><span class="pill ${i.prioridad==='ALTA'?'pill-red':i.prioridad==='MEDIA'?'pill-amber':'pill-green'}">${i.prioridad}</span></td></tr>`).join('');
+  document.getElementById('vp-isv-alerta').textContent = '⚠️ ' + VP.isv.alerta;
+
+  document.getElementById('vp-prioridades').innerHTML = VP.prioridades.map(p=>`
+    <div class="vp-prior-item">
+      <div class="vp-prior-n">${p.n}</div>
+      <div>
+        <div style="font-size:12px;font-weight:700">${p.accion}</div>
+        <div style="font-size:11px;color:#666;margin-top:2px">${p.tarea}</div>
+        <div style="font-size:10px;color:#999;margin-top:2px">👤 ${p.responsable}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ===== INVENTARIO NEGATIVO =====
+function renderInvNeg(){
+  document.getElementById('invneg-badge').innerHTML = `📦 Inventario Negativo — ${INVNEG.periodo}`;
+  document.getElementById('invneg-kpis').innerHTML = `
+    <div class="kpi-card red"><div class="kpi-label">SKUs afectados</div><div class="kpi-value red-txt">${INVNEG.total_skus}</div></div>
+    <div class="kpi-card red"><div class="kpi-label">Unidades negativas</div><div class="kpi-value red-txt">${INVNEG.total_unidades}</div></div>
+  `;
+  document.getElementById('invneg-table').innerHTML = `<tr><th>Cód</th><th>Local</th><th>Cadena</th><th>Producto</th><th>Unid.</th></tr>` +
+    INVNEG.detalle.map(d=>`<tr><td>${d.cod}</td><td>${d.local}</td><td style="font-size:10px;color:#888">${d.cadena}</td><td style="font-size:10px">${d.producto}</td><td class="red-txt" style="font-weight:700">${d.unidades}</td></tr>`).join('');
+}
+
+// ===== ALERTAS =====
+function renderAlertas(){
+  const z = D.zona, whs = D.canal.WHS, smk = D.canal.SMK;
+  const remaining = DDV_TOTAL - DDV_ACTUAL;
+  const dailyRate = z.fact_net / DDV_ACTUAL;
+  const projClose = z.fact_net + dailyRate * remaining;
+  const projPct = projClose / z.tgt_net * 100;
+  const zerosWHS = D.salas.filter(s=>s.net<=0 && s.canal==='WHS');
+  const zerosWHSTgt = zerosWHS.reduce((a,s)=>a+s.tgt,0);
+  const bestRuta = [...D.rutas].sort((a,b)=>b.vs_tgt-a.vs_tgt)[0];
+  const gap = z.tgt_net - z.fact_net;
+
+  const html = `
+    <div class="alert-item success">
+      <div class="alert-icon">🏆</div>
+      <div class="alert-text">
+        <h4>¡Zona cierra julio sobre el 100% TGT! (101.0%)</h4>
+        <p>Con 1 DDV restante, San Felipe ya superó el target del mes: $${(z.fact_net/1e6).toFixed(1)}M vs target $${(z.tgt_net/1e6).toFixed(1)}M. Cierre proyectado final ~${fmtM(projClose)} (${projPct.toFixed(0)}% TGT).</p>
+      </div>
+    </div>
+    <div class="alert-item success">
+      <div class="alert-icon">🥇</div>
+      <div class="alert-text">
+        <h4>Jean cierra el mes 1° de la división — único sobre 100% TGT</h4>
+        <p>101.0% TGT, el único de los 4 supervisores que superó el mes. Verónica Zárate 2da (97.6%), Raúl Aros 3ro (95.9%), Gustavo Vásquez 4to (89.0%). La división cierra en 96.9% TGT — San Felipe queda 4.1pp por encima del promedio.</p>
+      </div>
+    </div>
+    <div class="alert-item success">
+      <div class="alert-icon">🏁</div>
+      <div class="alert-text">
+        <h4>7 de 13 rutas cerraron julio sobre el 100% TGT</h4>
+        <p>CL1682 (118.7%), CL1853 (116.9%), CL2285 (112.7%), CL2452 (110.9%), CL1365 (109.3%), CL1366 (108.1%) y CL1652 (107.3%) — más de la mitad de la zona superó el mes.</p>
+      </div>
+    </div>
+    <div class="alert-item success">
+      <div class="alert-icon">🏆</div>
+      <div class="alert-text">
+        <h4>Top ruta: ${bestRuta.ruta} (${bestRuta.canal}) — ${fmtPct(bestRuta.vs_tgt)} TGT</h4>
+        <p>Net ${fmtM(bestRuta.fact_net)} sobre target ${fmtM(bestRuta.tgt_net)}, además ${fmtPct(bestRuta.vs_yago)} vs Yago — CL1682 cierra julio como la ruta líder de toda la zona.</p>
+      </div>
+    </div>
+    <div class="alert-item info">
+      <div class="alert-icon">📊</div>
+      <div class="alert-text">
+        <h4>Zona cierra sobre el año pasado: 110.4% vs Yago</h4>
+        <p>Net $${(z.fact_net/1e6).toFixed(1)}M vs Yago $${(z.fact_yago/1e6).toFixed(1)}M — $${((z.fact_net-z.fact_yago)/1e6).toFixed(1)}M por sobre julio 2025.</p>
+      </div>
+    </div>
+    <div class="alert-item danger">
+      <div class="alert-icon">🚨</div>
+      <div class="alert-text">
+        <h4>CL1680 cierra julio en 56.6% TGT — la única bajo el 90%</h4>
+        <p>Con 1 DDV restante no hay margen para revertirlo. Queda como el pendiente #1 para revisar apenas arranque agosto — foco en Super 10 San Felipe Valparaíso, la única sala de esa ruta.</p>
+      </div>
+    </div>
+    <div class="alert-item warning">
+      <div class="alert-icon">⚠️</div>
+      <div class="alert-text">
+        <h4>Unimarc Encón 500 cierra julio sin resolver: 5.96% stales</h4>
+        <p>Sala 103246197 (CL1650, SMK) termina el mes con la merma sin bajar del umbral crítico — venta sólida (98.5% TGT) pero stales estancados. Prioridad para la primera semana de agosto.</p>
+      </div>
+    </div>
+    <div class="alert-item info">
+      <div class="alert-icon">📉</div>
+      <div class="alert-text">
+        <h4>Exhibiciones (W31), Venta Perdida (W30) e Inventario Negativo (Sem. 30): sin cambios</h4>
+        <p>Se mantienen los datos de la semana previa en las tres pestañas. Sin actualización nueva subida hoy.</p>
+      </div>
+    </div>
+  `;
+  document.getElementById('alertas-list').innerHTML = html;
+}
+
+// TABS
+document.querySelectorAll('.tab').forEach(tab=>{
+  tab.addEventListener('click',()=>{
+    document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+    document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById('panel-'+tab.dataset.tab).classList.add('active');
+  });
+});
+
+// INIT
+renderZonaKpis();
+renderCanalCards();
+renderBenchmark();
+renderZonaRutas();
+renderSegKpis('WHS','seg-kpis-whs');
+renderSegKpis('SMK','seg-kpis-smk');
+document.getElementById('seg-analysis-whs').innerHTML = `<h3><span class="canal-label canal-whs" style="font-size:10px">WHS</span> Análisis</h3><p><strong class="green-txt">✓ Fortaleza:</strong> Canal cierra en 97.2% TGT — prácticamente el mes completo. CL1682 (118.7%) y CL2285 (112.7%) lo superan con margen. Cencocal termina en 158.4% TGT, la subcadena más fuerte de toda la zona.<br><br><strong class="amber-txt">⚠ Alerta:</strong> CL1681 sube a 92.0% TGT en el cierre, quedando muy cerca del 100% aunque no llega a tiempo.<br><strong class="red-txt">✗ Foco:</strong> Kiko (53.6%) y Distr. Pedro Aravena (51.5%) cierran julio bajo el 55% TGT — quedan como pendientes para reforzar en agosto.</p>`;
+document.getElementById('seg-analysis-smk').innerHTML = `<h3><span class="canal-label canal-smk" style="font-size:10px">SMK</span> Análisis</h3><p><strong class="green-txt">✓ Fortaleza:</strong> Canal cierra en 102.1% TGT. CL1853 termina como la mejor ruta SMK (116.9% TGT, 139.8% Yago), seguida de CL2452 (110.9%) y CL1365 (109.3%) — 5 rutas SMK superan el 100%.<br><br><strong class="amber-txt">⚠ Alerta:</strong> Unimarc Encón 500 cierra julio en 5.96% stales, sin resolver — queda como tarea pendiente para agosto.<br><strong class="red-txt">✗ Foco:</strong> CL1680 cierra el mes en 56.6% TGT — es la única ruta de toda la zona que no llega al 90%, y con 1 DDV restante no hay margen para revertirlo.</p>`;
+renderSegRutas('WHS','seg-rutas-whs');
+renderSegRutas('SMK','seg-rutas-smk');
+renderSubcad('SMK','sub-smk');
+renderSubcad('WHS','sub-whs');
+renderRutasExpandibles('WHS','rutas-whs');
+renderRutasExpandibles('SMK','rutas-smk');
+renderOT();
+renderExhib();
+renderVP();
+renderInvNeg();
+renderAlertas();
+</script>
+</body>
+</html>
