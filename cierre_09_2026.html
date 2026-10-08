@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Evercracks | Cierre Septiembre 2026 | Jean Franco Torrejon</title>
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="apple-mobile-web-app-title" content="Evercracks">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#fff7ea;color:#2d0f45;font-size:14px}
+.header{background:linear-gradient(180deg,#2d0f45 0%,#9c1f6e 100%);color:#fff;padding:14px 16px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(45,15,69,.45)}
+.header-top{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.header h1{font-size:17px;font-weight:700;letter-spacing:.3px}
+.header .meta{font-size:11px;opacity:.85;margin-top:2px}
+.badge{background:#f78c0b;color:#2d0f45;padding:3px 9px;border-radius:20px;font-size:11px;font-weight:800;letter-spacing:.3px;white-space:nowrap}
+.hdr-logo{width:32px;height:32px;border-radius:9px;vertical-align:-8px;margin-right:9px;box-shadow:0 0 0 2px rgba(240,127,30,.7)}
+.back{display:inline-block;margin-top:8px;color:#fff;text-decoration:none;font-size:12px;font-weight:600;background:rgba(255,255,255,.14);padding:5px 10px;border-radius:8px}
+.bunting{height:22px;background:#fff7ea url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='60' height='22' viewBox='0 0 60 22'><rect width='60' height='4' fill='%23f78c0b'/><polygon points='0,4 12,4 6,20' fill='%23d6336c'/><polygon points='12,4 24,4 18,20' fill='%23f78c0b'/><polygon points='24,4 36,4 30,20' fill='%230f8b8d'/><polygon points='36,4 48,4 42,20' fill='%23ffc233'/><polygon points='48,4 60,4 54,20' fill='%237c3aa8'/></svg>") repeat-x}
+.wrap{max-width:560px;margin:0 auto;padding:14px 16px 28px}
+h2{font-size:14px;font-weight:800;color:#2d0f45;margin:20px 0 8px;display:flex;align-items:center;gap:8px}
+h2 small{font-size:11px;font-weight:500;color:#8a7a99}
+.sub{font-size:12px;color:#6f5a80;line-height:1.5}
+.green-txt{color:#16a34a}.amber-txt{color:#d97706}.red-txt{color:#dc2626}
+.hero{background:#2d0f45;color:#fff;border-radius:14px;padding:16px 16px 14px}
+.hero-top{display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap}
+.big{font-size:44px;font-weight:800;line-height:1;letter-spacing:-1px}
+.big small{font-size:15px;font-weight:600;opacity:.75;letter-spacing:0;margin-left:4px}
+.hero-l{font-size:15px;font-weight:600;opacity:.8;margin-top:6px}
+.nw{white-space:nowrap}
+.state{font-size:12px;font-weight:700;padding:4px 10px;border-radius:14px;white-space:nowrap;flex-shrink:0;max-width:100%;color:#fff}
+.state.ok{background:#16a34a}.state.amb{background:#d97706}.state.bad{background:#dc2626}
+.track{position:relative;height:12px;background:rgba(255,255,255,.16);border-radius:6px;margin:18px 0 6px}
+.track-fill{position:absolute;left:0;top:0;bottom:0;border-radius:6px;background:#fff}
+.track-mark{position:absolute;top:-6px;bottom:-6px;width:3px;background:#f78c0b;border-radius:2px}
+.track-legend{display:flex;justify-content:space-between;gap:8px;font-size:11px;opacity:.85;flex-wrap:wrap}
+.track-legend b{color:#f78c0b}
+.need{margin-top:14px;padding-top:12px;border-top:1px solid rgba(255,255,255,.15);display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.need div{font-size:11px;opacity:.85;line-height:1.3}
+.need b{display:block;font-size:17px;color:#fff;margin-top:2px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.mini{background:#fff;border-radius:12px;padding:12px;box-shadow:0 1px 4px rgba(45,15,69,.08);border-top:3px solid #f0d9bf}
+.mini.whs{border-top-color:#d9531e}.mini.smk{border-top-color:#0f8b8d}
+.mini-l{font-size:11px;font-weight:800;letter-spacing:.4px;text-transform:uppercase}
+.mini.whs .mini-l{color:#d9531e}.mini.smk .mini-l{color:#0f8b8d}
+.mini-v{font-size:24px;font-weight:800;margin-top:4px}
+.mini-s{font-size:11px;color:#8a7a99;margin-top:2px;line-height:1.4}
+.mini-row{display:flex;justify-content:space-between;font-size:12px;margin-top:6px;gap:6px}
+.mini-row span:first-child{color:#8a7a99}
+.mini-row b{font-weight:800}
+.bench{background:#2d0f45;border-radius:12px;padding:14px;color:#fff}
+.bench-t{font-size:11px;font-weight:700;letter-spacing:.4px;color:#c9b8da;margin-bottom:8px;text-transform:uppercase}
+.brow{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.1)}
+.brow:last-child{border-bottom:none}
+.brow.me{background:rgba(22,163,74,.2);margin:0 -8px;padding:8px;border-radius:8px;border-bottom:none}
+.brow-n{font-size:13px;font-weight:700}
+.brow-n small{display:block;font-size:10px;font-weight:500;color:#c9b8da}
+.brow-v{text-align:right;font-size:17px;font-weight:800}
+.brow-v small{display:block;font-size:10px;font-weight:500;color:#c9b8da}
+.pos{display:inline-block;width:22px;font-size:13px;font-weight:800;color:#c9b8da}
+.me .pos{color:#fff}
+.card{background:#fff;border-radius:12px;box-shadow:0 1px 4px rgba(45,15,69,.08);margin-bottom:8px;overflow:hidden;border-left:4px solid #f0d9bf}
+.card.ok{border-left-color:#16a34a}.card.amb{border-left-color:#d97706}.card.bad{border-left-color:#dc2626}
+.card-h{width:100%;display:flex;align-items:center;gap:10px;padding:12px;background:none;border:none;text-align:left;font:inherit;color:inherit;cursor:pointer}
+.card-main{flex:1;min-width:0}
+.card-t{font-size:14px;font-weight:800;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.chip{font-size:10px;font-weight:800;padding:2px 7px;border-radius:8px;color:#fff}
+.chip.WHS{background:#d9531e}.chip.SMK{background:#0f8b8d}
+.card-s{font-size:11px;color:#8a7a99;margin-top:3px}
+.card-pct{text-align:right;flex-shrink:0}
+.card-pct b{display:block;font-size:20px;font-weight:800}
+.card-pct small{font-size:10px;color:#8a7a99}
+.arrow{color:#b3237a;font-size:12px;transition:transform .2s;flex-shrink:0}
+.card.open .arrow{transform:rotate(180deg)}
+.card-body{display:none;padding:0 12px 12px;border-top:1px solid #f5e6d2}
+.card.open .card-body{display:block}
+.sala{padding:10px 0;border-bottom:1px solid #f5e6d2}
+.sala:last-child{border-bottom:none}
+.sala-h{display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.sala-n{font-size:13px;font-weight:700;min-width:0}
+.sala-n small{display:block;font-size:11px;font-weight:500;color:#8a7a99;margin-top:1px;overflow-wrap:anywhere}
+.sala-p{font-size:15px;font-weight:800;flex-shrink:0}
+.sala-g{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:6px;font-size:11px;color:#8a7a99}
+.sala-g b{display:block;font-size:12px;color:#2d0f45}
+.pbar{height:6px;background:#f5e6d2;border-radius:3px;margin-top:8px;position:relative}
+.pbar i{position:absolute;left:0;top:0;bottom:0;border-radius:3px}
+.pbar u{position:absolute;top:-3px;bottom:-3px;width:2px;background:#2d0f45;opacity:.5}
+.seg{display:flex;gap:6px;margin:0 0 10px;flex-wrap:wrap}
+.seg button{border:1px solid #f0d9bf;background:#fff;color:#6f5a80;font:inherit;font-size:12px;font-weight:700;padding:6px 12px;border-radius:16px;cursor:pointer}
+.seg button.on{background:#2d0f45;color:#fff;border-color:#2d0f45}
+.rec{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.rec-c{background:#fff;border-radius:12px;padding:12px;box-shadow:0 1px 4px rgba(45,15,69,.08);border-top:3px solid #f78c0b}
+.rec-c .l{font-size:11px;color:#8a7a99;line-height:1.3}
+.rec-c .v{font-size:20px;font-weight:800;margin-top:4px}
+.rec-c .s{font-size:12px;font-weight:700;margin-top:2px}
+.rec-wide{grid-column:1/-1}
+.cmp{background:#fff;border-radius:12px;box-shadow:0 1px 4px rgba(45,15,69,.08);padding:4px 12px}
+.cmp table{width:100%;border-collapse:collapse;font-size:12px}
+.cmp th{font-size:10px;text-transform:uppercase;letter-spacing:.3px;color:#8a7a99;text-align:right;padding:8px 0 6px;font-weight:700}
+.cmp th:first-child,.cmp td:first-child{text-align:left}
+.cmp td{padding:7px 0;border-top:1px solid #f5e6d2;text-align:right;white-space:nowrap}
+.cmp td:first-child{font-weight:700;white-space:normal}
+.chg{margin-top:10px}
+.chg-i{background:#fff;border-radius:10px;padding:10px 12px;margin-bottom:6px;box-shadow:0 1px 3px rgba(45,15,69,.07);border-left:4px solid #b3237a;font-size:12px;line-height:1.45}
+.chg-i b{color:#2d0f45}
+.note{font-size:11px;color:#8a7a99;line-height:1.5;margin-top:10px}
+.foot{text-align:center;font-size:11px;color:#a898bb;margin-top:22px}
+@media(max-width:380px){.big{font-size:38px}.need b{font-size:15px}.mini-v{font-size:21px}}
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="header-top">
+    <h1><img class="hdr-logo" src="apple-touch-icon.png" alt="" onerror="this.style.display='none'">Cierre septiembre</h1>
+    <span class="badge">CIERRE OFICIAL</span>
+  </div>
+  <div class="meta" id="meta"></div>
+  <a class="back" href="index.html">‹ Todos los dashboards</a>
+</div>
+<div class="bunting" aria-hidden="true"></div>
+
+<div class="wrap" id="root"></div>
+
+<script>
+const CIERRE = {"meta":{"periodo":"Septiembre 2026","mes":9,"anio":2026,"corte":"30/09/2026","ddv_actual":24,"ddv_total":24,"fuente":"9-Septiembre_2026.xlsx (cierre oficial)"},"zona":{"fact_net":301497472,"tgt_net":284906571,"fact_yago":256849475,"vs_tgt":105.82,"vs_yago":117.38,"stales_pct":0.65},"canal":{"SMK":{"fact_net":220807164,"tgt_net":212596134,"fact_yago":187301126,"vs_tgt":103.86,"vs_yago":117.89,"stales_pct":0.9},"WHS":{"fact_net":80690308,"tgt_net":72310437,"fact_yago":69548349,"vs_tgt":111.59,"vs_yago":116.02,"stales_pct":0.02}},"salas":[{"id":"100381647","ruta":"CL1681","canal":"WHS","sub":"Betty Los Andes","cli":"Distr Y Supermercado Bett","dir":"AV CHACABUCO 395","fact_net":5812003,"tgt_net":4686299,"fact_yago":6129606,"vs_tgt":124.02,"vs_yago":94.82,"stales_pct":0.0},{"id":"100383279","ruta":"CL2450","canal":"SMK","sub":"Tottus","cli":"Hipermercados Tottus Sa","dir":"PROLONGACION J.J. PEREZ 12010","fact_net":10287673,"tgt_net":16475361,"fact_yago":18728143,"vs_tgt":62.44,"vs_yago":54.93,"stales_pct":0.0},{"id":"100383735","ruta":"CL2285","canal":"WHS","sub":"Cencocal","cli":"Central De Compras La Cal","dir":"PANAMERICANA NORTE KM 114 NOGALES","fact_net":2320997,"tgt_net":4815922,"fact_yago":2872213,"vs_tgt":48.19,"vs_yago":80.81,"stales_pct":0.0},{"id":"100385068","ruta":"CL2452","canal":"SMK","sub":"Distr. Pedro Aravena","cli":"Distribuidora Pedro Arave","dir":"ISABEL BROWN 97","fact_net":2405582,"tgt_net":1029676,"fact_yago":1428527,"vs_tgt":233.63,"vs_yago":168.4,"stales_pct":0.0},{"id":"100388392","ruta":"CL1366","canal":"SMK","sub":"Santa Isabel","cli":"Cencosud Retail S A","dir":"PASCUAL BABURRIZA 510","fact_net":6645989,"tgt_net":7031867,"fact_yago":7384375,"vs_tgt":94.51,"vs_yago":90.0,"stales_pct":1.49},{"id":"100389142","ruta":"CL1365","canal":"SMK","sub":"Santa Isabel","cli":"Cencosud Retail S A","dir":"AV. YUNGAY 1150","fact_net":6167975,"tgt_net":7331490,"fact_yago":7473562,"vs_tgt":84.13,"vs_yago":82.53,"stales_pct":1.49},{"id":"100394132","ruta":"CL1682","canal":"WHS","sub":"Sergio Olivares","cli":"Sergio Olivares Neira","dir":"AVDA. LAS PALMAS 120","fact_net":1288225,"tgt_net":1144171,"fact_yago":1565871,"vs_tgt":112.59,"vs_yago":82.27,"stales_pct":0.0},{"id":"100400367","ruta":"CL1365","canal":"SMK","sub":"Jumbo","cli":"Cencosud Retail S A","dir":"AV MIRAFLORES S/N","fact_net":6736761,"tgt_net":6638628,"fact_yago":5550089,"vs_tgt":101.48,"vs_yago":121.38,"stales_pct":1.49},{"id":"100401401","ruta":"CL1652","canal":"SMK","sub":"Jumbo","cli":"Cencosud Retail S A","dir":"AV. ARGENTINA 805","fact_net":12786875,"tgt_net":17946978,"fact_yago":13386286,"vs_tgt":71.25,"vs_yago":95.52,"stales_pct":1.49},{"id":"100402282","ruta":"CL2452","canal":"SMK","sub":"Santa Isabel","cli":"Cencosud Retail S A","dir":"ORTIZ DE ROSAS 624","fact_net":9864923,"tgt_net":8513072,"fact_yago":9061976,"vs_tgt":115.88,"vs_yago":108.86,"stales_pct":1.49},{"id":"100402305","ruta":"CL1853","canal":"SMK","sub":"Santa Isabel","cli":"Cencosud Retail S A","dir":"ZENTENO 254","fact_net":11209442,"tgt_net":12803252,"fact_yago":9053313,"vs_tgt":87.55,"vs_yago":123.82,"stales_pct":1.5},{"id":"100402306","ruta":"CL2285","canal":"WHS","sub":"Cencocal","cli":"Central De Compras La Cal","dir":"AV. GONZALO LIZASOAIN 305 - CALLE 7","fact_net":674407,"tgt_net":1357840,"fact_yago":975572,"vs_tgt":49.67,"vs_yago":69.13,"stales_pct":0.0},{"id":"100402317","ruta":"CL1366","canal":"SMK","sub":"Santa Isabel","cli":"Cencosud Retail S A","dir":"AV. CHACABUCO 402","fact_net":4921591,"tgt_net":5816024,"fact_yago":4994903,"vs_tgt":84.62,"vs_yago":98.53,"stales_pct":1.49},{"id":"100405945","ruta":"CL1651","canal":"SMK","sub":"Santa Isabel","cli":"Cencosud Retail S A","dir":"CALLE MERCED 25","fact_net":2651330,"tgt_net":2321431,"fact_yago":1940300,"vs_tgt":114.21,"vs_yago":136.65,"stales_pct":1.49},{"id":"100418548","ruta":"CL1652","canal":"SMK","sub":"Unimarc","cli":"Rendic Hermanos S A","dir":"CALLE YERBAS BUEBAS 460","fact_net":3008829,"tgt_net":3079120,"fact_yago":3630452,"vs_tgt":97.72,"vs_yago":82.88,"stales_pct":12.85},{"id":"100419231","ruta":"CL1650","canal":"SMK","sub":"Unimarc","cli":"Rendic Hermanos S A","dir":"CALLE PORTUS 1248","fact_net":1440997,"tgt_net":3588775,"fact_yago":2575266,"vs_tgt":40.15,"vs_yago":55.96,"stales_pct":4.32},{"id":"100419824","ruta":"CL1682","canal":"WHS","sub":"Sergio Olivares","cli":"Sergio Olivares Neira","dir":"SALVADOR GONZALEZ 655","fact_net":5411322,"tgt_net":3683645,"fact_yago":3424390,"vs_tgt":146.9,"vs_yago":158.02,"stales_pct":0.0},{"id":"100420846","ruta":"CL1682","canal":"WHS","sub":"Unimarc","cli":"Rendic Hermanos S A","dir":"BALMACEDA 307","fact_net":7848845,"tgt_net":7841328,"fact_yago":4033153,"vs_tgt":100.1,"vs_yago":194.61,"stales_pct":0.23},{"id":"100432905","ruta":"CL1680","canal":"SMK","sub":"Super 10","cli":"Super 10 S A","dir":"SANTO DOMINGO 111","fact_net":2489225,"tgt_net":1969178,"fact_yago":4983772,"vs_tgt":126.41,"vs_yago":49.95,"stales_pct":0.0},{"id":"100436400","ruta":"CL1365","canal":"SMK","sub":"Tottus","cli":"Hipermercados Tottus Sa","dir":"BERNARDO OHIGGINS 1150","fact_net":8842653,"tgt_net":9882248,"fact_yago":7558977,"vs_tgt":89.48,"vs_yago":116.98,"stales_pct":1.28},{"id":"100440265","ruta":"CL2285","canal":"WHS","sub":"Otros","cli":"Distribuidora Dismara Ltd","dir":"DIEGO LILLO 525","fact_net":6065346,"tgt_net":5345685,"fact_yago":6662480,"vs_tgt":113.46,"vs_yago":91.04,"stales_pct":0.0},{"id":"100444270","ruta":"CL2450","canal":"SMK","sub":"Super 10","cli":"Super 10 S A","dir":"CARRERA 949","fact_net":6790059,"tgt_net":5612860,"fact_yago":6142931,"vs_tgt":120.97,"vs_yago":110.53,"stales_pct":0.0},{"id":"100448016","ruta":"CL1680","canal":"WHS","sub":"SOC.DISTRIB.","cli":"Soc.Distrib.Y Comer.De Co","dir":"PRAT #297-A","fact_net":10674560,"tgt_net":7970090,"fact_yago":12378895,"vs_tgt":133.93,"vs_yago":86.23,"stales_pct":0.0},{"id":"100663028","ruta":"CL1650","canal":"SMK","sub":"Express","cli":"Walmart Chile S A","dir":"TOCORNAL S/N","fact_net":10046698,"tgt_net":8282601,"fact_yago":7416183,"vs_tgt":121.3,"vs_yago":135.47,"stales_pct":0.09},{"id":"100663032","ruta":"CL2452","canal":"SMK","sub":"Express","cli":"Walmart Chile S A","dir":"SANTA TERESA","fact_net":10072514,"tgt_net":9696757,"fact_yago":7271362,"vs_tgt":103.88,"vs_yago":138.52,"stales_pct":0.09},{"id":"100663063","ruta":"CL2450","canal":"SMK","sub":"Express","cli":"Walmart Chile S A","dir":"CALLE CARRERA 1165","fact_net":6032886,"tgt_net":5012202,"fact_yago":3564456,"vs_tgt":120.36,"vs_yago":169.25,"stales_pct":0.09},{"id":"100663067","ruta":"CL1652","canal":"SMK","sub":"Express","cli":"Walmart Chile S A","dir":"CALLE PAPUDO 249","fact_net":8982376,"tgt_net":7049909,"fact_yago":5309830,"vs_tgt":127.41,"vs_yago":169.17,"stales_pct":0.09},{"id":"100663152","ruta":"CL1367","canal":"SMK","sub":"Hiper","cli":"Walmart Chile S A","dir":"AV. SANTA TERESA 681","fact_net":21053951,"tgt_net":18564617,"fact_yago":14819778,"vs_tgt":113.41,"vs_yago":142.07,"stales_pct":0.09},{"id":"101953250","ruta":"CL2452","canal":"WHS","sub":"Otros","cli":"Comercial  Limitada","dir":"CONDEL 499 LA LIGUA 499","fact_net":4292466,"tgt_net":2867198,"fact_yago":5109343,"vs_tgt":149.71,"vs_yago":84.01,"stales_pct":0.0},{"id":"102083569","ruta":"CL2285","canal":"WHS","sub":"Cencocal","cli":"Central De Compras La Cal","dir":"CALLE PRAT 796","fact_net":2706921,"tgt_net":3164492,"fact_yago":2309166,"vs_tgt":85.54,"vs_yago":117.23,"stales_pct":0.0},{"id":"102500231","ruta":"CL1682","canal":"WHS","sub":"Sergio Olivares","cli":"Sociedad Comercial El Can","dir":"EDWARDS 301","fact_net":13364515,"tgt_net":8374710,"fact_yago":9466073,"vs_tgt":159.58,"vs_yago":141.18,"stales_pct":0.0},{"id":"103246197","ruta":"CL1650","canal":"SMK","sub":"Unimarc","cli":"Rendic Hermanos S A","dir":"ENCON 500","fact_net":4521205,"tgt_net":3291491,"fact_yago":4154751,"vs_tgt":137.36,"vs_yago":108.82,"stales_pct":0.09},{"id":"103336873","ruta":"CL1681","canal":"WHS","sub":"Las Camelias","cli":"Sociedad Comercial Ditrib","dir":"MANUEL RODRIGUEZ 394","fact_net":2875746,"tgt_net":5146196,"fact_yago":5280732,"vs_tgt":55.88,"vs_yago":54.46,"stales_pct":0.0},{"id":"103470716","ruta":"CL1651","canal":"SMK","sub":"Hiper","cli":"Walmart Chile S A","dir":"AVENIDA LIBERTADOR BERNARDO 7","fact_net":25135307,"tgt_net":18835828,"fact_yago":9293220,"vs_tgt":133.44,"vs_yago":270.47,"stales_pct":0.09},{"id":"104211394","ruta":"CL1853","canal":"SMK","sub":"Hiper","cli":"Walmart Chile S A","dir":"LAUTARO 78","fact_net":24543055,"tgt_net":18306128,"fact_yago":15082885,"vs_tgt":134.07,"vs_yago":162.72,"stales_pct":0.09},{"id":"104267206","ruta":"CL2285","canal":"WHS","sub":"Distr. Pedro Aravena","cli":"Distribuidora Pedro Arave","dir":"MANUEL RODRIGUEZ , HIJUELAS 2087","fact_net":2851391,"tgt_net":7146975,"fact_yago":1279695,"vs_tgt":39.9,"vs_yago":222.82,"stales_pct":0.0},{"id":"104289525","ruta":"CL2285","canal":"WHS","sub":"Kiko","cli":"Soc Distrib Y Comer De Co","dir":"DIEGO LILLO 444","fact_net":5578015,"tgt_net":2644328,"fact_yago":2893462,"vs_tgt":210.94,"vs_yago":192.78,"stales_pct":0.0},{"id":"104384156","ruta":"CL1366","canal":"SMK","sub":"Unimarc","cli":"Rendic Hermanos S A","dir":"HERMANOS CLARK 55","fact_net":2836632,"tgt_net":2009857,"fact_yago":2440442,"vs_tgt":141.14,"vs_yago":116.23,"stales_pct":4.87},{"id":"104418521","ruta":"CL1681","canal":"SMK","sub":"Unimarc","cli":"Rendic Hermanos S A","dir":"AV ALESSANDRI 50 LOCAL 1","fact_net":4934794,"tgt_net":4454584,"fact_yago":8194153,"vs_tgt":110.78,"vs_yago":60.22,"stales_pct":1.69},{"id":"104646232","ruta":"CL1367","canal":"SMK","sub":"Alvi","cli":"Alvi Supermercado Mayoris","dir":"HERMANOS CLARK 55","fact_net":6397842,"tgt_net":7052200,"fact_yago":5861194,"vs_tgt":90.72,"vs_yago":109.16,"stales_pct":0.56},{"id":"104649771","ruta":"CL1681","canal":"WHS","sub":"Las Camelias","cli":"Sociedad Comercial Distri","dir":"MAIPU 199","fact_net":365976,"tgt_net":242883,"fact_yago":0,"vs_tgt":150.68,"vs_yago":0.0,"stales_pct":0.0},{"id":"104723922","ruta":"CL2285","canal":"WHS","sub":"Distr. Pedro Aravena","cli":"Distribuidora Pedro Arave","dir":"DIEGO LILLO 530","fact_net":4425921,"tgt_net":4723788,"fact_yago":1761294,"vs_tgt":93.69,"vs_yago":251.29,"stales_pct":0.0},{"id":"104723923","ruta":"CL2285","canal":"WHS","sub":"Distr. Pedro Aravena","cli":"Distribuidora Pedro Arave","dir":"GONZALO LIZASOAIN 56","fact_net":1863926,"tgt_net":1154887,"fact_yago":3406404,"vs_tgt":161.39,"vs_yago":54.72,"stales_pct":0.0},{"id":"104815017","ruta":"CL1681","canal":"WHS","sub":"Super 10","cli":"Super 10 S A","dir":"ESMERALDA 651","fact_net":2269726,"tgt_net":0,"fact_yago":0,"vs_tgt":0.0,"vs_yago":0.0,"stales_pct":0.0}],"rutas":[{"fact_net":27912907,"tgt_net":21043854,"fact_yago":18489487,"vs_tgt":132.64,"vs_yago":150.97,"stales_pct":0.07,"ruta":"CL1682","canal":"WHS","n_salas":4},{"fact_net":13163785,"tgt_net":9939268,"fact_yago":17362667,"vs_tgt":132.44,"vs_yago":75.82,"stales_pct":0.0,"ruta":"CL1680","canal":"SMK","n_salas":2},{"fact_net":27786637,"tgt_net":21157259,"fact_yago":11233520,"vs_tgt":131.33,"vs_yago":247.35,"stales_pct":0.23,"ruta":"CL1651","canal":"SMK","n_salas":2},{"fact_net":26635485,"tgt_net":22106703,"fact_yago":22871208,"vs_tgt":120.49,"vs_yago":116.46,"stales_pct":0.6,"ruta":"CL2452","canal":"SMK","n_salas":4},{"fact_net":35752497,"tgt_net":31109380,"fact_yago":24136198,"vs_tgt":114.93,"vs_yago":148.13,"stales_pct":0.56,"ruta":"CL1853","canal":"SMK","n_salas":2},{"fact_net":16258245,"tgt_net":14529962,"fact_yago":19604491,"vs_tgt":111.89,"vs_yago":82.93,"stales_pct":0.52,"ruta":"CL1681","canal":"WHS","n_salas":5},{"fact_net":27451793,"tgt_net":25616817,"fact_yago":20680972,"vs_tgt":107.16,"vs_yago":132.74,"stales_pct":0.21,"ruta":"CL1367","canal":"SMK","n_salas":2},{"fact_net":16008900,"tgt_net":15162867,"fact_yago":14146200,"vs_tgt":105.58,"vs_yago":113.17,"stales_pct":0.58,"ruta":"CL1650","canal":"SMK","n_salas":3},{"fact_net":14404212,"tgt_net":14857748,"fact_yago":14819720,"vs_tgt":96.95,"vs_yago":97.2,"stales_pct":2.16,"ruta":"CL1366","canal":"SMK","n_salas":3},{"fact_net":21747389,"tgt_net":23852366,"fact_yago":20582628,"vs_tgt":91.17,"vs_yago":105.66,"stales_pct":1.41,"ruta":"CL1365","canal":"SMK","n_salas":3},{"fact_net":24778080,"tgt_net":28076007,"fact_yago":22326568,"vs_tgt":88.25,"vs_yago":110.98,"stales_pct":2.61,"ruta":"CL1652","canal":"SMK","n_salas":3},{"fact_net":26486924,"tgt_net":30353917,"fact_yago":22160286,"vs_tgt":87.26,"vs_yago":119.52,"stales_pct":0.0,"ruta":"CL2285","canal":"WHS","n_salas":8},{"fact_net":23110618,"tgt_net":27100423,"fact_yago":28435530,"vs_tgt":85.28,"vs_yago":81.27,"stales_pct":0.02,"ruta":"CL2450","canal":"SMK","n_salas":3}],"subcadenas":[{"fact_net":6397842,"tgt_net":7052200,"fact_yago":5861194,"vs_tgt":90.72,"vs_yago":109.16,"stales_pct":0.56,"sub":"Alvi","canal":"SMK"},{"fact_net":2405582,"tgt_net":1029676,"fact_yago":1428527,"vs_tgt":233.63,"vs_yago":168.4,"stales_pct":0.0,"sub":"Distr. Pedro Aravena","canal":"SMK"},{"fact_net":35134474,"tgt_net":30041469,"fact_yago":23561831,"vs_tgt":116.95,"vs_yago":149.12,"stales_pct":0.09,"sub":"Express","canal":"SMK"},{"fact_net":70732313,"tgt_net":55706573,"fact_yago":39195883,"vs_tgt":126.97,"vs_yago":180.46,"stales_pct":0.09,"sub":"Hiper","canal":"SMK"},{"fact_net":19523636,"tgt_net":24585606,"fact_yago":18936375,"vs_tgt":79.41,"vs_yago":103.1,"stales_pct":1.49,"sub":"Jumbo","canal":"SMK"},{"fact_net":41461250,"tgt_net":43817136,"fact_yago":39908429,"vs_tgt":94.62,"vs_yago":103.89,"stales_pct":1.49,"sub":"Santa Isabel","canal":"SMK"},{"fact_net":9279284,"tgt_net":7582038,"fact_yago":11126703,"vs_tgt":122.39,"vs_yago":83.4,"stales_pct":0.0,"sub":"Super 10","canal":"SMK"},{"fact_net":19130326,"tgt_net":26357609,"fact_yago":26287120,"vs_tgt":72.58,"vs_yago":72.77,"stales_pct":0.58,"sub":"Tottus","canal":"SMK"},{"fact_net":16742457,"tgt_net":16423827,"fact_yago":20995064,"vs_tgt":101.94,"vs_yago":79.74,"stales_pct":4.28,"sub":"Unimarc","canal":"SMK"},{"fact_net":5812003,"tgt_net":4686299,"fact_yago":6129606,"vs_tgt":124.02,"vs_yago":94.82,"stales_pct":0.0,"sub":"Betty Los Andes","canal":"WHS"},{"fact_net":5702325,"tgt_net":9338254,"fact_yago":6156951,"vs_tgt":61.06,"vs_yago":92.62,"stales_pct":0.0,"sub":"Cencocal","canal":"WHS"},{"fact_net":9141238,"tgt_net":13025650,"fact_yago":6447393,"vs_tgt":70.18,"vs_yago":141.78,"stales_pct":0.0,"sub":"Distr. Pedro Aravena","canal":"WHS"},{"fact_net":5578015,"tgt_net":2644328,"fact_yago":2893462,"vs_tgt":210.94,"vs_yago":192.78,"stales_pct":0.0,"sub":"Kiko","canal":"WHS"},{"fact_net":3241722,"tgt_net":5389079,"fact_yago":5280732,"vs_tgt":60.15,"vs_yago":61.39,"stales_pct":0.0,"sub":"Las Camelias","canal":"WHS"},{"fact_net":10357812,"tgt_net":8212883,"fact_yago":11771823,"vs_tgt":126.12,"vs_yago":87.99,"stales_pct":0.0,"sub":"Otros","canal":"WHS"},{"fact_net":10674560,"tgt_net":7970090,"fact_yago":12378895,"vs_tgt":133.93,"vs_yago":86.23,"stales_pct":0.0,"sub":"SOC.DISTRIB.","canal":"WHS"},{"fact_net":20064062,"tgt_net":13202526,"fact_yago":14456334,"vs_tgt":151.97,"vs_yago":138.79,"stales_pct":0.0,"sub":"Sergio Olivares","canal":"WHS"},{"fact_net":2269726,"tgt_net":0,"fact_yago":0,"vs_tgt":0.0,"vs_yago":0.0,"stales_pct":0.0,"sub":"Super 10","canal":"WHS"},{"fact_net":7848845,"tgt_net":7841328,"fact_yago":4033153,"vs_tgt":100.1,"vs_yago":194.61,"stales_pct":0.23,"sub":"Unimarc","canal":"WHS"}],"ranking":[{"name":"Gustavo Vásquez","fact_net":136683210,"tgt_net":111146955,"fact_yago":126649281,"vs_tgt":122.98,"vs_yago":107.92,"stales_pct":0.56,"sub":"","pos":1},{"name":"Verónica Zárate","fact_net":555910199,"tgt_net":521640319,"fact_yago":473962471,"vs_tgt":106.57,"vs_yago":117.29,"stales_pct":0.85,"sub":"","pos":2},{"name":"Jean Torrejon","fact_net":301497472,"tgt_net":284906571,"fact_yago":256849475,"vs_tgt":105.82,"vs_yago":117.38,"stales_pct":0.65,"sub":"San Felipe","pos":3},{"name":"Raúl Aros","fact_net":600967967,"tgt_net":622039233,"fact_yago":529518560,"vs_tgt":96.61,"vs_yago":113.49,"stales_pct":0.79,"sub":"","pos":4}],"division":{"fact_net":1595058848,"tgt_net":1539733078,"fact_yago":1386979787,"vs_tgt":103.59,"vs_yago":115.0},"nacional":{"chile_whs":{"fact_net":3543966975,"tgt_net":4056412361,"vs_tgt":87.37,"vs_yago":86.98,"fact_yago":4074310795},"chile_smk":{"fact_net":12914995387,"tgt_net":12717753150,"vs_tgt":101.55,"vs_yago":113.52,"fact_yago":11377063821},"chile_total":{"fact_net":16458962362,"tgt_net":16774165511,"vs_tgt":98.12,"vs_yago":106.52,"fact_yago":15451374616}},"reconocimientos":{"mejor_avance":{"ruta":"CL1682","vs_tgt":132.64},"mayor_crecimiento":{"ruta":"CL1651","vs_yago":247.35},"mejor_sala":{"id":"100385068","sub":"Distr. Pedro Aravena","dir":"ISABEL BROWN 97","ruta":"CL2452","vs_tgt":233.63},"rutas_sobre_tgt":8,"rutas_total":13,"salas_sobre_tgt":27,"salas_con_tgt":43},"comparacion":{"diario":{"zona":{"fact_net":298770892,"tgt_net":284906571,"fact_yago":256849475,"vs_tgt":104.87,"vs_yago":116.32,"stales_pct":0.65},"canal":{"WHS":{"fact_net":74957093,"tgt_net":65498785,"fact_yago":66943723,"vs_tgt":114.44,"vs_yago":111.97,"stales_pct":0.0},"SMK":{"fact_net":223813799,"tgt_net":219407786,"fact_yago":189905752,"vs_tgt":102.01,"vs_yago":117.86,"stales_pct":0.88}},"rutas":{"CL1682":{"fact_net":28196223,"vs_tgt":133.99,"vs_yago":152.5},"CL1680":{"fact_net":13140179,"vs_tgt":132.2,"vs_yago":75.68},"CL1651":{"fact_net":26930562,"vs_tgt":127.29,"vs_yago":239.73},"CL2452":{"fact_net":26227440,"vs_tgt":118.64,"vs_yago":114.67},"CL1853":{"fact_net":34911885,"vs_tgt":112.22,"vs_yago":144.65},"CL1650":{"fact_net":15938439,"vs_tgt":105.11,"vs_yago":112.67},"CL1367":{"fact_net":26476454,"vs_tgt":103.36,"vs_yago":128.02},"CL1681":{"fact_net":14177579,"vs_tgt":97.57,"vs_yago":72.32},"CL1366":{"fact_net":14485554,"vs_tgt":97.49,"vs_yago":97.75},"CL2285":{"fact_net":28510641,"vs_tgt":93.93,"vs_yago":128.66},"CL1365":{"fact_net":21904564,"vs_tgt":91.83,"vs_yago":106.42},"CL1652":{"fact_net":24597294,"vs_tgt":87.61,"vs_yago":110.17},"CL2450":{"fact_net":23274078,"vs_tgt":85.88,"vs_yago":81.85}}},"cambios":[{"tipo":"nueva","texto":"Super 10 (104815017) entra en CL1681 con $2,3M y no estaba en el diario del 30/09","ruta":"CL1681"},{"tipo":"canal","texto":"Distr. Pedro Aravena (CL2452) pasó de WHS a SMK en el cierre","ruta":"CL2452"},{"tipo":"canal","texto":"Unimarc (CL1682) pasó de SMK a WHS en el cierre","ruta":"CL1682"}],"top_suben":[{"sub":"Hiper","ruta":"CL1651","dir":"AVENIDA LIBERTADOR BERNARDO 7","delta":853590},{"sub":"Hiper","ruta":"CL1367","dir":"AV. SANTA TERESA 681","delta":837936},{"sub":"Hiper","ruta":"CL1853","dir":"LAUTARO 78","delta":829501}],"top_bajan":[{"sub":"Otros","ruta":"CL2285","dir":"DIEGO LILLO 525","delta":-1193714},{"sub":"Cencocal","ruta":"CL2285","dir":"PANAMERICANA NORTE KM 114 NOGALES","delta":-497479},{"sub":"Tottus","ruta":"CL2450","dir":"PROLONGACION J.J. PEREZ 12010","delta":-405352}],"fecha_diario":"30/09/2026"}};
+</script>
+<script>
+(function(){
+const C=CIERRE, Z=C.zona, M=C.meta;
+const fM=n=>'$'+(Math.abs(n)/1e6).toFixed(1).replace('.',',')+'M';
+const fMs=n=>(n<0?'−':'+')+fM(n);
+const fP=n=>(n==null||isNaN(n))?'—':n.toFixed(1).replace('.',',')+'%';
+const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+// Semáforo vs TGT (spec vigente): avance esperado = DDV actual / DDV total
+const AV=M.ddv_actual/M.ddv_total*100;
+// el semáforo se evalúa sobre el valor que se ve en pantalla (1 decimal) para que color y número no se contradigan
+const rd=v=>Math.round(v*10)/10;
+const cT=v=>{const d=AV-rd(v); return d<=0?'green-txt':(d<=3?'amber-txt':'red-txt');};
+const kT=v=>{const d=AV-rd(v); return d<=0?'ok':(d<=3?'amb':'bad');};
+const cY=v=>v>=100?'green-txt':(v>=85?'amber-txt':'red-txt');
+const cS=v=>v<2?'green-txt':(v<=5?'amber-txt':'red-txt');
+const nombreRuta={};
+document.getElementById('meta').textContent='Jean Franco Torrejon · Zona San Felipe · datos al '+M.corte;
+
+const dif=Z.fact_net-Z.tgt_net, difY=Z.fact_net-Z.fact_yago;
+const TMAX=Math.max(110,Math.ceil(Z.vs_tgt/5)*5+5);
+const estado=Z.vs_tgt>=100?['Sobre el target','ok']:(AV-Z.vs_tgt<=3?['Cerca del target','amb']:['Bajo el target','bad']);
+const W=C.canal.WHS, S=C.canal.SMK, N=C.nacional, D=C.division;
+const R=C.rutas, RC=C.reconocimientos, CP=C.comparacion;
+
+function bar(v,tgtMark){const w=Math.min(100,Math.max(0,v));const col=v>=100?'#16a34a':(v>=97?'#d97706':'#dc2626');return `<div class="pbar"><i style="width:${w}%;background:${col}"></i></div>`;}
+function canalCard(cls,nm,k){
+  return `<div class="mini ${cls}"><div class="mini-l">${nm}</div>
+  <div class="mini-v ${cT(k.vs_tgt)}">${fP(k.vs_tgt)}</div><div class="mini-s">${fM(k.fact_net)} de ${fM(k.tgt_net)}</div>
+  ${bar(k.vs_tgt)}
+  <div class="mini-row"><span>vs Yago</span><b class="${cY(k.vs_yago)}">${fP(k.vs_yago)}</b></div>
+  <div class="mini-row"><span>Stales</span><b class="${cS(k.stales_pct)}">${fP(k.stales_pct)}</b></div></div>`;
+}
+function benchRow(icon,nm,sub,k,me){
+  return `<div class="brow ${me?'me':''}"><div class="brow-n">${icon} ${nm}<small>${sub}</small></div>
+  <div class="brow-v ${cT(k.vs_tgt)}" style="${me?'color:#4ade80':''}">${fP(k.vs_tgt)}<small>vs Yago ${fP(k.vs_yago)}</small></div></div>`;
+}
+function salaRow(s){
+  const tieneT=s.tgt_net>0;
+  return `<div class="sala"><div class="sala-h"><div class="sala-n">${esc(s.sub)} · ${esc(s.id)}<small>${esc(s.dir||s.cli)}</small></div>
+  <div class="sala-p ${tieneT?cT(s.vs_tgt):cY(s.vs_yago)}">${tieneT?fP(s.vs_tgt):fP(s.vs_yago)}</div></div>
+  <div class="sala-g"><div>Venta<b>${fM(s.fact_net)}</b></div><div>Target<b>${tieneT?fM(s.tgt_net):'sin target'}</b></div><div>vs Yago<b class="${cY(s.vs_yago)}">${fP(s.vs_yago)}</b></div></div>
+  ${tieneT?bar(s.vs_tgt):''}</div>`;
+}
+function rutaCard(r,i){
+  const ss=C.salas.filter(s=>s.ruta===r.ruta).sort((a,b)=>b.vs_tgt-a.vs_tgt);
+  const falta=r.tgt_net-r.fact_net;
+  return `<div class="card ${kT(r.vs_tgt)}" data-canal="${r.canal}">
+  <button class="card-h" onclick="this.parentElement.classList.toggle('open')" aria-expanded="false">
+    <div class="card-main"><div class="card-t">${r.ruta} <span class="chip ${r.canal}">${r.canal}</span></div>
+    <div class="card-s">${fM(r.fact_net)} de ${fM(r.tgt_net)} · ${falta>0?'faltó '+fM(falta):'sobró '+fM(-falta)} · ${r.n_salas} salas</div></div>
+    <div class="card-pct"><b class="${cT(r.vs_tgt)}">${fP(r.vs_tgt)}</b><small>vs Yago ${fP(r.vs_yago)}</small></div><span class="arrow">▼</span></button>
+  <div class="card-body">${ss.map(salaRow).join('')}</div></div>`;
+}
+const rk=C.ranking;
+const cd=CP.diario;
+function cmpRow(nm,a,b,fmt){return `<tr><td>${nm}</td><td>${fmt(a)}</td><td><b>${fmt(b)}</b></td></tr>`;}
+const dz=cd.zona;
+const cmpTbl=`<div class="cmp"><table><tr><th></th><th>Diario ${CP.fecha_diario.slice(0,5)}</th><th>Cierre</th></tr>
+${cmpRow('Net',dz.fact_net,Z.fact_net,fM)}${cmpRow('vs Target',dz.vs_tgt,Z.vs_tgt,fP)}${cmpRow('vs Yago',dz.vs_yago,Z.vs_yago,fP)}
+${cmpRow('WHS vs Target',cd.canal.WHS.vs_tgt,W.vs_tgt,fP)}${cmpRow('SMK vs Target',cd.canal.SMK.vs_tgt,S.vs_tgt,fP)}</table></div>`;
+const movR=R.map(r=>({r:r.ruta,a:(cd.rutas[r.ruta]||{}).vs_tgt,b:r.vs_tgt})).map(x=>({...x,d:x.b-x.a})).sort((p,q)=>Math.abs(q.d)-Math.abs(p.d)).slice(0,3);
+const cambios=CP.cambios.map(c=>`<div class="chg-i">${esc(c.texto)}</div>`).join('');
+const sube=CP.top_suben.map(x=>`${esc(x.sub)} ${x.ruta} <b class="green-txt nw">${fMs(x.delta)}</b>`).join(' · ');
+const baja=CP.top_bajan.map(x=>`${esc(x.sub)} ${x.ruta} <b class="red-txt nw">${fMs(x.delta)}</b>`).join(' · ');
+
+document.getElementById('root').innerHTML=`
+<section class="hero">
+  <div class="hero-top"><div class="big">${fM(Z.fact_net)}</div>
+  <span class="state ${estado[1]}">${estado[0]}</span></div>
+  <div class="hero-l">vendidos en ${M.periodo.split(' ')[0].toLowerCase()}</div>
+  <div class="track"><div class="track-fill" style="width:${Math.min(100,Z.vs_tgt/TMAX*100)}%"></div><div class="track-mark" style="left:calc(${(100/TMAX*100).toFixed(1)}% - 1px)"></div></div>
+  <div class="track-legend"><span>${fM(Z.fact_net)} de ${fM(Z.tgt_net)} de target</span><span>DDV <b>${M.ddv_actual}/${M.ddv_total}</b></span></div>
+  <div class="need">
+    <div>vs Target<b>${fP(Z.vs_tgt)}</b></div>
+    <div>vs Yago<b>${fP(Z.vs_yago)}</b></div>
+    <div>Diferencia<b>${dif>=0?'+':'−'}${fM(dif)}</b></div>
+  </div>
+</section>
+<div class="grid2">
+  <div class="mini"><div class="mini-l" style="color:#6f5a80">Sobre el año pasado</div><div class="mini-v ${difY>=0?'green-txt':'red-txt'}">${fMs(difY)}</div><div class="mini-s">${fM(Z.fact_yago)} en septiembre 2025</div></div>
+  <div class="mini"><div class="mini-l" style="color:#6f5a80">Stales</div><div class="mini-v ${cS(Z.stales_pct)}">${fP(Z.stales_pct)}</div><div class="mini-s">${Z.stales_pct<2?'bajo control':'revisar'}</div></div>
+</div>
+
+<h2>WHS y SMK</h2>
+<div class="grid2" style="margin-top:0">${canalCard('whs','WHS',W)}${canalCard('smk','SMK',S)}</div>
+
+<h2>Cómo quedamos <small>Net Sales</small></h2>
+<div class="bench"><div class="bench-t">País y división Centro Costa · vs Target</div>
+  ${benchRow('⚛','Chile Total','todo el país',N.chile_total)}
+  ${benchRow('🟣','Chile WHS','mayoristas',N.chile_whs)}
+  ${benchRow('🟠','Chile SMK','supermercados',N.chile_smk)}
+  ${benchRow('🏛','División Centro Costa','los 4 supervisores',D)}
+  ${benchRow('📍','Zona San Felipe','Jean',Z,true)}
+</div>
+
+<h2>Ranking de la división <small>por % vs target</small></h2>
+<div class="bench">
+  ${rk.map(x=>`<div class="brow ${x.name.indexOf('Jean')>=0?'me':''}"><div class="brow-n"><span class="pos">${x.pos}</span>${esc(x.name)}<small style="padding-left:22px">${x.sub?esc(x.sub)+' · ':''}${fM(x.fact_net)} de ${fM(x.tgt_net)}</small></div>
+  <div class="brow-v ${cT(x.vs_tgt)}" style="${x.name.indexOf('Jean')>=0?'color:#4ade80':''}">${fP(x.vs_tgt)}<small>Yago ${fP(x.vs_yago)}</small></div></div>`).join('')}
+</div>
+
+<h2>Rutas <small>toca una para ver sus salas</small></h2>
+<div class="seg" id="seg"><button class="on" data-f="TODAS">Todas</button><button data-f="SMK">SMK</button><button data-f="WHS">WHS</button></div>
+<div id="rutas">${R.map(rutaCard).join('')}</div>
+
+<h2>Reconocimientos de septiembre</h2>
+<div class="rec">
+  <div class="rec-c"><div class="l">Mejor avance vs target</div><div class="v">${RC.mejor_avance.ruta}</div><div class="s green-txt">${fP(RC.mejor_avance.vs_tgt)} del objetivo</div></div>
+  <div class="rec-c"><div class="l">Mayor crecimiento vs año pasado</div><div class="v">${RC.mayor_crecimiento.ruta}</div><div class="s green-txt">${fP(RC.mayor_crecimiento.vs_yago)} vs Yago</div></div>
+  <div class="rec-c rec-wide"><div class="l">Cumplieron el target</div><div class="v">${RC.rutas_sobre_tgt} de ${RC.rutas_total} rutas</div><div class="s">${RC.salas_sobre_tgt} de ${RC.salas_con_tgt} salas con target llegaron al 100% o más</div></div>
+</div>
+
+<h2>Qué cambió vs el último diario <small>${CP.fecha_diario}</small></h2>
+${cmpTbl}
+<div class="chg">${cambios}
+  <div class="chg-i"><b>Subieron más:</b> ${sube}</div>
+  <div class="chg-i"><b>Bajaron más:</b> ${baja}</div>
+</div>
+<p class="note">El target del mes no cambió entre el último diario y el cierre. Las diferencias vienen de ajustes de venta, una sala nueva y dos reclasificaciones de canal que trae el archivo oficial. Los semáforos de % vs target usan el avance esperado del mes completo (DDV ${M.ddv_actual}/${M.ddv_total}); el vs Yago es verde desde 100%, ámbar entre 85 y 99% y rojo bajo 85%.</p>
+<div class="foot">Fuente: ${esc(M.fuente)} · Evercracks</div>
+`;
+document.querySelectorAll('#seg button').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('#seg button').forEach(x=>x.classList.toggle('on',x===b));
+  const f=b.dataset.f; document.querySelectorAll('#rutas .card').forEach(c=>{c.style.display=(f==='TODAS'||c.dataset.canal===f)?'':'none';});
+}));
+})();
+</script>
+</body>
+</html>
