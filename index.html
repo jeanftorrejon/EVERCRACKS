@@ -27,6 +27,15 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .card-title{font-size:14px;font-weight:700}
 .card-sub{font-size:11px;color:#888;margin-top:2px}
 .card-arrow{margin-left:auto;color:#ccc;font-size:18px}
+.card-cierre{border-left-color:#14295e}
+.card-icon-c{background:#e6ebf7;color:#14295e}
+.tag{display:inline-block;font-size:9px;font-weight:800;letter-spacing:.5px;background:#ff7a00;color:#fff;padding:2px 6px;border-radius:6px;margin-left:6px;vertical-align:2px}
+details.month{margin-bottom:4px}
+details.month>summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:8px;-webkit-tap-highlight-color:transparent}
+details.month>summary::-webkit-details-marker{display:none}
+details.month>summary::after{content:"\25B8";color:#ff7a00;font-size:14px;margin-left:0;transition:transform .2s}
+details.month[open]>summary::after{transform:rotate(90deg)}
+details.month>summary .count{font-size:10px;font-weight:600;color:#aaa;text-transform:none;letter-spacing:0;margin-left:auto;padding-right:8px}
 .install-box{background:#fff;border-radius:12px;padding:14px;margin-top:20px;box-shadow:0 1px 4px rgba(0,0,0,.08);border:1px dashed #ff7a00}
 .install-box h3{font-size:13px;font-weight:700;color:#ff7a00;margin-bottom:6px}
 .install-box p{font-size:12px;color:#555;line-height:1.6}
@@ -38,14 +47,24 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
   <img src="logo.png" alt="Evercracks - Equipo San Felipe">
 </div>
 <div class="content">
-  <div class="section-title">Dashboards disponibles</div>
-  <div class="month-header">Octubre 2026</div>
+  <div class="section-title">Cierres oficiales</div>
+  <a class="card card-cierre" href="cierre_09_2026.html">
+    <div class="card-icon card-icon-c">C</div>
+    <div><div class="card-title">Cierre septiembre 2026 <span class="tag">OFICIAL</span></div><div class="card-sub">Cifras finales del mes &middot; Jean Franco Torrejon</div></div>
+    <div class="card-arrow">&rsaquo;</div>
+  </a>
+
+  <div class="section-title">Dashboards diarios</div>
+  <details class="month" open>
+  <summary class="month-header">Octubre 2026<span class="count">1 dashboard</span></summary>
   <a class="card" href="evercracks_06_10.html">
     <div class="card-icon">D</div>
     <div><div class="card-title">Dashboard 06/10/2026 NUEVO</div><div class="card-sub">Jean Franco Torrejon</div></div>
     <div class="card-arrow">&rsaquo;</div>
   </a>
-  <div class="month-header">Septiembre 2026</div>
+  </details>
+  <details class="month">
+  <summary class="month-header">Septiembre 2026<span class="count">24 dashboards</span></summary>
   <a class="card card-old" href="evercracks_30_09.html">
     <div class="card-icon">D</div>
     <div><div class="card-title">Dashboard 30/09/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
@@ -166,7 +185,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
     <div><div class="card-title">Dashboard 01/09/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
     <div class="card-arrow">&rsaquo;</div>
   </a>
-  <div class="month-header">Agosto 2026</div>
+  </details>
+  <details class="month">
+  <summary class="month-header">Agosto 2026<span class="count">21 dashboards</span></summary>
   <a class="card card-old" href="evercracks_31_08.html">
     <div class="card-icon">D</div>
     <div><div class="card-title">Dashboard 31/08/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
@@ -272,7 +293,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
     <div><div class="card-title">Dashboard 04/08/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
     <div class="card-arrow">&rsaquo;</div>
   </a>
-  <div class="month-header">Julio 2026</div>
+  </details>
+  <details class="month">
+  <summary class="month-header">Julio 2026<span class="count">17 dashboards</span></summary>
   <a class="card card-old" href="evercracks_31_07.html">
     <div class="card-icon">D</div>
     <div><div class="card-title">Dashboard 31/07/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
@@ -358,7 +381,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
     <div><div class="card-title">Dashboard 03/07/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
     <div class="card-arrow">&rsaquo;</div>
   </a>
-  <div class="month-header">Junio 2026</div>
+  </details>
+  <details class="month">
+  <summary class="month-header">Junio 2026<span class="count">24 dashboards</span></summary>
   <a class="card card-old" href="evercracks_30_06.html">
     <div class="card-icon">D</div>
     <div><div class="card-title">Dashboard 30/06/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
@@ -479,12 +504,15 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
     <div><div class="card-title">Dashboard 02/06/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
     <div class="card-arrow">&rsaquo;</div>
   </a>
-  <div class="month-header">Mayo 2026</div>
+  </details>
+  <details class="month">
+  <summary class="month-header">Mayo 2026<span class="count">1 dashboard</span></summary>
   <a class="card card-old" href="evercracks_26_05.html">
     <div class="card-icon">D</div>
     <div><div class="card-title">Dashboard 26/05/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
     <div class="card-arrow">&rsaquo;</div>
   </a>
+  </details>
 
   <div class="section-title">Instalar como app</div>
   <div class="install-box">
