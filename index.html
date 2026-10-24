@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
@@ -41,558 +41,105 @@ details.month>summary .count{font-size:10px;font-weight:600;color:#aaa;text-tran
 .install-box p{font-size:12px;color:#555;line-height:1.6}
 .footer{text-align:center;font-size:11px;color:#aaa;margin:24px 0 16px}
 </style>
+<style id="ev-gate-css">
+#ev-gate{display:none;max-width:380px;margin:28px auto;padding:22px 20px;background:#fff;border-radius:16px;box-shadow:0 4px 18px rgba(45,15,69,.18);text-align:center;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+body.ev-lock #ev-gate{display:block}
+#ev-gate h2{font-size:20px;color:#2d0f45;margin-bottom:4px}
+#ev-gate p{font-size:13px;color:#6b5a7e;margin-bottom:14px}
+#ev-gate input[type=text]{width:100%;font-size:22px;letter-spacing:2px;text-align:center;padding:12px;border:2px solid #e9d5ff;border-radius:12px;color:#2d0f45;background:#fff7ea;outline:none}
+#ev-gate input[type=text]:focus{border-color:#f78c0b}
+#ev-go{width:100%;margin-top:12px;padding:13px;border:0;border-radius:12px;background:linear-gradient(90deg,#9c1f6e,#f78c0b);color:#fff;font-size:16px;font-weight:700;cursor:pointer}
+#ev-go[disabled]{opacity:.6}
+#ev-gate label{display:block;margin-top:10px;font-size:12px;color:#6b5a7e}
+#ev-err{min-height:18px;margin-top:10px;font-size:13px;font-weight:600;color:#dc2626}
+#ev-hi{position:fixed;top:12px;left:50%;transform:translate(-50%,-140%);z-index:300;max-width:calc(100% - 24px);padding:11px 20px;border-radius:999px;background:linear-gradient(90deg,#2d0f45,#9c1f6e);color:#fff;font:700 15px -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;box-shadow:0 6px 20px rgba(45,15,69,.35);transition:transform .45s cubic-bezier(.2,.9,.3,1.2),opacity .4s;opacity:0;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#ev-hi.on{transform:translate(-50%,0);opacity:1}
+@media (prefers-reduced-motion:reduce){#ev-hi{transition:none}}
+#ev-out{position:fixed;right:10px;bottom:10px;z-index:200;padding:7px 12px;border-radius:999px;background:#2d0f45;color:#fff;font-size:12px;opacity:.85;cursor:pointer}
+</style>
 </head>
 <body>
-<div class="header">
-  <img src="logo.png" alt="Evercracks - Equipo San Felipe">
-</div>
-<div class="content">
-  <div class="section-title">Cierres oficiales</div>
-  <a class="card card-cierre" href="cierre_09_2026.html">
-    <div class="card-icon card-icon-c">C</div>
-    <div><div class="card-title">Cierre septiembre 2026 <span class="tag">OFICIAL</span></div><div class="card-sub">Cifras finales del mes &middot; Jean Franco Torrejon</div></div>
-    <div class="card-arrow">&rsaquo;</div>
-  </a>
-
-  <div class="section-title">Dashboards diarios</div>
-  <details class="month" open>
-  <summary class="month-header">Octubre 2026<span class="count">15 dashboards</span></summary>
-  <a class="card" href="evercracks_22_10.html">
-    <div class="card-icon">D</div>
-    <div><div class="card-title">Dashboard 22/10/2026 NUEVO</div><div class="card-sub">Jean Franco Torrejon</div></div>
-    <div class="card-arrow">&rsaquo;</div>
-  </a>
-  <a class="card card-old" href="evercracks_21_10.html">
-    <div class="card-icon">D</div>
-    <div><div class="card-title">Dashboard 21/10/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
-    <div class="card-arrow">&rsaquo;</div>
-  </a>
-  <a class="card card-old" href="evercracks_20_10.html">
-    <div class="card-icon">D</div>
-    <div><div class="card-title">Dashboard 20/10/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
-    <div class="card-arrow">&rsaquo;</div>
-  </a>
-  <a class="card card-old" href="evercracks_19_10.html">
-    <div class="card-icon">D</div>
-    <div><div class="card-title">Dashboard 19/10/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
-    <div class="card-arrow">&rsaquo;</div>
-  </a>
-  <a class="card card-old" href="evercracks_17_10.html">
-    <div class="card-icon">D</div>
-    <div><div class="card-title">Dashboard 17/10/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
-    <div class="card-arrow">&rsaquo;</div>
-  </a>
-  <a class="card card-old" href="evercracks_16_10.html">
-    <div class="card-icon">D</div>
-    <div><div class="card-title">Dashboard 16/10/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
-    <div class="card-arrow">&rsaquo;</div>
-  </a>
-  <a class="card card-old" href="evercracks_15_10.html">
-    <div class="card-icon">D</div>
-    <div><div class="card-title">Dashboard 15/10/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
-    <div class="card-arrow">&rsaquo;</div>
-  </a>
-  <a class="card card-old" href="evercracks_14_10.html">
-    <div class="card-icon">D</div>
-    <div><div class="card-title">Dashboard 14/10/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
-    <div class="card-arrow">&rsaquo;</div>
-  </a>
-  <a class="card card-old" href="evercracks_13_10.html">
-    <div class="card-icon">D</div>
-    <div><div class="card-title">Dashboard 13/10/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
-    <div class="card-arrow">&rsaquo;</div>
-  </a>
-  <a class="card card-old" href="evercracks_12_10.html">
-    <div class="card-icon">D</div>
-    <div><div class="card-title">Dashboard 12/10/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
-    <div class="card-arrow">&rsaquo;</div>
-  </a>
-  <a class="card card-old" href="evercracks_11_10.html">
-    <div class="card-icon">D</div>
-    <div><div class="card-title">Dashboard 11/10/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
-    <div class="card-arrow">&rsaquo;</div>
-  </a>
-  <a class="card card-old" href="evercracks_09_10.html">
-    <div class="card-icon">D</div>
-    <div><div class="card-title">Dashboard 09/10/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
-    <div class="card-arrow">&rsaquo;</div>
-  </a>
-  <a class="card card-old" href="evercracks_08_10.html">
-    <div class="card-icon">D</div>
-    <div><div class="card-title">Dashboard 08/10/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
-    <div class="card-arrow">&rsaquo;</div>
-  </a>
-  <a class="card card-old" href="evercracks_07_10.html">
-    <div class="card-icon">D</div>
-    <div><div class="card-title">Dashboard 07/10/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
-    <div class="card-arrow">&rsaquo;</div>
-  </a>
-  <a class="card card-old" href="evercracks_06_10.html">
-    <div class="card-icon">D</div>
-    <div><div class="card-title">Dashboard 06/10/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
-    <div class="card-arrow">&rsaquo;</div>
-  </a>
-  </details>
-  <details class="month">
-  <summary class="month-header">Septiembre 2026<span class="count">24 dashboards</span></summary>
-  <a class="card card-old" href="evercracks_30_09.html">
-    <div class="card-icon">D</div>
-    <div><div class="card-title">Dashboard 30/09/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
-    <div class="card-arrow">&rsaquo;</div>
-  </a>
-  <a class="card card-old" href="evercracks_29_09.html">
-    <div class="card-icon">D</div>
-    <div><div class="card-title">Dashboard 29/09/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
-    <div class="card-arrow">&rsaquo;</div>
-  </a>
-  <a class="card card-old" href="evercracks_28_09.html">
-    <div class="card-icon">D</div>
-    <div><div class="card-title">Dashboard 28/09/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
-    <div class="card-arrow">&rsaquo;</div>
-  </a>
-  <a class="card card-old" href="evercracks_26_09.html">
-    <div class="card-icon">D</div>
-    <div><div class="card-title">Dashboard 26/09/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
-    <div class="card-arrow">&rsaquo;</div>
-  </a>
-  <a class="card card-old" href="evercracks_25_09.html">
-    <div class="card-icon">D</div>
-    <div><div class="card-title">Dashboard 25/09/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
-    <div class="card-arrow">&rsaquo;</div>
-  </a>
-  <a class="card card-old" href="evercracks_24_09.html">
-    <div class="card-icon">D</div>
-    <div><div class="card-title">Dashboard 24/09/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
-    <div class="card-arrow">&rsaquo;</div>
-  </a>
-  <a class="card card-old" href="evercracks_23_09.html">
-    <div class="card-icon">D</div>
-    <div><div class="card-title">Dashboard 23/09/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
-    <div class="card-arrow">&rsaquo;</div>
-  </a>
-  <a class="card card-old" href="evercracks_22_09.html">
-    <div class="card-icon">D</div>
-    <div><div class="card-title">Dashboard 22/09/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
-    <div class="card-arrow">&rsaquo;</div>
-  </a>
-  <a class="card card-old" href="evercracks_21_09.html">
-    <div class="card-icon">D</div>
-    <div><div class="card-title">Dashboard 21/09/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
-    <div class="card-arrow">&rsaquo;</div>
-  </a>
-  <a class="card card-old" href="evercracks_20_09.html">
-    <div class="card-icon">D</div>
-    <div><div class="card-title">Dashboard 20/09/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
-    <div class="card-arrow">&rsaquo;</div>
-  </a>
-  <a class="card card-old" href="evercracks_16_09.html">
-    <div class="card-icon">D</div>
-    <div><div class="card-title">Dashboard 16/09/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
-    <div class="card-arrow">&rsaquo;</div>
-  </a>
-  <a class="card card-old" href="evercracks_15_09.html">
-    <div class="card-icon">D</div>
-    <div><div class="card-title">Dashboard 15/09/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
-    <div class="card-arrow">&rsaquo;</div>
-  </a>
-  <a class="card card-old" href="evercracks_14_09.html">
-    <div class="card-icon">D</div>
-    <div><div class="card-title">Dashboard 14/09/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
-    <div class="card-arrow">&rsaquo;</div>
-  </a>
-  <a class="card card-old" href="evercracks_12_09.html">
-    <div class="card-icon">D</div>
-    <div><div class="card-title">Dashboard 12/09/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
-    <div class="card-arrow">&rsaquo;</div>
-  </a>
-  <a class="card card-old" href="evercracks_11_09.html">
-    <div class="card-icon">D</div>
-    <div><div class="card-title">Dashboard 11/09/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
-    <div class="card-arrow">&rsaquo;</div>
-  </a>
-  <a class="card card-old" href="evercracks_10_09.html">
-    <div class="card-icon">D</div>
-    <div><div class="card-title">Dashboard 10/09/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
-    <div class="card-arrow">&rsaquo;</div>
-  </a>
-  <a class="card card-old" href="evercracks_09_09.html">
-    <div class="card-icon">D</div>
-    <div><div class="card-title">Dashboard 09/09/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
-    <div class="card-arrow">&rsaquo;</div>
-  </a>
-  <a class="card card-old" href="evercracks_08_09.html">
-    <div class="card-icon">D</div>
-    <div><div class="card-title">Dashboard 08/09/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
-    <div class="card-arrow">&rsaquo;</div>
-  </a>
-  <a class="card card-old" href="evercracks_07_09.html">
-    <div class="card-icon">D</div>
-    <div><div class="card-title">Dashboard 07/09/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
-    <div class="card-arrow">&rsaquo;</div>
-  </a>
-  <a class="card card-old" href="evercracks_05_09.html">
-    <div class="card-icon">D</div>
-    <div><div class="card-title">Dashboard 05/09/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
-    <div class="card-arrow">&rsaquo;</div>
-  </a>
-  <a class="card card-old" href="evercracks_04_09.html">
-    <div class="card-icon">D</div>
-    <div><div class="card-title">Dashboard 04/09/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
-    <div class="card-arrow">&rsaquo;</div>
-  </a>
-  <a class="card card-old" href="evercracks_03_09.html">
-    <div class="card-icon">D</div>
-    <div><div class="card-title">Dashboard 03/09/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
-    <div class="card-arrow">&rsaquo;</div>
-  </a>
-  <a class="card card-old" href="evercracks_02_09.html">
-    <div class="card-icon">D</div>
-    <div><div class="card-title">Dashboard 02/09/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
-    <div class="card-arrow">&rsaquo;</div>
-  </a>
-  <a class="card card-old" href="evercracks_01_09.html">
-    <div class="card-icon">D</div>
-    <div><div class="card-title">Dashboard 01/09/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
-    <div class="card-arrow">&rsaquo;</div>
-  </a>
-  </details>
-  <details class="month">
-  <summary class="month-header">Agosto 2026<span class="count">21 dashboards</span></summary>
-  <a class="card card-old" href="evercracks_31_08.html">
-    <div class="card-icon">D</div>
-    <div><div class="card-title">Dashboard 31/08/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
-    <div class="card-arrow">&rsaquo;</div>
-  </a>
-  <a class="card card-old" href="evercracks_29_08.html">
-    <div class="card-icon">D</div>
-    <div><div class="card-title">Dashboard 29/08/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
-    <div class="card-arrow">&rsaquo;</div>
-  </a>
-  <a class="card card-old" href="evercracks_28_08.html">
-    <div class="card-icon">D</div>
-    <div><div class="card-title">Dashboard 28/08/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
-    <div class="card-arrow">&rsaquo;</div>
-  </a>
-  <a class="card card-old" href="evercracks_27_08.html">
-    <div class="card-icon">D</div>
-    <div><div class="card-title">Dashboard 27/08/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
-    <div class="card-arrow">&rsaquo;</div>
-  </a>
-  <a class="card card-old" href="evercracks_26_08.html">
-    <div class="card-icon">D</div>
-    <div><div class="card-title">Dashboard 26/08/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
-    <div class="card-arrow">&rsaquo;</div>
-  </a>
-  <a class="card card-old" href="evercracks_25_08.html">
-    <div class="card-icon">D</div>
-    <div><div class="card-title">Dashboard 25/08/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
-    <div class="card-arrow">&rsaquo;</div>
-  </a>
-  <a class="card card-old" href="evercracks_23_08.html">
-    <div class="card-icon">D</div>
-    <div><div class="card-title">Dashboard 23/08/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
-    <div class="card-arrow">&rsaquo;</div>
-  </a>
-  <a class="card card-old" href="evercracks_22_08.html">
-    <div class="card-icon">D</div>
-    <div><div class="card-title">Dashboard 22/08/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
-    <div class="card-arrow">&rsaquo;</div>
-  </a>
-  <a class="card card-old" href="evercracks_21_08.html">
-    <div class="card-icon">D</div>
-    <div><div class="card-title">Dashboard 21/08/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
-    <div class="card-arrow">&rsaquo;</div>
-  </a>
-  <a class="card card-old" href="evercracks_20_08.html">
-    <div class="card-icon">D</div>
-    <div><div class="card-title">Dashboard 20/08/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
-    <div class="card-arrow">&rsaquo;</div>
-  </a>
-  <a class="card card-old" href="evercracks_19_08.html">
-    <div class="card-icon">D</div>
-    <div><div class="card-title">Dashboard 19/08/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
-    <div class="card-arrow">&rsaquo;</div>
-  </a>
-  <a class="card card-old" href="evercracks_18_08.html">
-    <div class="card-icon">D</div>
-    <div><div class="card-title">Dashboard 18/08/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
-    <div class="card-arrow">&rsaquo;</div>
-  </a>
-  <a class="card card-old" href="evercracks_17_08.html">
-    <div class="card-icon">D</div>
-    <div><div class="card-title">Dashboard 17/08/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
-    <div class="card-arrow">&rsaquo;</div>
-  </a>
-  <a class="card card-old" href="evercracks_16_08.html">
-    <div class="card-icon">D</div>
-    <div><div class="card-title">Dashboard 16/08/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
-    <div class="card-arrow">&rsaquo;</div>
-  </a>
-  <a class="card card-old" href="evercracks_14_08.html">
-    <div class="card-icon">D</div>
-    <div><div class="card-title">Dashboard 14/08/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
-    <div class="card-arrow">&rsaquo;</div>
-  </a>
-  <a class="card card-old" href="evercracks_13_08.html">
-    <div class="card-icon">D</div>
-    <div><div class="card-title">Dashboard 13/08/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
-    <div class="card-arrow">&rsaquo;</div>
-  </a>
-  <a class="card card-old" href="evercracks_12_08.html">
-    <div class="card-icon">D</div>
-    <div><div class="card-title">Dashboard 12/08/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
-    <div class="card-arrow">&rsaquo;</div>
-  </a>
-  <a class="card card-old" href="evercracks_11_08.html">
-    <div class="card-icon">D</div>
-    <div><div class="card-title">Dashboard 11/08/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
-    <div class="card-arrow">&rsaquo;</div>
-  </a>
-  <a class="card card-old" href="evercracks_08_08.html">
-    <div class="card-icon">D</div>
-    <div><div class="card-title">Dashboard 08/08/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
-    <div class="card-arrow">&rsaquo;</div>
-  </a>
-  <a class="card card-old" href="evercracks_06_08.html">
-    <div class="card-icon">D</div>
-    <div><div class="card-title">Dashboard 06/08/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
-    <div class="card-arrow">&rsaquo;</div>
-  </a>
-  <a class="card card-old" href="evercracks_04_08.html">
-    <div class="card-icon">D</div>
-    <div><div class="card-title">Dashboard 04/08/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
-    <div class="card-arrow">&rsaquo;</div>
-  </a>
-  </details>
-  <details class="month">
-  <summary class="month-header">Julio 2026<span class="count">17 dashboards</span></summary>
-  <a class="card card-old" href="evercracks_31_07.html">
-    <div class="card-icon">D</div>
-    <div><div class="card-title">Dashboard 31/07/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
-    <div class="card-arrow">&rsaquo;</div>
-  </a>
-  <a class="card card-old" href="evercracks_30_07.html">
-    <div class="card-icon">D</div>
-    <div><div class="card-title">Dashboard 30/07/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
-    <div class="card-arrow">&rsaquo;</div>
-  </a>
-  <a class="card card-old" href="evercracks_29_07.html">
-    <div class="card-icon">D</div>
-    <div><div class="card-title">Dashboard 29/07/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
-    <div class="card-arrow">&rsaquo;</div>
-  </a>
-  <a class="card card-old" href="evercracks_28_07.html">
-    <div class="card-icon">D</div>
-    <div><div class="card-title">Dashboard 28/07/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
-    <div class="card-arrow">&rsaquo;</div>
-  </a>
-  <a class="card card-old" href="evercracks_27_07.html">
-    <div class="card-icon">D</div>
-    <div><div class="card-title">Dashboard 27/07/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
-    <div class="card-arrow">&rsaquo;</div>
-  </a>
-  <a class="card card-old" href="evercracks_25_07.html">
-    <div class="card-icon">D</div>
-    <div><div class="card-title">Dashboard 25/07/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
-    <div class="card-arrow">&rsaquo;</div>
-  </a>
-  <a class="card card-old" href="evercracks_24_07.html">
-    <div class="card-icon">D</div>
-    <div><div class="card-title">Dashboard 24/07/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
-    <div class="card-arrow">&rsaquo;</div>
-  </a>
-  <a class="card card-old" href="evercracks_23_07.html">
-    <div class="card-icon">D</div>
-    <div><div class="card-title">Dashboard 23/07/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
-    <div class="card-arrow">&rsaquo;</div>
-  </a>
-  <a class="card card-old" href="evercracks_22_07.html">
-    <div class="card-icon">D</div>
-    <div><div class="card-title">Dashboard 22/07/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
-    <div class="card-arrow">&rsaquo;</div>
-  </a>
-  <a class="card card-old" href="evercracks_21_07.html">
-    <div class="card-icon">D</div>
-    <div><div class="card-title">Dashboard 21/07/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
-    <div class="card-arrow">&rsaquo;</div>
-  </a>
-  <a class="card card-old" href="evercracks_20_07.html">
-    <div class="card-icon">D</div>
-    <div><div class="card-title">Dashboard 20/07/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
-    <div class="card-arrow">&rsaquo;</div>
-  </a>
-  <a class="card card-old" href="evercracks_18_07.html">
-    <div class="card-icon">D</div>
-    <div><div class="card-title">Dashboard 18/07/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
-    <div class="card-arrow">&rsaquo;</div>
-  </a>
-  <a class="card card-old" href="evercracks_16_07.html">
-    <div class="card-icon">D</div>
-    <div><div class="card-title">Dashboard 16/07/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
-    <div class="card-arrow">&rsaquo;</div>
-  </a>
-  <a class="card card-old" href="evercracks_15_07.html">
-    <div class="card-icon">D</div>
-    <div><div class="card-title">Dashboard 15/07/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
-    <div class="card-arrow">&rsaquo;</div>
-  </a>
-  <a class="card card-old" href="evercracks_13_07.html">
-    <div class="card-icon">D</div>
-    <div><div class="card-title">Dashboard 13/07/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
-    <div class="card-arrow">&rsaquo;</div>
-  </a>
-  <a class="card card-old" href="evercracks_08_07.html">
-    <div class="card-icon">D</div>
-    <div><div class="card-title">Dashboard 08/07/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
-    <div class="card-arrow">&rsaquo;</div>
-  </a>
-  <a class="card card-old" href="evercracks_03_07.html">
-    <div class="card-icon">D</div>
-    <div><div class="card-title">Dashboard 03/07/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
-    <div class="card-arrow">&rsaquo;</div>
-  </a>
-  </details>
-  <details class="month">
-  <summary class="month-header">Junio 2026<span class="count">24 dashboards</span></summary>
-  <a class="card card-old" href="evercracks_30_06.html">
-    <div class="card-icon">D</div>
-    <div><div class="card-title">Dashboard 30/06/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
-    <div class="card-arrow">&rsaquo;</div>
-  </a>
-  <a class="card card-old" href="evercracks_29_06.html">
-    <div class="card-icon">D</div>
-    <div><div class="card-title">Dashboard 29/06/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
-    <div class="card-arrow">&rsaquo;</div>
-  </a>
-  <a class="card card-old" href="evercracks_28_06.html">
-    <div class="card-icon">D</div>
-    <div><div class="card-title">Dashboard 28/06/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
-    <div class="card-arrow">&rsaquo;</div>
-  </a>
-  <a class="card card-old" href="evercracks_26_06.html">
-    <div class="card-icon">D</div>
-    <div><div class="card-title">Dashboard 26/06/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
-    <div class="card-arrow">&rsaquo;</div>
-  </a>
-  <a class="card card-old" href="evercracks_25_06.html">
-    <div class="card-icon">D</div>
-    <div><div class="card-title">Dashboard 25/06/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
-    <div class="card-arrow">&rsaquo;</div>
-  </a>
-  <a class="card card-old" href="evercracks_24_06.html">
-    <div class="card-icon">D</div>
-    <div><div class="card-title">Dashboard 24/06/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
-    <div class="card-arrow">&rsaquo;</div>
-  </a>
-  <a class="card card-old" href="evercracks_23_06.html">
-    <div class="card-icon">D</div>
-    <div><div class="card-title">Dashboard 23/06/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
-    <div class="card-arrow">&rsaquo;</div>
-  </a>
-  <a class="card card-old" href="evercracks_22_06.html">
-    <div class="card-icon">D</div>
-    <div><div class="card-title">Dashboard 22/06/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
-    <div class="card-arrow">&rsaquo;</div>
-  </a>
-  <a class="card card-old" href="evercracks_21_06.html">
-    <div class="card-icon">D</div>
-    <div><div class="card-title">Dashboard 21/06/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
-    <div class="card-arrow">&rsaquo;</div>
-  </a>
-  <a class="card card-old" href="evercracks_19_06.html">
-    <div class="card-icon">D</div>
-    <div><div class="card-title">Dashboard 19/06/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
-    <div class="card-arrow">&rsaquo;</div>
-  </a>
-  <a class="card card-old" href="evercracks_18_06.html">
-    <div class="card-icon">D</div>
-    <div><div class="card-title">Dashboard 18/06/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
-    <div class="card-arrow">&rsaquo;</div>
-  </a>
-  <a class="card card-old" href="evercracks_17_06.html">
-    <div class="card-icon">D</div>
-    <div><div class="card-title">Dashboard 17/06/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
-    <div class="card-arrow">&rsaquo;</div>
-  </a>
-  <a class="card card-old" href="evercracks_16_06.html">
-    <div class="card-icon">D</div>
-    <div><div class="card-title">Dashboard 16/06/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
-    <div class="card-arrow">&rsaquo;</div>
-  </a>
-  <a class="card card-old" href="evercracks_15_06.html">
-    <div class="card-icon">D</div>
-    <div><div class="card-title">Dashboard 15/06/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
-    <div class="card-arrow">&rsaquo;</div>
-  </a>
-  <a class="card card-old" href="evercracks_14_06.html">
-    <div class="card-icon">D</div>
-    <div><div class="card-title">Dashboard 14/06/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
-    <div class="card-arrow">&rsaquo;</div>
-  </a>
-  <a class="card card-old" href="evercracks_11_06.html">
-    <div class="card-icon">D</div>
-    <div><div class="card-title">Dashboard 11/06/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
-    <div class="card-arrow">&rsaquo;</div>
-  </a>
-  <a class="card card-old" href="evercracks_10_06.html">
-    <div class="card-icon">D</div>
-    <div><div class="card-title">Dashboard 10/06/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
-    <div class="card-arrow">&rsaquo;</div>
-  </a>
-  <a class="card card-old" href="evercracks_09_06.html">
-    <div class="card-icon">D</div>
-    <div><div class="card-title">Dashboard 09/06/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
-    <div class="card-arrow">&rsaquo;</div>
-  </a>
-  <a class="card card-old" href="evercracks_08_06.html">
-    <div class="card-icon">D</div>
-    <div><div class="card-title">Dashboard 08/06/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
-    <div class="card-arrow">&rsaquo;</div>
-  </a>
-  <a class="card card-old" href="evercracks_07_06.html">
-    <div class="card-icon">D</div>
-    <div><div class="card-title">Dashboard 07/06/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
-    <div class="card-arrow">&rsaquo;</div>
-  </a>
-  <a class="card card-old" href="evercracks_05_06.html">
-    <div class="card-icon">D</div>
-    <div><div class="card-title">Dashboard 05/06/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
-    <div class="card-arrow">&rsaquo;</div>
-  </a>
-  <a class="card card-old" href="evercracks_04_06.html">
-    <div class="card-icon">D</div>
-    <div><div class="card-title">Dashboard 04/06/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
-    <div class="card-arrow">&rsaquo;</div>
-  </a>
-  <a class="card card-old" href="evercracks_03_06.html">
-    <div class="card-icon">D</div>
-    <div><div class="card-title">Dashboard 03/06/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
-    <div class="card-arrow">&rsaquo;</div>
-  </a>
-  <a class="card card-old" href="evercracks_02_06.html">
-    <div class="card-icon">D</div>
-    <div><div class="card-title">Dashboard 02/06/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
-    <div class="card-arrow">&rsaquo;</div>
-  </a>
-  </details>
-  <details class="month">
-  <summary class="month-header">Mayo 2026<span class="count">1 dashboard</span></summary>
-  <a class="card card-old" href="evercracks_26_05.html">
-    <div class="card-icon">D</div>
-    <div><div class="card-title">Dashboard 26/05/2026</div><div class="card-sub">Jean Franco Torrejon</div></div>
-    <div class="card-arrow">&rsaquo;</div>
-  </a>
-  </details>
-
-  <div class="section-title">Instalar como app</div>
-  <div class="install-box">
-    <h3>Como instalar en tu celular</h3>
-    <p>
-      <b>iPhone:</b> Toca compartir &rarr; "Agregar a pantalla de inicio" &rarr; Agregar<br><br>
-      <b>Android:</b> Toca los 3 puntos &rarr; "Instalar app" o "Agregar a pantalla de inicio"
-    </p>
-  </div>
-  <div class="footer">Evercracks Dashboard - Actualizado diariamente</div>
-</div>
+<div id="ev-gate">
+  <h2>Evercracks 🌼</h2>
+  <p id="ev-sub">Ingresa tu GPID para entrar</p>
+  <input type="text" id="ev-gpid" inputmode="numeric" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="GPID" aria-label="GPID">
+  <button id="ev-go" type="button">Entrar</button>
+  <label><input type="checkbox" id="ev-rem" checked> Recordarme en este teléfono</label>
+  <div id="ev-err" role="alert"></div>
+<script id="ev-vault" type="application/json">{"v":2,"salt":"TcxNwLgnqnENEC2bHcZ+bw==","iter":500000,"shared":{"iv":"K/cjel1mL0oiqCLK","ct":"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"},"users":[{"kid":"b092e0098d0d220e","iv":"xWLXr7YeDe59C/0y","ct":"DOtpKscoXa0DTckQO5RYtsQI3bTTyfxsBfVrcSLqmmPFFClDjVvTpIcinxgeD5IpItSIcswZ62vPLxWKcODfWwL+45pa1ieBd9V8scTlrfKGS8vibGGqBu48L33lL0H4cN9GvoHFLr/XmaHWKN4ycKXblWYvpbiN+EoQhK/c0P/c"},{"kid":"1be36f1ca6d384ef","iv":"IabNmBMvteCBYbav","ct":"tFqKuxySHx/cQPx8eIwhawA9r/ou8oVgTGF/XHHgeiYgpCPKjDD6qrJKVM9+Blk6v+JVpRg1EF1z0JKJONq05Upv0goCc7M0vJg4BwltDBRc/sC22/tmPV3PJDvly9YwNHFTbzjoh84WHnlt8iYR7u9ubLEPS88b9prKYKECTPE="},{"kid":"df19f36054f7bbcd","iv":"WXCpjFfcRxsdCgBO","ct":"j4ozNs7kiYtF587OVg/MjM8aqgk6OPnsvaC6nDvuRab1M5Fwvt1eAcArmrT309utyRdJX/8LzpIySrqiohuB6FNpxs1gsB0E51JJl7AB8uT2BFvNN6jWV/eIOJkblhbkCcGIdkY8IzQVGilwBg48SBMuC29YTuTJvrSs6bmwGSNY"},{"kid":"18ff9f2f06895545","iv":"7ZLOGjtud06sXlBb","ct":"Eqe8+tOTa5ktMllnCWfDDy9IB9dRgsbPbAXDxt+yE8Yjcn/pTmShKdV4HVH84V6Vof5k9SoAd+97zaDyb0t9Sjb+gAsDMqLPBDNOtS6yMAwj4qdzxGZqRtFZgL1q+jxfev/cgzyBzKVO5mbS7dp8vz8pQQlpbmXh2hEPd+RwxuC1RljQ8Nw="},{"kid":"bf0252d56754cfb5","iv":"1f89F2VQw0orIWjx","ct":"6ErnHksmrZ4aPDUJC4doTPeuS3kCrR3zW3YPSYfcEjDZ0QHuHwx1zRkCqDwstW/iLeEB5E6EhLEPOY132bix/5onzwesjHRV/6Yap5olW6uYk4DhttLVJxkz+JHNw5o5QgDUqMT9M2ftxkrjzBOjsVHjYpSnkmjzaXXr37k1PEML1cdN"},{"kid":"6c1f41c6fd83383e","iv":"/lkouXdEKV6eTMlA","ct":"pfksWpPl1MGXBiYhU7qZkGEh81Iyr8U9d5AYSEjZcGa33oxXd+T30yVEC/9Ke/qZkAqSWpsO31remrCNUfXymWHjDGidL6yDTyTcHkbaPgpD8/Qfy6n3PAmlCxyqS2rr+tywvD3Sqc9loNwRPhMXfX8L14Pd0MkbBpk9rBZhwc+wSw=="},{"kid":"7d4a34f428a4ac0a","iv":"QsdLHauqNSsMyS9J","ct":"fhlzdQsoZ1OeobpM16QDszsmBoNuWvfKayGY6YtruMjVXC3wOXH7mSXDMMlQXEvJliu88pOdURMKZNqN9Xo0ucFTa3iO7OQqaHBGcWvzCuCTdCphmpof48yAyqq1gHvMGdohkKyhGZPBhXTE+LEJqcWu2i0CjR1XncbaJUjg"},{"kid":"39716e40255f0e1c","iv":"Z3Ybc5a6XFgVxW0F","ct":"6mJH0mEx3lsf/QNkmkxhQYDMXzmbLtfYT7Iov4LFaLQl2FniR6Ksu6KoiLXKM0dey75x3LEJN3Rj+WbkR+leFhqP9Xk1tDtAYQUOMcjA6QKlIaCp4dCoRPVpPBlBwGvUtDJ99BMTY8GAyI+HMaDvIX1CGFyZ4Pjx2x23BHh0U+u4"},{"kid":"70c2c75b64b29107","iv":"ZohJ4MoorO2pHBQN","ct":"AQGqMNPZv1dYmCtQIOJ6gr5T7lv+SIaiUrkwk0LMEvUR58Lfi94ngdx5ZWsUfeFYOtThbmlZmHk7bVuecrdjDc6jLu01m6b/6YbMgI5CkoF9nu70Ce7KiqgzeevcM5bkqHx2I1JBO6N23cobWDlENUxVs4p4Alxvdcj6uJGHiuiZ1Q=="},{"kid":"807562326f127740","iv":"rfYLsuY4/jfrmmuH","ct":"SPsMNuX4EoosxQ0FRIK/7yPIMnaccJt+Ti/qWeigD3N4OAN3+Iyl3ors5GeKsu8nCl0QlfpWT6svseDtG8DJ3zjiJjDC7dVstsuMlSIp8R6DtXxik8rYki7MxsxUGED1mEUbZAWbq4TGuFD9yj6hVzB9y3P8WF3Qzrh9Af7ZxLc="},{"kid":"5b15eaded86ad5af","iv":"SkieZIOUWNzLDOKN","ct":"Rh85Rm1hOjmrAxmEOJCXU7RqGq8paNikN9QXWIBZjL/oViGspz8PBFVT71b6aOOKjdb7oo6ca9bQvvvEz7aEbnKQFPLnJv0k0efYXj/2JOX50f9TZHPWxY/J6hbYYR5KQxrEHGl5sI9KGmRxBbsJZ01tu3GEMAJL4f2hoZAjtdr3"},{"kid":"7b4329bf2b36f751","iv":"plW/2P/RXmPrOsz2","ct":"8qiF7tI1UBnhbCMvQ0jcKmd8IzFfF98/1PiJ3bVvd1WftOYms++6WPHQjpMaqo/6sfeqbd205W+1RgWnB4qHvQONMD79LJ2BAIUZnf7fBkrnJcf4IAYDI2xDNfE6LJyOz3Set1nrA9zTRuEIlFpg+t5DGoWarItpegt4GEXVN+UokQ=="},{"kid":"c3d994b2047bfd70","iv":"NopygLJD2+OEgaiV","ct":"eOmEEh4nWWqtzkZFA33v00w46+zxwQV9BLKJMYB/supKQDxMsEkay4RMr5s+Ir7gRnK3P8giWEbRd+WazgPpUsVvdKSudfs+RJ4OFlsLMjj/xJsjUele9N4m/snZMEs8O4mDg41mr4yKhC5o5aBiUnOeUitw3M8x/0zpQAFx"},{"kid":"f6084e5ad66c2854","iv":"35LAWOsz9HHCOxxt","ct":"JxtAX1+gCAbvaKetey3VmeTcXMxkVDpb8T8Vv3S8Co0eq9qegjPatJZduPVxoVss6spJscTUKgO/oXPqGV/liSZU6pVNEs5IjXKWg0WLxqLTZXmUtFYyCz4Kc7LU9KiL/a1gabZr+YDkmsYQ/auvOjDTsG33yv78ZK+BjMnx4j58"}]}</script>
+<script>
+(function(){
+  var KEY='ev_k', V=JSON.parse(document.getElementById('ev-vault').textContent);
+  var $=function(i){return document.getElementById(i)};
+  var enc=new TextEncoder(), dc=new TextDecoder();
+  function b64(s){var b=atob(s),u=new Uint8Array(b.length);for(var i=0;i<b.length;i++)u[i]=b.charCodeAt(i);return u}
+  function u2b(u){var s='';for(var i=0;i<u.length;i++)s+=String.fromCharCode(u[i]);return btoa(s)}
+  function hex(u){return Array.prototype.map.call(u,function(x){return ('0'+x.toString(16)).slice(-2)}).join('')}
+  var S=window.crypto&&window.crypto.subtle;
+  async function derive(g){var km=await S.importKey('raw',enc.encode(g),'PBKDF2',false,['deriveBits']);
+    return new Uint8Array(await S.deriveBits({name:'PBKDF2',salt:b64(V.salt),iterations:V.iter,hash:'SHA-256'},km,256))}
+  async function kid(K){return hex(new Uint8Array(await S.digest('SHA-256',K))).slice(0,16)}
+  async function dec(K,o){var k=await S.importKey('raw',K,'AES-GCM',false,['decrypt']);
+    return JSON.parse(dc.decode(await S.decrypt({name:'AES-GCM',iv:b64(o.iv)},k,b64(o.ct))))}
+  function saludo(nombre){
+    try{
+      if(sessionStorage.getItem('ev_hi'))return;
+      sessionStorage.setItem('ev_hi','1');
+    }catch(e){}
+    var h=new Date().getHours(), s=h<12?'Buenos días':h<20?'Buenas tardes':'Buenas noches';
+    var n=String(nombre||'').trim().split(/\s+/)[0];
+    var t=document.createElement('div');t.id='ev-hi';t.setAttribute('role','status');
+    t.textContent=s+(n?', '+n:'')+' \uD83C\uDF3C';
+    document.body.appendChild(t);
+    var off=function(){t.classList.remove('on');setTimeout(function(){if(t.parentNode)t.parentNode.removeChild(t)},600)};
+    t.onclick=off;
+    setTimeout(function(){t.classList.add('on')},60);
+    setTimeout(off,4200);
+  }
+  function boot(p,sh){
+    window.EV_SESSION={mode:p.mode,ruta:p.ruta,nombre:p.nombre};
+    if(p.ruta){try{localStorage.setItem('evercracks_mi_ruta',p.ruta)}catch(e){}}
+    var tmp=document.createElement('div');tmp.innerHTML=sh.body;
+    var scripts=[].slice.call(tmp.querySelectorAll('script')).map(function(s){var o={type:s.getAttribute('type'),text:s.textContent};s.parentNode.removeChild(s);return o});
+    document.body.classList.remove('ev-lock');
+    document.body.innerHTML='';
+    while(tmp.firstChild)document.body.appendChild(tmp.firstChild);
+    scripts.forEach(function(s){var n=document.createElement('script');if(s.type)n.setAttribute('type',s.type);n.textContent=s.text;document.body.appendChild(n)});
+    if(p.ruta){try{irTab('miruta')}catch(e){}}
+    var o=document.createElement('div');o.id='ev-out';o.textContent='Salir';
+    o.onclick=function(){try{localStorage.removeItem(KEY)}catch(e){}location.reload()};
+    document.body.appendChild(o);
+    saludo(p.nombre);
+  }
+  async function open(K){
+    var id=await kid(K),u=V.users.filter(function(x){return x.kid===id})[0];
+    if(!u)return false;
+    try{var p=await dec(K,u),sh=await dec(b64(p.sk),V.shared);boot(p,sh);return true}catch(e){return false}
+  }
+  async function go(){
+    var g=$('ev-gpid').value.replace(/\s+/g,'');
+    if(!g){$('ev-err').textContent='Escribe tu GPID.';return}
+    var rem=$('ev-rem').checked;
+    $('ev-go').disabled=true;$('ev-err').textContent='';$('ev-go').textContent='Abriendo…';
+    try{
+      var K=await derive(g);
+      if(await open(K)){
+        if(rem){try{localStorage.setItem(KEY,u2b(K))}catch(e){}}
+        return;
+      }
+      $('ev-err').textContent='No reconozco ese GPID. Revísalo e intenta de nuevo.';
+    }catch(e){if($('ev-err'))$('ev-err').textContent='No pude abrir el acceso en este navegador. Prueba con Chrome o Safari actualizado.'}
+    if($('ev-go')){$('ev-go').disabled=false;$('ev-go').textContent='Entrar'}
+  }
+  document.body.classList.add('ev-lock');
+  if(!S){$('ev-err').textContent='Abre este link con https en Chrome o Safari.';$('ev-go').disabled=true;return}
+  $('ev-go').onclick=go;
+  $('ev-gpid').addEventListener('keydown',function(e){if(e.key==='Enter')go()});
+  var saved=null;try{saved=localStorage.getItem(KEY)}catch(e){}
+  if(saved){$('ev-sub').textContent='Abriendo…';
+    open(b64(saved)).then(function(ok){if(!ok){try{localStorage.removeItem(KEY)}catch(e){}$('ev-sub').textContent='Ingresa tu GPID para entrar'}})
+      .catch(function(){$('ev-sub').textContent='Ingresa tu GPID para entrar'})}
+})();
+</script>
 </body>
 </html>
